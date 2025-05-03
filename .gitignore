@@ -1,0 +1,7 @@
+# コンパイル済みのクラスファイルを含む target フォルダを無視
+target/
+
+# Eclipse のプロジェクトファイルを無視
+.project
+.classpath
+.settings/

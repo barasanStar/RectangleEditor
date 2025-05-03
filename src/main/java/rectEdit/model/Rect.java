@@ -1,0 +1,77 @@
+package rectEdit.model;
+
+import java.awt.Color;
+import java.awt.Point;
+import java.util.Objects;
+
+public final class Rect {
+	private final int id;
+	private final int x, y, width, height;
+	private final Color color;
+
+	public Rect(int id, int x, int y, int width, int height, Color color) {
+		this.id = id;
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.color = color;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public boolean contains(Point p) {
+		return p.x >= x && p.x <= x + width &&
+				p.y >= y && p.y <= y + height;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		Rect rect = (Rect) obj;
+		return id == rect.id; // IDベースで等価判定
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public String toString() {
+		return "Rect[id:" + id + "]{w:" + width + ",h:" + height + ",x:" + x + ",y:" + y +
+				",RGB(" + color.getRed() + "," + color.getGreen() + "," + color.getBlue() + ")}";
+	}
+
+	//	// 色を変更した新しいRectを生成（immutableの特性）
+	//	public Rect withColor(Color newColor) {
+	//		return new Rect(id, x, y, width, height, newColor);
+	//	}
+}
