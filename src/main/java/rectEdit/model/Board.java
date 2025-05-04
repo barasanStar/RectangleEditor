@@ -52,6 +52,14 @@ public class Board {
 	}
 
 	/**
+	 * 指定長方形を削除する。
+	 * 削除できたら true、見つからなければ false。
+	 */
+	public boolean removeRect(Rect rect) {
+		return rectangles.remove(rect);
+	}
+
+	/**
 	 * すべての長方形を削除する。
 	 */
 	public void clearAllRects() {
