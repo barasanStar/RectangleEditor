@@ -3,6 +3,7 @@ package rectEdit;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 
+import rectEdit.handler.CreateRectAHandlerTest;
 import rectEdit.history.HistoryManagerTest;
 import rectEdit.model.BoardTest;
 import rectEdit.model.RectEditorModelTest;
@@ -21,7 +22,8 @@ import rectEdit.service.ZOrderManagerTest;
 		ZOrderManagerTest.class,
 		SelectionManagerTest.class,
 		HistoryManagerTest.class,
-		RectEditorModelTest.class
+		RectEditorModelTest.class,
+		CreateRectAHandlerTest.class
 })
 
 public class AllTests {
