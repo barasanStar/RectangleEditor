@@ -1,6 +1,7 @@
 package rectEdit.model;
 
 import java.util.List;
+import java.util.Set;
 
 import rectEdit.history.HistoryManager;
 import rectEdit.service.BoardService;
@@ -56,6 +57,10 @@ public class RectEditorModel {
 	// --- 選択状態の取得・操作 ---
 	public SelectionManager getSelectionManager() {
 		return selectionManager;
+	}
+
+	public Set<Integer> getSelectedIds() {
+		return selectionManager.getSelectedIds();
 	}
 
 	public void selectOnly(int id) {
