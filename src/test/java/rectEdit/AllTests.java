@@ -5,6 +5,7 @@ import org.junit.platform.suite.api.Suite;
 
 import rectEdit.history.HistoryManagerTest;
 import rectEdit.model.BoardTest;
+import rectEdit.model.RectEditorModelTest;
 import rectEdit.model.RectTest;
 import rectEdit.model.SelectionManagerTest;
 import rectEdit.service.BoardServiceTest;
@@ -19,7 +20,8 @@ import rectEdit.service.ZOrderManagerTest;
 		BoardServiceTest.class,
 		ZOrderManagerTest.class,
 		SelectionManagerTest.class,
-		HistoryManagerTest.class
+		HistoryManagerTest.class,
+		RectEditorModelTest.class
 })
 
 public class AllTests {

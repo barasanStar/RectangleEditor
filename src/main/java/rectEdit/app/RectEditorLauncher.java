@@ -17,7 +17,7 @@ public class RectEditorLauncher {
 			setGlobalUIFont(new Font("Meiryo", Font.BOLD, 14));
 
 			// モデルの生成（他はモデルに依存しているので、先に作る！）
-			RectEditorModel model = new RectEditorModel();
+			RectEditorModel model = new RectEditorModel(500, 500);
 
 			// ハンドラの生成
 			HandlerRegistry registry = new HandlerRegistry();

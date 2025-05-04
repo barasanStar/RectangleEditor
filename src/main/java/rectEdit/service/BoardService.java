@@ -41,8 +41,12 @@ public class BoardService {
 		return false;
 	}
 
-	public static void removeRectById(Board board, int rectId) {
-		board.removeRectById(rectId);
+	public static boolean removeRectById(Board board, int rectId) {
+		return board.removeRectById(rectId);
+	}
+
+	public static boolean removeRect(Board board, Rect rect) {
+		return board.removeRect(rect);
 	}
 
 	// 選択状態やハイライトもクリアする？
