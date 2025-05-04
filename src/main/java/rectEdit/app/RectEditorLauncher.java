@@ -26,8 +26,11 @@ public class RectEditorLauncher {
 			RectEditorController controller = new RectEditorController(registry);
 
 			// View + Window の生成
-			RectEditorWindow window = new RectEditorWindow(controller);
+			RectEditorWindow window = new RectEditorWindow(model, controller);
 			registry.register("createA", new CreateRectAHandler(model, window.getView()));
+
+			// リスナー登録
+			model.addListener(window.getView());
 
 			// 表示
 			window.show();

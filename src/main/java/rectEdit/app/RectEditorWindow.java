@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import rectEdit.controller.RectEditorController;
+import rectEdit.model.RectEditorModel;
 import rectEdit.view.RectEditorView;
 import rectEdit.view.menu.MenuBarBuilder;
 
@@ -14,8 +15,8 @@ public class RectEditorWindow {
 	private final RectEditorView view;
 	private Image icon = new ImageIcon(RectEditorWindow.class.getResource("/icon.png")).getImage();
 
-	public RectEditorWindow(RectEditorController controller) {
-		this.view = new RectEditorView(controller);
+	public RectEditorWindow(RectEditorModel model, RectEditorController controller) {
+		this.view = new RectEditorView(model, controller);
 		frame = new JFrame("Rect Editor");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setContentPane(view); // JPanelとして追加
