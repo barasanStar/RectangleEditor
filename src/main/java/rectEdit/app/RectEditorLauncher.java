@@ -6,8 +6,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import rectEdit.controller.RectEditorController;
-import rectEdit.handler.ActionHandler;
 import rectEdit.handler.CreateRectAHandler;
+import rectEdit.handler.HandlerRegistry;
 import rectEdit.model.RectEditorModel;
 
 public class RectEditorLauncher {
@@ -20,10 +20,11 @@ public class RectEditorLauncher {
 			RectEditorModel model = new RectEditorModel();
 
 			// ハンドラの生成
-			ActionHandler createRectAHandler = new CreateRectAHandler(model);
+			HandlerRegistry registry = new HandlerRegistry();
+			registry.register("createA", new CreateRectAHandler(model));
 
 			// コントローラの生成
-			RectEditorController controller = new RectEditorController(createRectAHandler);
+			RectEditorController controller = new RectEditorController(registry);
 
 			// ウィンドウの生成（コントローラを渡す）
 			RectEditorWindow window = new RectEditorWindow(controller);
