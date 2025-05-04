@@ -13,7 +13,7 @@ import rectEdit.model.Rect;
 import rectEdit.model.RectFactory;
 import rectEdit.model.SelectionManager;
 
-class HistoryManagerTest {
+public class HistoryManagerTest {
 
 	private Board board;
 	private SelectionManager selection;

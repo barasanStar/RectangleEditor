@@ -29,6 +29,13 @@ public class HistoryManager {
 		redoStack.clear(); // 新たな操作が入ったらRedoは無効
 	}
 
+	// 最新の履歴を削除（操作が失敗したときに呼ぶ）
+	public void removeLatestSnapshot() {
+		if (!undoStack.isEmpty()) {
+			undoStack.pop();
+		}
+	}
+
 	public boolean canUndo() {
 		return !undoStack.isEmpty();
 	}

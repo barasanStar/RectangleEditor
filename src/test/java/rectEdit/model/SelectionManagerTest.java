@@ -7,7 +7,7 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class SelectionManagerTest {
+public class SelectionManagerTest {
 
 	private SelectionManager selection;
 

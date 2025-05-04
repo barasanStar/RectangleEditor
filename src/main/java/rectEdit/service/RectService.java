@@ -16,38 +16,59 @@ public class RectService {
 	 * 移動量(dx, dy)だけ移動した長方形を返す
 	 */
 	public static Rect moveBy(Rect rect, int dx, int dy) {
-		return new Rect(rect.getId(),
-				rect.getX() + dx,
-				rect.getY() + dy,
-				rect.getWidth(),
-				rect.getHeight(),
-				rect.getColor());
+		return new Rect(rect.getId(), rect.getX() + dx, rect.getY() + dy,
+				rect.getWidth(), rect.getHeight(), rect.getColor());
+	}
+
+	/**
+	 * 新座標(newX, newY)へ移動した長方形を返す
+	 */
+	public static Rect movePositionTo(Rect rect, int newX, int newY) {
+		return new Rect(rect.getId(), newX, newY, rect.getWidth(), rect.getHeight(), rect.getColor());
 	}
 
 	/**
 	 * 幅と高さの増減(dw, dh)だけ変化させた長方形を返す
 	 */
 	public static Rect resizeBy(Rect rect, int dw, int dh) {
-		return new Rect(rect.getId(),
-				rect.getX(),
-				rect.getY(),
-				rect.getWidth() + dw,
-				rect.getHeight() + dh,
-				rect.getColor());
+		return new Rect(rect.getId(), rect.getX(), rect.getY(),
+				rect.getWidth() + dw, rect.getHeight() + dh, rect.getColor());
 	}
 
 	/**
-	 * 左上固定で拡大縮小した長方形を返す
+	 * 左上固定で拡大（あるいは縮小）した長方形を返す
 	 */
 	public static Rect scale(Rect rect, double factor) {
+		if (factor < 0) {
+			throw new IllegalArgumentException("拡大率は0.0より大きい必要があります: " + factor);
+		}
 		int newWidth = (int) Math.round(rect.getWidth() * factor);
 		int newHeight = (int) Math.round(rect.getHeight() * factor);
-		return new Rect(rect.getId(),
-				rect.getX(),
-				rect.getY(),
-				newWidth,
-				newHeight,
-				rect.getColor());
+		if (Math.min(newWidth, newHeight) < 1) {
+			throw new IllegalArgumentException("辺の長さの計算結果が1以上になる拡大率である必要があります: " + factor);
+		}
+		return new Rect(rect.getId(), rect.getX(), rect.getY(), newWidth, newHeight, rect.getColor());
+	}
+
+	/**
+	 * 左上固定で2軸それぞれ拡大（あるいは縮小）した長方形を返す
+	 */
+	public static Rect scaleTwoAxis(Rect rect, double factorX, double factorY) {
+		if (factorX < 0) {
+			throw new IllegalArgumentException("拡大率は0.0より大きい必要があります: " + factorX);
+		}
+		if (factorY < 0) {
+			throw new IllegalArgumentException("拡大率は0.0より大きい必要があります: " + factorY);
+		}
+		int newWidth = (int) Math.round(rect.getWidth() * factorX);
+		int newHeight = (int) Math.round(rect.getHeight() * factorY);
+		if (newWidth < 1) {
+			throw new IllegalArgumentException("辺の長さの計算結果が1以上になる拡大率である必要があります: " + factorX);
+		}
+		if (newHeight < 1) {
+			throw new IllegalArgumentException("辺の長さの計算結果が1以上になる拡大率である必要があります: " + factorY);
+		}
+		return new Rect(rect.getId(), rect.getX(), rect.getY(), newWidth, newHeight, rect.getColor());
 	}
 
 	// 必要に応じて他の操作をここに追加できます。
