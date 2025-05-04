@@ -41,10 +41,11 @@ public class BoardService {
 		return false;
 	}
 
-	public static void removeRect(Board board, int rectId) {
+	public static void removeRectById(Board board, int rectId) {
 		board.removeRectById(rectId);
 	}
 
+	// 選択状態やハイライトもクリアする？
 	public static void clearBoard(Board board) {
 		board.clearAllRects();
 	}

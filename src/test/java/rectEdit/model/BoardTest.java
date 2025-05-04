@@ -97,4 +97,18 @@ public class BoardTest {
 		assertTrue(board.getRectangles().isEmpty());
 	}
 
+	@Test
+	void 削除されていない長方形データを取り出せる() {
+		Rect r0 = RectFactory.create(0, 0, 10, 10, Color.RED);
+		Rect r1 = RectFactory.create(0, 0, 20, 30, Color.BLUE);
+		board.addRect(r0);
+		board.addRect(r1);
+		board.removeRectById(0);
+		Rect rect0 = board.findById(0);
+		assertEquals(null, rect0);
+		Rect rect1 = board.findById(1);
+		assertEquals(20, rect1.getWidth());
+		assertEquals(30, rect1.getHeight());
+	}
+
 }

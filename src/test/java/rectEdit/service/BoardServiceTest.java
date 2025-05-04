@@ -103,7 +103,7 @@ public class BoardServiceTest {
 	void testRemoveRectById() {
 		Rect rect = RectFactory.create(0, 0, 10, 10, Color.RED);
 		board.addRect(rect);
-		BoardService.removeRect(board, rect.getId());
+		BoardService.removeRectById(board, rect.getId());
 		assertTrue(board.getRectangles().isEmpty());
 	}
 

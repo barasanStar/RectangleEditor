@@ -32,6 +32,18 @@ public class Board {
 	}
 
 	/**
+	 * 指定IDに一致するRectを返す。見つからなければnull。
+	 */
+	public Rect findById(int id) {
+		for (Rect r : rectangles) {
+			if (r.getId() == id) {
+				return r;
+			}
+		}
+		return null;
+	}
+
+	/**
 	 * 指定IDの長方形を削除する。
 	 * 削除できたら true、見つからなければ false。
 	 */
