@@ -21,7 +21,7 @@ public class RectFactory {
 	}
 
 	// テスト用：IDリセット
-	static void resetIdCounter() {
+	public static void resetIdCounterForTest() {
 		nextId = 0;
 	}
 }

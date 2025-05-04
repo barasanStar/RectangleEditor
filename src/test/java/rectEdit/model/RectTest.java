@@ -13,7 +13,7 @@ public class RectTest {
 	@BeforeEach
 	void setUp() {
 		// 毎テスト前にIDを初期化
-		RectFactory.resetIdCounter();
+		RectFactory.resetIdCounterForTest();
 	}
 
 	@Test

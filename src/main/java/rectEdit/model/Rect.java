@@ -69,9 +69,4 @@ public final class Rect {
 		return "Rect[id:" + id + "]{w:" + width + ",h:" + height + ",x:" + x + ",y:" + y +
 				",RGB(" + color.getRed() + "," + color.getGreen() + "," + color.getBlue() + ")}";
 	}
-
-	//	// 色を変更した新しいRectを生成（immutableの特性）
-	//	public Rect withColor(Color newColor) {
-	//		return new Rect(id, x, y, width, height, newColor);
-	//	}
 }

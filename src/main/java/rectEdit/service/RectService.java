@@ -5,48 +5,49 @@ import java.awt.Color;
 import rectEdit.model.Rect;
 
 public class RectService {
-
-	/**
-	 * Rectを指定分だけ移動させる。
-	 * 移動後もボード内に収まっている場合のみ移動。
-	 */
-	public static Rect moveIfWithinBounds(Rect rect, int dx, int dy, int boardWidth, int boardHeight) {
-		int newX = rect.getX() + dx;
-		int newY = rect.getY() + dy;
-
-		if (newX < 0 || newY < 0 ||
-				newX + rect.getWidth() > boardWidth ||
-				newY + rect.getHeight() > boardHeight) {
-			return rect; // はみ出すなら移動しない
-		}
-
-		return new Rect(rect.getId(), newX, newY, rect.getWidth(), rect.getHeight(), rect.getColor());
-	}
-
-	/**
-	 * Rectのサイズを指定分だけ拡大・縮小。
-	 * 0以下にならず、かつボード内に収まる場合のみ適用。
-	 */
-	public static Rect resizeIfValid(Rect rect, int dw, int dh, int boardWidth, int boardHeight) {
-		int newWidth = rect.getWidth() + dw;
-		int newHeight = rect.getHeight() + dh;
-
-		if (newWidth <= 0 || newHeight <= 0)
-			return rect;
-
-		if (rect.getX() + newWidth > boardWidth || rect.getY() + newHeight > boardHeight) {
-			return rect;
-		}
-
-		return new Rect(rect.getId(), rect.getX(), rect.getY(), newWidth, newHeight, rect.getColor());
-	}
-
 	/**
 	 * Rectの色を変更した新しいインスタンスを返す。
-	 * ルールなし。単純な変更。
 	 */
 	public static Rect changeColor(Rect rect, Color newColor) {
 		return new Rect(rect.getId(), rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight(), newColor);
+	}
+
+	/**
+	 * 移動量(dx, dy)だけ移動した長方形を返す
+	 */
+	public static Rect moveBy(Rect rect, int dx, int dy) {
+		return new Rect(rect.getId(),
+				rect.getX() + dx,
+				rect.getY() + dy,
+				rect.getWidth(),
+				rect.getHeight(),
+				rect.getColor());
+	}
+
+	/**
+	 * 幅と高さの増減(dw, dh)だけ変化させた長方形を返す
+	 */
+	public static Rect resizeBy(Rect rect, int dw, int dh) {
+		return new Rect(rect.getId(),
+				rect.getX(),
+				rect.getY(),
+				rect.getWidth() + dw,
+				rect.getHeight() + dh,
+				rect.getColor());
+	}
+
+	/**
+	 * 左上固定で拡大縮小した長方形を返す
+	 */
+	public static Rect scale(Rect rect, double factor) {
+		int newWidth = (int) Math.round(rect.getWidth() * factor);
+		int newHeight = (int) Math.round(rect.getHeight() * factor);
+		return new Rect(rect.getId(),
+				rect.getX(),
+				rect.getY(),
+				newWidth,
+				newHeight,
+				rect.getColor());
 	}
 
 	// 必要に応じて他の操作をここに追加できます。
