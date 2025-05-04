@@ -45,6 +45,7 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 		// モデルの状態が変わったら画面を更新
 		System.out.println("Rects変更の通知が飛びました");
 		boardPanel.update(model.getRectangles());
+		rectListPanel.setRectangleList(model.getRectangles());
 	}
 
 	@Override
