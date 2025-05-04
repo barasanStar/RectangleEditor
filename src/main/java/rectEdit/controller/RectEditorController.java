@@ -1,39 +1,16 @@
 package rectEdit.controller;
 
-import rectEdit.handler.ActionHandler;
+import rectEdit.handler.HandlerRegistry;
 
 public class RectEditorController {
-	private final ActionHandler createAHandler;
-	//	private final CreateRectBHandler createBHandler;
-	//	private final SaveBoardHandler saveHandler;
-	//	private final LoadBoardHandler loadHandler;
+	private final HandlerRegistry registry;
 
-	public RectEditorController(
-			ActionHandler createAHandler
-	//			CreateRectBHandler createBHandler,
-	//			SaveBoardHandler saveHandler,
-	//			LoadBoardHandler loadHandler
-
-	) {
-		this.createAHandler = createAHandler;
-		//		this.createBHandler = createBHandler;
-		//		this.saveHandler = saveHandler;
-		//		this.loadHandler = loadHandler;
+	public RectEditorController(HandlerRegistry registry) {
+		this.registry = registry;
 	}
 
 	public void handleCreateRectA() {
-		createAHandler.execute();
+		registry.get("createA").execute();
 	}
 
-	//	public void handleCreateRectB() {
-	//		createBHandler.execute();
-	//	}
-	//
-	//	public void handleSaveBoard() {
-	//		saveHandler.execute();
-	//	}
-	//
-	//	public void handleLoadBoard() {
-	//		loadHandler.execute();
-	//	}
 }
