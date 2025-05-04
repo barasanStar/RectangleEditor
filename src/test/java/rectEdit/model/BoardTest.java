@@ -89,6 +89,20 @@ public class BoardTest {
 	}
 
 	@Test
+	void testRemoveRect() {
+		Rect r1 = RectFactory.create(0, 0, 10, 10, Color.RED);
+		Rect r2 = RectFactory.create(20, 0, 10, 10, Color.BLUE);
+		board.addRect(r1);
+		board.addRect(r2);
+
+		assertTrue(board.removeRect(r1));
+		assertFalse(board.getRectangles().contains(r1));
+		assertTrue(board.getRectangles().contains(r2));
+
+		assertFalse(board.removeRect(r1)); // 存在しないrect
+	}
+
+	@Test
 	void testClearAllRects() {
 		board.addRect(RectFactory.create(0, 0, 10, 10, Color.RED));
 		board.addRect(RectFactory.create(10, 10, 20, 20, Color.BLUE));

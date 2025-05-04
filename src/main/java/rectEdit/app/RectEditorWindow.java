@@ -14,6 +14,7 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import rectEdit.controller.RectEditorController;
 import rectEdit.view.BoardPanel;
 import rectEdit.view.RectListPanel;
 
@@ -63,6 +64,30 @@ public class RectEditorWindow extends JFrame {
 		menuBar.add(actionMenu);
 
 		// フレームに設定
+		setJMenuBar(menuBar);
+	}
+
+	private void createMenuBar(RectEditorController controller) {
+		JMenuBar menuBar = new JMenuBar();
+
+		JMenu fileMenu = new JMenu("ファイル");
+		JMenuItem saveItem = new JMenuItem("ボードを保存");
+		JMenuItem loadItem = new JMenuItem("ボードを開く");
+		//		saveItem.addActionListener(e -> controller.handleSaveBoard());
+		//		loadItem.addActionListener(e -> controller.handleLoadBoard());
+		fileMenu.add(saveItem);
+		fileMenu.add(loadItem);
+
+		JMenu actionMenu = new JMenu("操作");
+		JMenuItem createAItem = new JMenuItem("定型長方形A作成");
+		JMenuItem createBItem = new JMenuItem("定型長方形B作成");
+		createAItem.addActionListener(e -> controller.handleCreateRectA());
+		//		createBItem.addActionListener(e -> controller.handleCreateRectB());
+		actionMenu.add(createAItem);
+		actionMenu.add(createBItem);
+
+		menuBar.add(fileMenu);
+		menuBar.add(actionMenu);
 		setJMenuBar(menuBar);
 	}
 
