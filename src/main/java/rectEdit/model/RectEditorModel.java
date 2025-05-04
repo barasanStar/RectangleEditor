@@ -58,9 +58,17 @@ public class RectEditorModel {
 		return selectionManager;
 	}
 
+	public void selectOnly(int id) {
+		selectionManager.selectOnly(id);
+	}
+
 	// --- Undo/Redo ---
 	public void pushSnapshot() {
 		historyManager.pushSnapshot();
+	}
+
+	public void removeLatestSnapshot() {
+		historyManager.removeLatestSnapshot();
 	}
 
 	public void undo() {
