@@ -6,6 +6,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import rectEdit.controller.RectEditorController;
+import rectEdit.handler.ActionHandler;
 import rectEdit.handler.CreateRectAHandler;
 import rectEdit.model.RectEditorModel;
 
@@ -19,7 +20,7 @@ public class RectEditorLauncher {
 			RectEditorModel model = new RectEditorModel();
 
 			// ハンドラの生成
-			CreateRectAHandler createRectAHandler = new CreateRectAHandler(model);
+			ActionHandler createRectAHandler = new CreateRectAHandler(model);
 
 			// コントローラの生成
 			RectEditorController controller = new RectEditorController(createRectAHandler);
