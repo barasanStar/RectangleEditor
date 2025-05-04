@@ -19,15 +19,17 @@ public class RectEditorLauncher {
 			// モデルの生成（他はモデルに依存しているので、先に作る！）
 			RectEditorModel model = new RectEditorModel(500, 500);
 
-			// ハンドラの生成
+			// ハンドラ登録
 			HandlerRegistry registry = new HandlerRegistry();
-			registry.register("createA", new CreateRectAHandler(model));
 
-			// コントローラの生成
+			// コントローラ
 			RectEditorController controller = new RectEditorController(registry);
 
-			// ウィンドウの生成（コントローラを渡す）
+			// View + Window の生成
 			RectEditorWindow window = new RectEditorWindow(controller);
+			registry.register("createA", new CreateRectAHandler(model, window.getView()));
+
+			// 表示
 			window.show();
 		});
 	}
