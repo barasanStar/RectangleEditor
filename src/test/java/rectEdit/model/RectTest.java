@@ -26,16 +26,6 @@ public class RectTest {
 		assertEquals(Color.RED, rect.getColor());
 	}
 
-	//	@Test
-	//	void WithColorメソッドは新しい長方形を返す() {
-	//		Rect original = RectFactory.create(0, 0, 10, 10, Color.BLUE);
-	//		Rect modified = original.withColor(Color.GREEN);
-	//
-	//		assertNotSame(original, modified);
-	//		assertEquals(Color.GREEN, modified.getColor());
-	//		assertEquals(Color.BLUE, original.getColor()); // 元の色は変わらない
-	//	}
-
 	@Test
 	void testContainsPoint() {
 		Rect rect = RectFactory.create(10, 10, 100, 100, Color.BLACK);
@@ -47,7 +37,6 @@ public class RectTest {
 	void testEqualsAndHashCode() {
 		Rect r1 = RectFactory.create(0, 0, 50, 50, Color.RED);
 		Rect r2 = new Rect(r1.getId(), 0, 0, 50, 50, Color.RED); // ID同じにして等価性チェック
-
 		assertEquals(r1, r2);
 		assertEquals(r1.hashCode(), r2.hashCode());
 	}
@@ -56,7 +45,6 @@ public class RectTest {
 	void Idが直前の長方形より1増加すること() {
 		Rect r1 = RectFactory.create(0, 0, 10, 10, Color.RED);
 		Rect r2 = RectFactory.create(0, 0, 10, 10, Color.RED);
-
 		assertEquals(r1.getId() + 1, r2.getId());
 	}
 }
