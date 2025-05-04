@@ -17,6 +17,13 @@ public class Board {
 	private int height;
 	private List<Rect> rectangles = new ArrayList<>();
 
+	// 起動時のボードサイズは決め打ちで良いと思う。
+	public Board() {
+		this.width = 500;
+		this.height = 500;
+		this.rectangles = new ArrayList<>();
+	}
+
 	public Board(int width, int height) {
 		if (width <= 0 || width > MAX_WIDTH || height <= 0 || height > MAX_HEIGHT) {
 			throw new IllegalArgumentException("ボードサイズが制限を超えています");

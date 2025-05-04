@@ -7,14 +7,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import rectEdit.controller.RectEditorController;
+import rectEdit.model.RectEditorModel;
+import rectEdit.model.RectEditorModelListener;
 
-public class RectEditorView extends JPanel {
-
+public class RectEditorView extends JPanel implements RectEditorModelListener {
+	private final RectEditorModel model;
 	private final BoardPanel boardPanel;
 	private final RectListPanel rectListPanel;
 	private final LogPanel logPanel;
 
-	public RectEditorView(RectEditorController controller) {
+	public RectEditorView(RectEditorModel model, RectEditorController controller) {
+		this.model = model;
 		setLayout(new BorderLayout());
 
 		boardPanel = new BoardPanel();
@@ -29,12 +32,26 @@ public class RectEditorView extends JPanel {
 		// 下部: ログ
 		add(new JScrollPane(logPanel), BorderLayout.SOUTH);
 
-		// イベント登録などは controller を使ってここで行う
 	}
 
 	// Viewの更新APIなどもこちらに集約できる
 	public void appendLog(String message) {
 		logPanel.appendLog(message);
+	}
+
+	@Override
+	public void onRectsChanged() {
+		// TODO 自動生成されたメソッド・スタブ
+		// モデルの状態が変わったら画面を更新
+		System.out.println("Rects変更の通知が飛びました");
+		boardPanel.update(model.getRectangles());
+	}
+
+	@Override
+	public void onSelectionChanged() {
+		// TODO 自動生成されたメソッド・スタブ
+		// 選択の状態が変わったら画面を更新？
+
 	}
 
 }
