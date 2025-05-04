@@ -9,7 +9,9 @@ public class RectEditorModel {
 	private final SelectionManager selectionManager;
 	private final HistoryManager historyManager;
 
-	public RectEditorModel(int width, int height) {
+	public RectEditorModel() {
+		int width = 400;
+		int height = 300;
 		this.board = new Board(width, height);
 		this.selectionManager = new SelectionManager();
 		this.historyManager = new HistoryManager(board, selectionManager);
