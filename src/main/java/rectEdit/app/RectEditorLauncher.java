@@ -26,7 +26,7 @@ public class RectEditorLauncher {
 
 			// ウィンドウの生成（コントローラを渡す）
 			RectEditorWindow window = new RectEditorWindow(controller);
-			window.setVisible(true);
+			window.show();
 		});
 	}
 
