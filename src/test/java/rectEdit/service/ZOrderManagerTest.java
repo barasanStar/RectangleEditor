@@ -100,4 +100,44 @@ public class ZOrderManagerTest {
 		ZOrderManager.moveBackward(rectList, Set.of(0, 1, 2, 3));
 		assertEquals(List.of(r0, r1, r2, r3), rectList);
 	}
+
+	@Test
+	void testBringToFront_emptyList() {
+		List<Rect> emptyList = new ArrayList<>();
+		ZOrderManager.bringToFront(emptyList, Set.of(1, 2));
+		assertTrue(emptyList.isEmpty());
+	}
+
+	@Test
+	void testSendToBack_emptySelection() {
+		ZOrderManager.sendToBack(rectList, Set.of()); // 選択なし
+		assertEquals(List.of(r0, r1, r2, r3), rectList); // 変更なし
+	}
+
+	@Test
+	void testMoveForward_nonExistentId() {
+		ZOrderManager.moveForward(rectList, Set.of(99)); // 存在しないID
+		assertEquals(List.of(r0, r1, r2, r3), rectList); // 変更なし
+	}
+
+	@Test
+	void testBringToFront_alreadyAtFront() {
+		// r2, r3 はすでに末尾側
+		ZOrderManager.bringToFront(rectList, Set.of(2, 3));
+		assertEquals(List.of(r0, r1, r2, r3), rectList); // 順序変わらず
+	}
+
+	@Test
+	void testSendToBack_alreadyAtBack() {
+		// r0, r1 はすでに先頭側
+		ZOrderManager.sendToBack(rectList, Set.of(0, 1));
+		assertEquals(List.of(r0, r1, r2, r3), rectList); // 順序変わらず
+	}
+
+	@Test
+	void testOrderPreservedOnBringToFront() {
+		// r1, r2 を前面へ
+		ZOrderManager.bringToFront(rectList, Set.of(2, 1));
+		assertEquals(List.of(r0, r3, r1, r2), rectList);
+	}
 }
