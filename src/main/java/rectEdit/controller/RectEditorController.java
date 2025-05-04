@@ -1,15 +1,15 @@
 package rectEdit.controller;
 
-import rectEdit.handler.CreateRectAHandler;
+import rectEdit.handler.ActionHandler;
 
 public class RectEditorController {
-	private final CreateRectAHandler createAHandler;
+	private final ActionHandler createAHandler;
 	//	private final CreateRectBHandler createBHandler;
 	//	private final SaveBoardHandler saveHandler;
 	//	private final LoadBoardHandler loadHandler;
 
 	public RectEditorController(
-			CreateRectAHandler createAHandler
+			ActionHandler createAHandler
 	//			CreateRectBHandler createBHandler,
 	//			SaveBoardHandler saveHandler,
 	//			LoadBoardHandler loadHandler

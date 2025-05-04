@@ -2,13 +2,14 @@ package rectEdit.handler;
 
 import rectEdit.model.RectEditorModel;
 
-public class CreateRectAHandler {
+public class CreateRectAHandler implements ActionHandler {
 	private final RectEditorModel model;
 
 	public CreateRectAHandler(RectEditorModel model) {
 		this.model = model;
 	}
 
+	@Override
 	public void execute() {
 		//		model.addStandardRectA(); // 定型A作成処理
 		System.out.println("定型Aです！");
