@@ -18,4 +18,8 @@ public class RectEditorController {
 		registry.get(ActionKey.CREATE_RECT_B).execute();
 	}
 
+	public void handleDeleteRect() {
+		registry.get(ActionKey.DELETE).execute();
+	}
+
 }

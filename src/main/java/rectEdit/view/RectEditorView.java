@@ -20,7 +20,7 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 		this.model = model;
 		setLayout(new BorderLayout());
 
-		boardPanel = new BoardPanel(model.getBoardWidth(), model.getBoardHeight());
+		boardPanel = new BoardPanel(model);
 		rectListPanel = new RectListPanel();
 		logPanel = new LogPanel();
 
@@ -46,8 +46,7 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 	@Override
 	public void onSelectionChanged(String operationLogMessage) {
 		logPanel.appendLog("■これはどこで呼ばれる？？■" + operationLogMessage);
-
-		// 軽量更新メソッド。boardPanelの所持する「選択変数」のみ更新し、再描画しない。
+		// 選択状態を更新。再描画。
 		boardPanel.updateSelectionOnly(model.getSelectionManager().getSelectedIds());
 	}
 }
