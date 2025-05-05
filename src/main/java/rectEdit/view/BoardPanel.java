@@ -58,7 +58,8 @@ public class BoardPanel extends JPanel {
 
 	private void handleClick(int x, int y) {
 		List<Rect> rects = model.getRectanglesReadOnly();
-		for (Rect r : rects) {
+		for (int i = rects.size() - 1; i >= 0; i--) {
+			Rect r = rects.get(i);
 			if (containsPoint(r, x, y)) {
 				model.selectOnly(r.getId()); // SelectionManager を通して選択状態を更新
 				return;

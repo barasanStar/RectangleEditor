@@ -48,14 +48,14 @@ public class HistoryManagerTest {
 		// Undo：状態を巻き戻す
 		history.undo();
 		assertEquals(2, board.getCurrentRectsCount()); // r0, r1 のみ
-		assertTrue(selection.isSelected(0));
-		assertFalse(selection.isSelected(2));
+		assertTrue(selection.contains(0));
+		assertFalse(selection.contains(2));
 
 		// Redo：元に戻す
 		history.redo();
 		assertEquals(3, board.getCurrentRectsCount()); // r0, r1, r2
-		assertTrue(selection.isSelected(2));
-		assertFalse(selection.isSelected(0));
+		assertTrue(selection.contains(2));
+		assertFalse(selection.contains(0));
 	}
 
 	@Test
