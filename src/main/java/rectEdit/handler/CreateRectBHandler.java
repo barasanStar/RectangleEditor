@@ -22,7 +22,7 @@ public class CreateRectBHandler implements ActionHandler {
 		Rect rect = RectFactory.create(50, 50, 80, 40, Color.GREEN);
 
 		// 真の時、モデル変更通知。キャンバス再描画、長方形一覧更新、ログ表示。
-		boolean added = model.addRect(rect);
+		boolean added = model.tryAddRect(rect);
 
 		if (added) {
 			model.selectOnly(rect.getId()); // 選択状態を更新

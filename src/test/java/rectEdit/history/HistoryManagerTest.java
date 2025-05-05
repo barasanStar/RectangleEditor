@@ -33,16 +33,16 @@ public class HistoryManagerTest {
 		Rect r0 = RectFactory.create(0, 0, 50, 50, Color.RED);
 		Rect r1 = RectFactory.create(100, 100, 50, 50, Color.BLUE);
 		history.pushSnapshot();
-		board.addRect(r0);
+		board.tryAddRect(r0);
 
 		history.pushSnapshot();
-		board.addRect(r1);
+		board.tryAddRect(r1);
 		selection.select(0);
 
 		// 状態変化：rect2を追加し、選択も変更
 		Rect r2 = RectFactory.create(200, 200, 50, 50, Color.GREEN);
 		history.pushSnapshot();
-		board.addRect(r2);
+		board.tryAddRect(r2);
 		selection.selectOnly(2);
 
 		// Undo：状態を巻き戻す
@@ -64,7 +64,7 @@ public class HistoryManagerTest {
 		assertFalse(history.canRedo());
 
 		history.pushSnapshot();
-		board.addRect(RectFactory.create(0, 0, 10, 10, Color.RED));
+		board.tryAddRect(RectFactory.create(0, 0, 10, 10, Color.RED));
 		assertTrue(history.canUndo());
 
 		history.undo();
@@ -79,17 +79,17 @@ public class HistoryManagerTest {
 	@Test
 	void testPushClearsRedoStack() {
 		history.pushSnapshot();
-		board.addRect(RectFactory.create(0, 0, 10, 10, Color.RED));
+		board.tryAddRect(RectFactory.create(0, 0, 10, 10, Color.RED));
 
 		history.pushSnapshot();
-		board.addRect(RectFactory.create(20, 20, 10, 10, Color.BLUE));
+		board.tryAddRect(RectFactory.create(20, 20, 10, 10, Color.BLUE));
 
 		history.undo();
 		assertTrue(history.canRedo());
 
 		// 状態変更 → redo は破棄される
 		history.pushSnapshot();
-		board.addRect(RectFactory.create(40, 40, 10, 10, Color.GREEN));
+		board.tryAddRect(RectFactory.create(40, 40, 10, 10, Color.GREEN));
 
 		assertFalse(history.canRedo());
 	}
@@ -97,10 +97,10 @@ public class HistoryManagerTest {
 	@Test
 	void 通るように直したtestRestoreExactSelection() {
 		history.pushSnapshot();
-		board.addRect(RectFactory.create(0, 0, 10, 10, Color.RED));
+		board.tryAddRect(RectFactory.create(0, 0, 10, 10, Color.RED));
 
 		history.pushSnapshot();
-		board.addRect(RectFactory.create(20, 20, 10, 10, Color.BLUE));
+		board.tryAddRect(RectFactory.create(20, 20, 10, 10, Color.BLUE));
 		selection.setSelectedIds(Set.of(0));
 		selection.setSelectedIds(Set.of(1));
 
@@ -114,13 +114,13 @@ public class HistoryManagerTest {
 	@Test
 	void これは通るtestRestoreExactSelection() {
 		history.pushSnapshot();
-		board.addRect(RectFactory.create(0, 0, 10, 10, Color.RED));
+		board.tryAddRect(RectFactory.create(0, 0, 10, 10, Color.RED));
 		assertEquals(Set.of(), selection.getSelectedIds());
 		selection.setSelectedIds(Set.of(0));
 		assertEquals(Set.of(0), selection.getSelectedIds());
 
 		history.pushSnapshot(); // ← ここで保存
-		board.addRect(RectFactory.create(20, 20, 10, 10, Color.BLUE));
+		board.tryAddRect(RectFactory.create(20, 20, 10, 10, Color.BLUE));
 		selection.setSelectedIds(Set.of(1));
 
 		history.undo(); // ← pushSnapshot() された状態に戻る
