@@ -89,6 +89,11 @@ public class Board {
 		rectangles.clear();
 	}
 
+	public void replaceAll(List<Rect> newRects) {
+		rectangles.clear();
+		rectangles.addAll(newRects);
+	}
+
 	// 長方形一覧（読み取り専用）
 	public List<Rect> getRectanglesReadOnly() {
 		return Collections.unmodifiableList(new ArrayList<>(rectangles));

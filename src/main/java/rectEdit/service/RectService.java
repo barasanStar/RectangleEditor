@@ -1,8 +1,12 @@
 package rectEdit.service;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import rectEdit.model.Rect;
+import rectEdit.model.RectEditorModel;
 
 /**
  * 既存の長方形に対する操作を定義することを責務とする。
@@ -82,4 +86,28 @@ public class RectService {
 	}
 
 	// 必要に応じて他の操作をここに追加できます。
+	/**
+	 * 選択された長方形を dx, dy 移動させる。
+	 * すべての移動後の長方形がボード内に収まる場合のみ、移動を反映する。
+	 * @return 移動できた場合 true、そうでない場合 false
+	 */
+	public static boolean moveSelectedRects(RectEditorModel model, int dx, int dy) {
+		List<Rect> updatedRects = new ArrayList<>();
+		Set<Integer> selectedIds = model.getSelectionManager().getSelectedIds();
+
+		for (Rect rect : model.getRectanglesForMutation()) {
+			if (selectedIds.contains(rect.getId())) {
+				Rect moved = moveBy(rect, dx, dy);
+				if (!model.getBoard().fitsWithinBoard(moved)) {
+					return false; // 一つでもボード外に出るなら全体をキャンセル
+				}
+				updatedRects.add(moved);
+			} else {
+				updatedRects.add(rect); // 非選択はそのまま
+			}
+		}
+
+		model.replaceAll(updatedRects); // 全体を置き換え
+		return true;
+	}
 }

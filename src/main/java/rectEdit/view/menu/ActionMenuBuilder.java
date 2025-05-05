@@ -13,14 +13,17 @@ public class ActionMenuBuilder {
 		JMenuItem createAItem = new JMenuItem(ActionKey.CREATE_RECT_A.getDisplayName());
 		JMenuItem createBItem = new JMenuItem(ActionKey.CREATE_RECT_B.getDisplayName());
 		JMenuItem deleteItem = new JMenuItem(ActionKey.DELETE.getDisplayName());
+		JMenuItem moveItem = new JMenuItem(ActionKey.MOVE.getDisplayName());
 
 		createAItem.addActionListener(e -> controller.handleCreateRectA());
 		createBItem.addActionListener(e -> controller.handleCreateRectB());
 		deleteItem.addActionListener(e -> controller.handleDeleteRect());
+		moveItem.addActionListener(e -> controller.handleMoveRect());
 
 		actionMenu.add(createAItem);
 		actionMenu.add(createBItem);
 		actionMenu.add(deleteItem);
+		actionMenu.add(moveItem);
 
 		return actionMenu;
 	}

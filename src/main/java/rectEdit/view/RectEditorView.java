@@ -9,6 +9,7 @@ import javax.swing.JSplitPane;
 import rectEdit.controller.RectEditorController;
 import rectEdit.model.RectEditorModel;
 import rectEdit.model.RectEditorModelListener;
+import rectEdit.view.toolbar.ToolbarBuilder;
 
 public class RectEditorView extends JPanel implements RectEditorModelListener {
 	private final RectEditorModel model;
@@ -23,6 +24,8 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 		boardPanel = new BoardPanel(model);
 		rectListPanel = new RectListPanel(model);
 		logPanel = new LogPanel();
+
+		add(ToolbarBuilder.build(controller), BorderLayout.NORTH);
 
 		// 分割ビュー（左側：キャンバス、右側：長方形一覧）
 		JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, boardPanel, rectListPanel);

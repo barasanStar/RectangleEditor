@@ -86,6 +86,11 @@ public class RectEditorModel {
 		return board.getRectanglesForMutation();
 	}
 
+	public void replaceAll(List<Rect> newRects) {
+		board.replaceAll(newRects); // Board に処理を委譲
+		notifyRectsChanged("全長方形を置き換え");
+	}
+
 	// 今の長方形個数を返す
 	public int getCurrentRectsCount() {
 		return board.getCurrentRectsCount();
