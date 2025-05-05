@@ -8,19 +8,19 @@ import rectEdit.model.Rect;
 import rectEdit.model.RectEditorModel;
 import rectEdit.view.RectEditorView;
 
-public class CreateRectAHandlerTest {
+public class CreateRectBHandlerTest {
 
 	@Test
-	public void testCreateRectAHandlerAddsRectangle() {
+	public void testCreateRectBHandlerAddsRectangle() {
 		RectEditorModel model = new RectEditorModel();
 		RectEditorView view = new RectEditorView(model, null);
-		ActionHandler handler = new CreateRectAHandler(model, view);
+		ActionHandler handler = new CreateRectBHandler(model, view);
 
 		handler.execute();
 
 		assertEquals(1, model.getCurrentRectsCount());
 		Rect rect = model.getRectanglesReadOnly().get(0);
-		assertEquals(100, rect.getWidth());
-		assertEquals(120, rect.getHeight());
+		assertEquals(80, rect.getWidth());
+		assertEquals(40, rect.getHeight());
 	}
 }
