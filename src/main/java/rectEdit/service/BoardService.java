@@ -9,8 +9,8 @@ import rectEdit.model.Rect;
  */
 public class BoardService {
 
-	// 【TODO】選択状態やハイライトもクリアする？ -> もちろん！
-	public void clearBoard(Board board) {
+	// 【TODO】選択状態やハイライトもクリアする？ -> もちろん！ただし、model側で
+	public void clearAllRects(Board board) {
 		board.clearAllRects();
 	}
 

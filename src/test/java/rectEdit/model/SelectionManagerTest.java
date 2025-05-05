@@ -9,80 +9,80 @@ import org.junit.jupiter.api.Test;
 
 public class SelectionManagerTest {
 
-	private SelectionManager selection;
+	private SelectionManager selectionManager;
 
 	@BeforeEach
 	void setUp() {
-		selection = new SelectionManager();
+		selectionManager = new SelectionManager();
 	}
 
 	@Test
 	void もともと選択していない値を指定しても例外は発生しない() {
-		selection.deselect(1);
-		assertFalse(selection.isSelected(1));
+		selectionManager.remove(1);
+		assertFalse(selectionManager.isSelected(1));
 	}
 
 	@Test
-	void testSelectAndIsSelected() {
-		selection.select(1);
-		assertTrue(selection.isSelected(1));
-		assertEquals(Set.of(1), selection.getSelectedIds());
+	void isSelectedおよび取得のテスト() {
+		selectionManager.add(1);
+		assertTrue(selectionManager.isSelected(1));
+		assertEquals(Set.of(1), selectionManager.getSelectedIds());
 	}
 
 	@Test
-	void testDeselect() {
-		selection.select(2);
-		selection.deselect(2);
-		assertFalse(selection.isSelected(2));
-		assertTrue(selection.isEmpty());
+	void 追加して削除すると空である() {
+		selectionManager.add(2);
+		selectionManager.remove(2);
+		assertFalse(selectionManager.isSelected(2));
+		assertTrue(selectionManager.isEmpty());
 	}
 
 	@Test
 	void testToggleOn() {
-		selection.toggle(3);
-		assertTrue(selection.isSelected(3));
+		selectionManager.toggle(3);
+		assertTrue(selectionManager.isSelected(3));
 	}
 
 	@Test
 	void testToggleOff() {
-		selection.select(4);
-		selection.toggle(4);
-		assertFalse(selection.isSelected(4));
+		selectionManager.add(4);
+		selectionManager.toggle(4);
+		assertFalse(selectionManager.isSelected(4));
 	}
 
 	@Test
 	void testClear() {
-		selection.select(1);
-		selection.select(2);
-		selection.clear();
-		assertTrue(selection.isEmpty());
-		assertEquals(Set.of(), selection.getSelectedIds());
+		selectionManager.add(1);
+		selectionManager.add(2);
+		selectionManager.clear();
+		assertTrue(selectionManager.isEmpty());
+		assertEquals(Set.of(), selectionManager.getSelectedIds());
 	}
 
 	@Test
 	void testSelectOnly() {
-		selection.select(1);
-		selection.select(2);
-		selection.selectOnly(99);
-		assertEquals(Set.of(99), selection.getSelectedIds());
+		selectionManager.add(1);
+		selectionManager.add(2);
+		selectionManager.selectOnly(99);
+		assertEquals(Set.of(99), selectionManager.getSelectedIds());
 	}
 
 	@Test
 	void testSetSelectedIds() {
-		selection.setSelectedIds(Set.of(5, 6, 7));
-		assertEquals(Set.of(5, 6, 7), selection.getSelectedIds());
+		selectionManager.setSelectedIds(Set.of(5, 6, 7));
+		assertEquals(Set.of(5, 6, 7), selectionManager.getSelectedIds());
 	}
 
 	@Test
 	void testSize() {
-		selection.select(10);
-		selection.select(11);
-		assertEquals(2, selection.size());
+		selectionManager.add(10);
+		selectionManager.add(11);
+		assertEquals(2, selectionManager.size());
 	}
 
 	@Test
 	void testUnmodifiableSetReturned() {
-		Set<Integer> ids = selection.getSelectedIds();
+		Set<Integer> ids = selectionManager.getSelectedIds();
 		assertThrows(UnsupportedOperationException.class, () -> ids.add(100));
 	}
 }

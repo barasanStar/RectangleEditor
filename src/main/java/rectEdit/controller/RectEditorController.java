@@ -10,19 +10,23 @@ public class RectEditorController {
 		this.registry = registry;
 	}
 
-	public void handleCreateRectA() {
-		registry.get(ActionKey.CREATE_RECT_A).execute();
+	public void handleCreateA() {
+		registry.get(ActionKey.CREATE_A).execute();
 	}
 
-	public void handleCreateRectB() {
-		registry.get(ActionKey.CREATE_RECT_B).execute();
+	public void handleCreateB() {
+		registry.get(ActionKey.CREATE_B).execute();
 	}
 
-	public void handleDeleteRect() {
+	public void handleDelete() {
 		registry.get(ActionKey.DELETE).execute();
 	}
 
-	public void handleMoveRect() {
+	public void handleDeleteAll() {
+		registry.get(ActionKey.DELETE_ALL).execute();
+	}
+
+	public void handleMove() {
 		registry.get(ActionKey.MOVE).execute();
 	}
 

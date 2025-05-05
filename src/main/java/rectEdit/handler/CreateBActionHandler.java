@@ -5,21 +5,18 @@ import java.awt.Color;
 import rectEdit.model.Rect;
 import rectEdit.model.RectEditorModel;
 import rectEdit.model.RectFactory;
-import rectEdit.view.RectEditorView;
 
-public class CreateRectAHandler implements ActionHandler {
+public class CreateBActionHandler implements ActionHandler {
 	private final RectEditorModel model;
-	private final RectEditorView view;
 
-	public CreateRectAHandler(RectEditorModel model, RectEditorView view) {
+	public CreateBActionHandler(RectEditorModel model) {
 		this.model = model;
-		this.view = view;
 	}
 
 	@Override
 	public void execute() {
 		model.pushSnapshot(); // Undo対応
-		Rect rect = RectFactory.create(5, 10, 100, 120, Color.BLUE);
+		Rect rect = RectFactory.create(50, 50, 80, 40, Color.GREEN);
 		model.tryAddRect(rect); // 真の時、モデル変更通知。
 	}
 }

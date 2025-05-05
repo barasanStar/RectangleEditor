@@ -37,7 +37,7 @@ public class HistoryManagerTest {
 
 		history.pushSnapshot();
 		board.tryAddRect(r1);
-		selection.select(0);
+		selection.add(0);
 
 		// 状態変化：rect2を追加し、選択も変更
 		Rect r2 = RectFactory.create(200, 200, 50, 50, Color.GREEN);
@@ -119,7 +119,7 @@ public class HistoryManagerTest {
 		selection.setSelectedIds(Set.of(0));
 		assertEquals(Set.of(0), selection.getSelectedIds());
 
-		history.pushSnapshot(); // ← ここで保存
+		history.pushSnapshot();
 		board.tryAddRect(RectFactory.create(20, 20, 10, 10, Color.BLUE));
 		selection.setSelectedIds(Set.of(1));
 
