@@ -13,8 +13,8 @@ public class RectEditorModelTest {
 
 	@BeforeEach
 	public void setUp() {
-		// 幅10×高さ10のボードを持つモデルを初期化
-		model = new RectEditorModel(10, 10);
+		// 幅500×高さ500のボードを持つモデルを初期化
+		model = new RectEditorModel();
 	}
 
 	@Test
@@ -29,7 +29,7 @@ public class RectEditorModelTest {
 
 	@Test
 	public void testAddRectangleOutOfBounds() {
-		Rect rect = new Rect(0, 8, 8, 5, 5, Color.BLUE); // はみ出す
+		Rect rect = new Rect(0, 8, 8, 500, 5, Color.BLUE); // はみ出す
 		boolean result = model.addRect(rect);
 
 		assertFalse(result);
@@ -46,21 +46,21 @@ public class RectEditorModelTest {
 		assertTrue(model.getRectanglesReadOnly().isEmpty());
 	}
 
-	// このあたりのスナップショットの保存のタイミングや失敗ケアのロジックがあやしい。
 	@Test
 	public void testUndoRedo() {
 		Rect rect = new Rect(0, 0, 0, 2, 2, Color.GREEN);
-		model.addRect(rect);
 		model.pushSnapshot(); // スナップショット保存
+		model.addRect(rect);
 
+		model.pushSnapshot(); // スナップショット保存
 		model.removeRect(rect); // 状態変更
-		assertEquals(0, model.getRectanglesReadOnly().size());
+		assertEquals(0, model.getCurrentRectsCount());
 
 		model.undo(); // 元に戻す
-		assertEquals(1, model.getRectanglesReadOnly().size());
+		assertEquals(1, model.getCurrentRectsCount());
 
 		model.redo(); // 再実行
-		assertEquals(0, model.getRectanglesReadOnly().size());
+		assertEquals(0, model.getCurrentRectsCount());
 	}
 
 	@Test
@@ -81,8 +81,8 @@ public class RectEditorModelTest {
 
 		boolean result = model.setBoardSize(5, 5); // 収まらない
 		assertFalse(result);
-		assertEquals(10, model.getBoard().getWidth()); // 元のまま
-		assertEquals(10, model.getBoard().getHeight());
+		assertEquals(500, model.getBoard().getWidth()); // 元のまま
+		assertEquals(500, model.getBoard().getHeight());
 	}
 
 	// 必要に応じてさらにテストを追加

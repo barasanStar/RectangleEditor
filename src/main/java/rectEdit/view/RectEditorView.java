@@ -25,9 +25,7 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 		logPanel = new LogPanel();
 
 		// 分割ビュー（左側：キャンバス、右側：長方形一覧）
-		JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-				boardPanel, rectListPanel);
-		//		split.setResizeWeight(0.6); // 左パネルにやや比重
+		JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, boardPanel, rectListPanel);
 		split.setDividerLocation(550); // 初期分割位置（左側550px）
 		add(split, BorderLayout.CENTER);
 		add(new JScrollPane(logPanel), BorderLayout.SOUTH);
@@ -40,16 +38,16 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 
 	@Override
 	public void onRectsChanged(String operationLogMessage) {
-		// モデルRects変更の際、このメソッド呼んでいます。
+		// モデルRects変更時、このメソッドが呼ばれます。
 		boardPanel.update(model.getRectanglesReadOnly());
 		rectListPanel.setRectangleList(model.getRectanglesReadOnly());
 		logPanel.appendLog(operationLogMessage);
 	}
 
 	@Override
-	public void onSelectionChanged() {
-		// TODO 自動生成されたメソッド・スタブ
-		// 選択の状態が変わったら画面を更新？
+	public void onSelectionChanged(String operationLogMessage) {
+		// 選択状態が変わった時、このメソッドが呼ばれます。
+		logPanel.appendLog(operationLogMessage);
 
 	}
 }

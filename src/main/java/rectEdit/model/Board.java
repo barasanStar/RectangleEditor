@@ -101,6 +101,10 @@ public class Board {
 		this.height = newHeight;
 	}
 
+	public int getCurrentRectsCount() {
+		return rectangles.size();
+	}
+
 	// 長方形上限チェック
 	public boolean isFull() {
 		return rectangles.size() >= rectLimit;
