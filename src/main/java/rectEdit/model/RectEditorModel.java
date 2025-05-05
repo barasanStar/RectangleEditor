@@ -114,6 +114,11 @@ public class RectEditorModel {
 		return selectionManager;
 	}
 
+	public void selectionClear() {
+		selectionManager.clear();
+		notifySelectionChanged("選択を解除しました");
+	}
+
 	public Set<Integer> getSelectedIds() {
 		return selectionManager.getSelectedIds();
 	}

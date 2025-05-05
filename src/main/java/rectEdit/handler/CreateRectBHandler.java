@@ -18,7 +18,7 @@ public class CreateRectBHandler implements ActionHandler {
 
 	@Override
 	public void execute() {
-		model.pushSnapshot(); // Undo/Redoのために、操作前にスナップショット保存
+		model.pushSnapshot(); // Undo対応
 		Rect rect = RectFactory.create(50, 50, 80, 40, Color.GREEN);
 		model.tryAddRect(rect); // 真の時、モデル変更通知。
 	}
