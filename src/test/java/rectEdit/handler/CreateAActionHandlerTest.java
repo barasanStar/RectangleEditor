@@ -6,15 +6,13 @@ import org.junit.jupiter.api.Test;
 
 import rectEdit.model.Rect;
 import rectEdit.model.RectEditorModel;
-import rectEdit.view.RectEditorView;
 
-public class CreateRectAHandlerTest {
+public class CreateAActionHandlerTest {
 
 	@Test
 	public void testCreateRectAHandlerAddsRectangle() {
 		RectEditorModel model = new RectEditorModel();
-		RectEditorView view = new RectEditorView(model, null);
-		ActionHandler handler = new CreateRectAHandler(model, view);
+		ActionHandler handler = new CreateAActionHandler(model);
 
 		handler.execute();
 

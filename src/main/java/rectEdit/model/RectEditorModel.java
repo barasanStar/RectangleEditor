@@ -64,6 +64,7 @@ public class RectEditorModel {
 
 	public boolean removeRectById(int id) {
 		if (boardService.removeRectById(board, id)) {
+			selectionManager.remove(id);
 			notifyRectsChanged("[通知]長方形を削除。id: " + id);
 			return true;
 		}
@@ -87,8 +88,14 @@ public class RectEditorModel {
 	}
 
 	public void replaceAll(List<Rect> newRects) {
-		board.replaceAll(newRects); // Board に処理を委譲
+		board.replaceAll(newRects);
 		notifyRectsChanged("全長方形を置き換え");
+	}
+
+	public void clearAllRects() {
+		boardService.clearAllRects(board);
+		selectionManager.clear();
+		notifyRectsChanged("全長方形を削除");
 	}
 
 	// 今の長方形個数を返す
@@ -121,6 +128,10 @@ public class RectEditorModel {
 	// --- 選択状態の取得・操作 ---
 	public SelectionManager getSelectionManager() {
 		return selectionManager;
+	}
+
+	public void remove(int id) {
+		selectionManager.remove(id);
 	}
 
 	public void selectionClear() {

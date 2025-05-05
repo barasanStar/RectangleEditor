@@ -8,11 +8,20 @@ public class SelectionManager {
 
 	private final Set<Integer> selectedIds = new HashSet<>();
 
-	public void select(int id) {
+	public void selectOnly(int id) {
+		selectedIds.clear();
 		selectedIds.add(id);
 	}
 
-	public void deselect(int id) {
+	public void add(int id) {
+		selectedIds.add(id);
+	}
+
+	public void clear() {
+		selectedIds.clear();
+	}
+
+	public void remove(int id) {
 		selectedIds.remove(id);
 	}
 
@@ -24,8 +33,9 @@ public class SelectionManager {
 		}
 	}
 
-	public void clear() {
+	public void setSelectedIds(Set<Integer> ids) {
 		selectedIds.clear();
+		selectedIds.addAll(ids);
 	}
 
 	public Set<Integer> getSelectedIds() {
@@ -44,13 +54,4 @@ public class SelectionManager {
 		return selectedIds.size();
 	}
 
-	public void selectOnly(int id) {
-		selectedIds.clear();
-		selectedIds.add(id);
-	}
-
-	public void setSelectedIds(Set<Integer> ids) {
-		selectedIds.clear();
-		selectedIds.addAll(ids);
-	}
 }

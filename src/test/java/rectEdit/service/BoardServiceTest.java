@@ -114,7 +114,7 @@ public class BoardServiceTest {
 	void testClearBoard() {
 		boardService.tryAddRect(board, RectFactory.create(0, 0, 10, 10, Color.RED));
 		boardService.tryAddRect(board, RectFactory.create(0, 0, 20, 20, Color.BLUE));
-		boardService.clearBoard(board);
+		boardService.clearAllRects(board);
 		assertEquals(0, board.getCurrentRectsCount());
 	}
 }

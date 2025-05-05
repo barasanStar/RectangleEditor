@@ -7,9 +7,10 @@ import javax.swing.UIManager;
 
 import rectEdit.controller.RectEditorController;
 import rectEdit.handler.ActionKey;
-import rectEdit.handler.CreateRectAHandler;
-import rectEdit.handler.CreateRectBHandler;
+import rectEdit.handler.CreateAActionHandler;
+import rectEdit.handler.CreateBActionHandler;
 import rectEdit.handler.DeleteActionHandler;
+import rectEdit.handler.DeleteAllActionHandler;
 import rectEdit.handler.HandlerRegistry;
 import rectEdit.handler.MoveActionHandler;
 import rectEdit.model.RectEditorModel;
@@ -23,17 +24,20 @@ public class RectEditorLauncher {
 			// モデルの生成（他はモデルに依存しているので、先に作る！）
 			RectEditorModel model = new RectEditorModel();
 
-			// ハンドラ登録
+			// ハンドラレジスタの生成
 			HandlerRegistry registry = new HandlerRegistry();
 
-			// コントローラ
+			// コントローラの生成
 			RectEditorController controller = new RectEditorController(registry);
 
 			// View + Window の生成
 			RectEditorWindow window = new RectEditorWindow(model, controller);
-			registry.register(ActionKey.CREATE_RECT_A, new CreateRectAHandler(model, window.getView()));
-			registry.register(ActionKey.CREATE_RECT_B, new CreateRectBHandler(model, window.getView()));
+
+			// ハンドラの登録
+			registry.register(ActionKey.CREATE_A, new CreateAActionHandler(model));
+			registry.register(ActionKey.CREATE_B, new CreateBActionHandler(model));
 			registry.register(ActionKey.DELETE, new DeleteActionHandler(model, window.getView()));
+			registry.register(ActionKey.DELETE_ALL, new DeleteAllActionHandler(model));
 			registry.register(ActionKey.MOVE, new MoveActionHandler(model, window.getView()));
 
 			// リスナー登録

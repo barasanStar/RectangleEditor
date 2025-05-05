@@ -10,19 +10,22 @@ public class ActionMenuBuilder {
 	public static JMenu build(RectEditorController controller) {
 		JMenu actionMenu = new JMenu("操作");
 
-		JMenuItem createAItem = new JMenuItem(ActionKey.CREATE_RECT_A.getDisplayName());
-		JMenuItem createBItem = new JMenuItem(ActionKey.CREATE_RECT_B.getDisplayName());
+		JMenuItem createAItem = new JMenuItem(ActionKey.CREATE_A.getDisplayName());
+		JMenuItem createBItem = new JMenuItem(ActionKey.CREATE_B.getDisplayName());
 		JMenuItem deleteItem = new JMenuItem(ActionKey.DELETE.getDisplayName());
+		JMenuItem deleteAllItem = new JMenuItem(ActionKey.DELETE_ALL.getDisplayName());
 		JMenuItem moveItem = new JMenuItem(ActionKey.MOVE.getDisplayName());
 
-		createAItem.addActionListener(e -> controller.handleCreateRectA());
-		createBItem.addActionListener(e -> controller.handleCreateRectB());
-		deleteItem.addActionListener(e -> controller.handleDeleteRect());
-		moveItem.addActionListener(e -> controller.handleMoveRect());
+		createAItem.addActionListener(e -> controller.handleCreateA());
+		createBItem.addActionListener(e -> controller.handleCreateB());
+		deleteItem.addActionListener(e -> controller.handleDelete());
+		deleteAllItem.addActionListener(e -> controller.handleDeleteAll());
+		moveItem.addActionListener(e -> controller.handleMove());
 
 		actionMenu.add(createAItem);
 		actionMenu.add(createBItem);
 		actionMenu.add(deleteItem);
+		actionMenu.add(deleteAllItem);
 		actionMenu.add(moveItem);
 
 		return actionMenu;
