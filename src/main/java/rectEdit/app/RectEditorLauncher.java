@@ -11,6 +11,7 @@ import rectEdit.handler.CreateRectAHandler;
 import rectEdit.handler.CreateRectBHandler;
 import rectEdit.handler.DeleteActionHandler;
 import rectEdit.handler.HandlerRegistry;
+import rectEdit.handler.MoveActionHandler;
 import rectEdit.model.RectEditorModel;
 
 public class RectEditorLauncher {
@@ -33,6 +34,7 @@ public class RectEditorLauncher {
 			registry.register(ActionKey.CREATE_RECT_A, new CreateRectAHandler(model, window.getView()));
 			registry.register(ActionKey.CREATE_RECT_B, new CreateRectBHandler(model, window.getView()));
 			registry.register(ActionKey.DELETE, new DeleteActionHandler(model, window.getView()));
+			registry.register(ActionKey.MOVE, new MoveActionHandler(model, window.getView()));
 
 			// リスナー登録
 			model.addListener(window.getView());

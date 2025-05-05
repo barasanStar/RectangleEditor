@@ -22,4 +22,8 @@ public class RectEditorController {
 		registry.get(ActionKey.DELETE).execute();
 	}
 
+	public void handleMoveRect() {
+		registry.get(ActionKey.MOVE).execute();
+	}
+
 }
