@@ -34,6 +34,12 @@ public class RectEditorModel {
 		}
 	}
 
+	private void notifySelectionChanged(String operationLogMessage) {
+		for (RectEditorModelListener listener : listeners) {
+			listener.onSelectionChanged(operationLogMessage);
+		}
+	}
+
 	// --- Board操作の委譲 ---
 	public boolean addRect(Rect rect) {
 		if (BoardService.addRectIfValid(board, rect)) {
@@ -61,6 +67,11 @@ public class RectEditorModel {
 
 	public List<Rect> getRectanglesReadOnly() {
 		return board.getRectanglesReadOnly();
+	}
+
+	// 今の長方形個数を返す
+	public int getCurrentRectsCount() {
+		return board.getCurrentRectsCount();
 	}
 
 	public int getBoardWidth() {
@@ -95,6 +106,7 @@ public class RectEditorModel {
 
 	public void selectOnly(int id) {
 		selectionManager.selectOnly(id);
+		notifySelectionChanged("[通知]選択状態が変更。id: " + id);
 	}
 
 	// --- Undo/Redo ---
@@ -107,11 +119,17 @@ public class RectEditorModel {
 	}
 
 	public void undo() {
+		if (!canUndo()) {
+			return;
+		}
 		historyManager.undo();
 		notifyRectsChanged("[通知]undoしました");
 	}
 
 	public void redo() {
+		if (!canRedo()) {
+			return;
+		}
 		historyManager.redo();
 		notifyRectsChanged("[通知]redoしました");
 	}
