@@ -4,38 +4,54 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * 長方形の保持・状態管理を責務とする。
+ * ある長方形が本ボードに格納可能かどうかの判断や、
+ * 格納操作指示は BoardServiceクラスに任せる！
+ */
 public class Board {
-	// ボードの最大サイズ
-	public static final int MAX_WIDTH = 1000;
-	public static final int MAX_HEIGHT = 1000;
-
-	// 長方形の個数に関する制約
-	private static final int MAX_RECT_CAPACITY = 20; // 物理的上限
-	private int rectLimit = 10; // 現在の有効上限（変更可能）
-
 	private int width;
 	private int height;
 	private List<Rect> rectangles = new ArrayList<>();
 
-	// 起動時のボードサイズは決め打ちで良いと思う。
+	/**
+	 * 本ボードに搭載可能な長方形個数の上限（変更可能）
+	 */
+	private int softLimit = 10;
+
+	/**
+	 * 全ボード共通。搭載可能な長方形個数の物理的上限（ハードリミット）
+	 */
+	private static final int MAX_RECT_CAPACITY = 20;
+
+	// ボードの最大サイズ
+	public static final int MAX_WIDTH = 1000;
+	public static final int MAX_HEIGHT = 1000;
+
+	// 【設計指針】起動時のボードサイズは決め打ちとする。
 	public Board() {
 		this.width = 500;
 		this.height = 500;
-		this.rectangles = new ArrayList<>();
 	}
 
+	// コンストラクタで幅と高さを変更可能。
 	public Board(int width, int height) {
 		if (width <= 0 || width > MAX_WIDTH || height <= 0 || height > MAX_HEIGHT) {
 			throw new IllegalArgumentException("ボードサイズが制限を超えています");
 		}
 		this.width = width;
 		this.height = height;
-		this.rectangles = new ArrayList<>();
 	}
 
-	// 長方形の追加（上限未チェック）
-	public void addRect(Rect r) {
-		rectangles.add(r);
+	public boolean tryAddRect(Rect rect) {
+		if (!hasCapacity()) {
+			throw new IllegalStateException("長方形の上限を超えています");
+		}
+		if (!fitsWithinBoard(rect)) {
+			throw new IllegalArgumentException("ボード外に長方形がはみ出しています");
+		}
+		rectangles.add(rect);
+		return true;
 	}
 
 	/**
@@ -79,7 +95,7 @@ public class Board {
 	}
 
 	// 長方形一覧（変更可能。サービス層専用）
-	public List<Rect> getRectanglesReWritable() {
+	public List<Rect> getRectanglesForMutation() {
 		return rectangles;
 	}
 
@@ -105,14 +121,12 @@ public class Board {
 		return rectangles.size();
 	}
 
-	// 長方形上限チェック
-	public boolean isFull() {
-		return rectangles.size() >= rectLimit;
+	public int getSoftLimit() {
+		return softLimit;
 	}
 
-	// 現在の有効上限を取得
-	public int getCurrentLimit() {
-		return rectLimit;
+	public int getMaxRectCapacity() {
+		return MAX_RECT_CAPACITY;
 	}
 
 	// 上限を変更する（ただし物理上限以下）
@@ -120,11 +134,16 @@ public class Board {
 		if (newLimit <= 0 || newLimit > MAX_RECT_CAPACITY) {
 			throw new IllegalArgumentException("長方形の上限は 1〜" + MAX_RECT_CAPACITY + " までです");
 		}
-		this.rectLimit = newLimit;
+		this.softLimit = newLimit;
 	}
 
-	public int getMaxRectCapacity() {
-		return MAX_RECT_CAPACITY;
+	public boolean hasCapacity() {
+		return rectangles.size() < softLimit;
+	}
+
+	public boolean fitsWithinBoard(Rect rect) {
+		return rect.getX() + rect.getWidth() <= width
+				&& rect.getY() + rect.getHeight() <= height;
 	}
 
 }

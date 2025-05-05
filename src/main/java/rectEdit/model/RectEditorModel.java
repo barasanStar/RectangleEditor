@@ -9,12 +9,14 @@ import rectEdit.service.BoardService;
 
 public class RectEditorModel {
 	private final Board board;
+	private final BoardService boardService;
 	private final SelectionManager selectionManager;
 	private final HistoryManager historyManager;
 	private final List<RectEditorModelListener> listeners = new ArrayList<>();
 
 	public RectEditorModel() {
 		this.board = new Board();
+		this.boardService = new BoardService();
 		this.selectionManager = new SelectionManager();
 		this.historyManager = new HistoryManager(board, selectionManager);
 	}
@@ -41,16 +43,24 @@ public class RectEditorModel {
 	}
 
 	// --- Board操作の委譲 ---
-	public boolean addRect(Rect rect) {
-		if (BoardService.addRectIfValid(board, rect)) {
-			notifyRectsChanged("[通知]長方形を追加: " + rect.toString());
-			return true;
+	public boolean tryAddRect(Rect rect) {
+		try {
+			if (boardService.tryAddRect(board, rect)) {
+				notifyRectsChanged("[通知]長方形を追加: " + rect.toString());
+				return true;
+			}
+		} catch (IllegalArgumentException ex1) {
+			// 操作ログに出力するとともに、メッセージボックスに出したい。
+			System.out.println("ボード外に長方形がはみ出しています");
+		} catch (IllegalStateException ex2) {
+			// 操作ログに出力するとともに、メッセージボックスに出したい。
+			System.out.println("長方形個数上限に達しています");
 		}
 		return false;
 	}
 
 	public boolean removeRectById(int id) {
-		if (BoardService.removeRectById(board, id)) {
+		if (boardService.removeRectById(board, id)) {
 			notifyRectsChanged("[通知]長方形を削除。id: " + id);
 			return true;
 		}
@@ -58,7 +68,7 @@ public class RectEditorModel {
 	}
 
 	public boolean removeRect(Rect rect) {
-		if (BoardService.removeRect(board, rect)) {
+		if (boardService.removeRect(board, rect)) {
 			notifyRectsChanged("[通知]長方形を削除: " + rect.toString());
 			return true;
 		}
@@ -82,12 +92,13 @@ public class RectEditorModel {
 		return board.getHeight();
 	}
 
+	// 提供する必要があるか、要検討
 	public Board getBoard() {
 		return board;
 	}
 
 	public boolean setBoardSize(int newWidth, int newHeight) {
-		if (BoardService.canResizeBoard(board, newWidth, newHeight)) {
+		if (boardService.canResizeBoard(board, newWidth, newHeight)) {
 			board.setSize(newWidth, newHeight);
 			// 【TODO】何の通知を付けるべきか後ほど検討する。
 			return true;

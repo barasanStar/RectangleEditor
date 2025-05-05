@@ -21,7 +21,7 @@ public class BoardTest {
 	void testValidBoardCreation() {
 		assertEquals(500, board.getWidth());
 		assertEquals(400, board.getHeight());
-		assertEquals(10, board.getCurrentLimit());
+		assertEquals(10, board.getSoftLimit());
 	}
 
 	@Test
@@ -32,29 +32,28 @@ public class BoardTest {
 
 	@Test
 	void testAddRectUpToLimit() {
-		for (int i = 0; i < board.getCurrentLimit(); i++) {
-			board.addRect(RectFactory.create(i * 10, 0, 10, 10, Color.RED));
+		for (int i = 0; i < board.getSoftLimit(); i++) {
+			board.tryAddRect(RectFactory.create(i * 10, 0, 10, 10, Color.RED));
 		}
-		assertTrue(board.isFull());
+		assertFalse(board.hasCapacity());
 	}
 
 	@Test
-	void testAddRectBeyondLimitFailsLogically() {
-		for (int i = 0; i < board.getCurrentLimit(); i++) {
-			board.addRect(RectFactory.create(i * 10, 0, 10, 10, Color.RED));
+	void 上限を超える長方形を追加しようとすると例外スロー() {
+		for (int i = 0; i < board.getSoftLimit(); i++) {
+			board.tryAddRect(RectFactory.create(i * 10, 0, 10, 10, Color.RED));
 		}
-		assertTrue(board.isFull());
+		assertFalse(board.hasCapacity());
 
-		// ロジック的に full なので追加してはいけない（addRect 自体は制限していない点に注意）
 		Rect extra = RectFactory.create(0, 0, 10, 10, Color.BLUE);
-		board.addRect(extra); // 意図的に制限を無視した場合
-		assertEquals(board.getCurrentLimit() + 1, board.getRectanglesReadOnly().size()); // ただし追加される
+		assertThrows(IllegalStateException.class, () -> board.tryAddRect(extra));
+		assertEquals(board.getSoftLimit(), board.getCurrentRectsCount());
 	}
 
 	@Test
 	void testSetRectLimitValidAndInvalid() {
 		board.setRectLimit(15);
-		assertEquals(15, board.getCurrentLimit());
+		assertEquals(15, board.getSoftLimit());
 
 		assertThrows(IllegalArgumentException.class, () -> board.setRectLimit(0));
 		assertThrows(IllegalArgumentException.class, () -> board.setRectLimit(100)); // MAX=20
@@ -78,8 +77,8 @@ public class BoardTest {
 	void testRemoveRectById() {
 		Rect r1 = RectFactory.create(0, 0, 10, 10, Color.RED);
 		Rect r2 = RectFactory.create(20, 0, 10, 10, Color.BLUE);
-		board.addRect(r1);
-		board.addRect(r2);
+		board.tryAddRect(r1);
+		board.tryAddRect(r2);
 
 		assertTrue(board.removeRectById(r1.getId()));
 		assertFalse(board.getRectanglesReadOnly().contains(r1));
@@ -92,8 +91,8 @@ public class BoardTest {
 	void testRemoveRect() {
 		Rect r1 = RectFactory.create(0, 0, 10, 10, Color.RED);
 		Rect r2 = RectFactory.create(20, 0, 10, 10, Color.BLUE);
-		board.addRect(r1);
-		board.addRect(r2);
+		board.tryAddRect(r1);
+		board.tryAddRect(r2);
 
 		assertTrue(board.removeRect(r1));
 		assertFalse(board.getRectanglesReadOnly().contains(r1));
@@ -104,8 +103,8 @@ public class BoardTest {
 
 	@Test
 	void testClearAllRects() {
-		board.addRect(RectFactory.create(0, 0, 10, 10, Color.RED));
-		board.addRect(RectFactory.create(10, 10, 20, 20, Color.BLUE));
+		board.tryAddRect(RectFactory.create(0, 0, 10, 10, Color.RED));
+		board.tryAddRect(RectFactory.create(10, 10, 20, 20, Color.BLUE));
 
 		board.clearAllRects();
 		assertTrue(board.getRectanglesReadOnly().isEmpty());
@@ -115,8 +114,8 @@ public class BoardTest {
 	void 削除されていない長方形データを取り出せる() {
 		Rect r0 = RectFactory.create(0, 0, 10, 10, Color.RED);
 		Rect r1 = RectFactory.create(0, 0, 20, 30, Color.BLUE);
-		board.addRect(r0);
-		board.addRect(r1);
+		board.tryAddRect(r0);
+		board.tryAddRect(r1);
 		board.removeRectById(0);
 		Rect rect0 = board.findById(0);
 		assertEquals(null, rect0);

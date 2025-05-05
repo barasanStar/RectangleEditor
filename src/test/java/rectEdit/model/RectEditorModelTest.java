@@ -20,7 +20,7 @@ public class RectEditorModelTest {
 	@Test
 	public void testAddRectangle() {
 		Rect rect = new Rect(0, 1, 1, 3, 3, Color.RED);
-		boolean result = model.addRect(rect);
+		boolean result = model.tryAddRect(rect);
 
 		assertTrue(result);
 		assertEquals(1, model.getRectanglesReadOnly().size());
@@ -30,7 +30,7 @@ public class RectEditorModelTest {
 	@Test
 	public void testAddRectangleOutOfBounds() {
 		Rect rect = new Rect(0, 8, 8, 500, 5, Color.BLUE); // はみ出す
-		boolean result = model.addRect(rect);
+		boolean result = model.tryAddRect(rect);
 
 		assertFalse(result);
 		assertTrue(model.getRectanglesReadOnly().isEmpty());
@@ -39,7 +39,7 @@ public class RectEditorModelTest {
 	@Test
 	public void testRemoveRectangle() {
 		Rect rect = new Rect(0, 2, 2, 3, 3, Color.BLACK);
-		model.addRect(rect);
+		model.tryAddRect(rect);
 		boolean removed = model.removeRect(rect);
 
 		assertTrue(removed);
@@ -50,7 +50,7 @@ public class RectEditorModelTest {
 	public void testUndoRedo() {
 		Rect rect = new Rect(0, 0, 0, 2, 2, Color.GREEN);
 		model.pushSnapshot(); // スナップショット保存
-		model.addRect(rect);
+		model.tryAddRect(rect);
 
 		model.pushSnapshot(); // スナップショット保存
 		model.removeRect(rect); // 状態変更
@@ -66,7 +66,7 @@ public class RectEditorModelTest {
 	@Test
 	public void testSetBoardSizeWhenFits() {
 		Rect rect = new Rect(0, 1, 1, 3, 3, Color.GRAY);
-		model.addRect(rect);
+		model.tryAddRect(rect);
 
 		boolean result = model.setBoardSize(5, 5); // 十分収まる
 		assertTrue(result);
@@ -77,7 +77,7 @@ public class RectEditorModelTest {
 	@Test
 	public void testSetBoardSizeTooSmall() {
 		Rect rect = new Rect(0, 1, 1, 6, 6, Color.ORANGE);
-		model.addRect(rect);
+		model.tryAddRect(rect);
 
 		boolean result = model.setBoardSize(5, 5); // 収まらない
 		assertFalse(result);

@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Point;
 import java.util.Objects;
 
+/**
+ * 長方形を定義する責務。
+ */
 public final class Rect {
 	private final int id;
 	private final int x, y, width, height;
