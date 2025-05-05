@@ -22,7 +22,7 @@ public class RectEditorWindow {
 		frame.setContentPane(view); // JPanelとして追加
 		frame.pack();
 		frame.setLocationRelativeTo(null);
-		frame.setSize(900, 700);
+		frame.setSize(1000, 700);
 		frame.setIconImage(icon);
 		frame.setJMenuBar(MenuBarBuilder.build(controller));
 	}

@@ -13,8 +13,8 @@ public class RectEditorModel {
 	private final HistoryManager historyManager;
 	private final List<RectEditorModelListener> listeners = new ArrayList<>();
 
-	public RectEditorModel(int width, int height) {
-		this.board = new Board(width, height);
+	public RectEditorModel() {
+		this.board = new Board();
 		this.selectionManager = new SelectionManager();
 		this.historyManager = new HistoryManager(board, selectionManager);
 	}
@@ -28,16 +28,16 @@ public class RectEditorModel {
 		listeners.remove(listener);
 	}
 
-	private void notifyRectsChanged() {
+	private void notifyRectsChanged(String operationLogMessage) {
 		for (RectEditorModelListener listener : listeners) {
-			listener.onRectsChanged();
+			listener.onRectsChanged(operationLogMessage);
 		}
 	}
 
 	// --- Board操作の委譲 ---
 	public boolean addRect(Rect rect) {
 		if (BoardService.addRectIfValid(board, rect)) {
-			notifyRectsChanged();
+			notifyRectsChanged("[通知]長方形を追加: " + rect.toString());
 			return true;
 		}
 		return false;
@@ -45,7 +45,7 @@ public class RectEditorModel {
 
 	public boolean removeRectById(int id) {
 		if (BoardService.removeRectById(board, id)) {
-			notifyRectsChanged();
+			notifyRectsChanged("[通知]長方形を削除。id: " + id);
 			return true;
 		}
 		return false;
@@ -53,14 +53,14 @@ public class RectEditorModel {
 
 	public boolean removeRect(Rect rect) {
 		if (BoardService.removeRect(board, rect)) {
-			notifyRectsChanged();
+			notifyRectsChanged("[通知]長方形を削除: " + rect.toString());
 			return true;
 		}
 		return false;
 	}
 
-	public List<Rect> getRectangles() {
-		return board.getRectangles();
+	public List<Rect> getRectanglesReadOnly() {
+		return board.getRectanglesReadOnly();
 	}
 
 	public int getBoardWidth() {
@@ -108,12 +108,12 @@ public class RectEditorModel {
 
 	public void undo() {
 		historyManager.undo();
-		notifyRectsChanged();
+		notifyRectsChanged("[通知]undoしました");
 	}
 
 	public void redo() {
 		historyManager.redo();
-		notifyRectsChanged();
+		notifyRectsChanged("[通知]redoしました");
 	}
 
 	public boolean canUndo() {

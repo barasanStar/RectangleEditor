@@ -13,4 +13,8 @@ public class RectEditorController {
 		registry.get("createA").execute();
 	}
 
+	public void handleCreateRectB() {
+		registry.get("createB").execute();
+	}
+
 }

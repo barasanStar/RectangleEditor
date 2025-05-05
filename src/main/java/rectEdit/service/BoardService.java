@@ -18,7 +18,7 @@ public class BoardService {
 		if (newWidth > Board.MAX_WIDTH || newHeight > Board.MAX_HEIGHT) {
 			return false;
 		}
-		for (Rect r : board.getRectangles()) {
+		for (Rect r : board.getRectanglesReadOnly()) {
 			if (!canPlace(new Board(newWidth, newHeight), r)) {
 				return false;
 			}

@@ -23,8 +23,8 @@ public class RectEditorModelTest {
 		boolean result = model.addRect(rect);
 
 		assertTrue(result);
-		assertEquals(1, model.getRectangles().size());
-		assertEquals(rect, model.getRectangles().get(0));
+		assertEquals(1, model.getRectanglesReadOnly().size());
+		assertEquals(rect, model.getRectanglesReadOnly().get(0));
 	}
 
 	@Test
@@ -33,7 +33,7 @@ public class RectEditorModelTest {
 		boolean result = model.addRect(rect);
 
 		assertFalse(result);
-		assertTrue(model.getRectangles().isEmpty());
+		assertTrue(model.getRectanglesReadOnly().isEmpty());
 	}
 
 	@Test
@@ -43,7 +43,7 @@ public class RectEditorModelTest {
 		boolean removed = model.removeRect(rect);
 
 		assertTrue(removed);
-		assertTrue(model.getRectangles().isEmpty());
+		assertTrue(model.getRectanglesReadOnly().isEmpty());
 	}
 
 	// このあたりのスナップショットの保存のタイミングや失敗ケアのロジックがあやしい。
@@ -54,13 +54,13 @@ public class RectEditorModelTest {
 		model.pushSnapshot(); // スナップショット保存
 
 		model.removeRect(rect); // 状態変更
-		assertEquals(0, model.getRectangles().size());
+		assertEquals(0, model.getRectanglesReadOnly().size());
 
 		model.undo(); // 元に戻す
-		assertEquals(1, model.getRectangles().size());
+		assertEquals(1, model.getRectanglesReadOnly().size());
 
 		model.redo(); // 再実行
-		assertEquals(0, model.getRectangles().size());
+		assertEquals(0, model.getRectanglesReadOnly().size());
 	}
 
 	@Test

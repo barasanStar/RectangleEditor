@@ -48,7 +48,7 @@ public class BoardTest {
 		// ロジック的に full なので追加してはいけない（addRect 自体は制限していない点に注意）
 		Rect extra = RectFactory.create(0, 0, 10, 10, Color.BLUE);
 		board.addRect(extra); // 意図的に制限を無視した場合
-		assertEquals(board.getCurrentLimit() + 1, board.getRectangles().size()); // ただし追加される
+		assertEquals(board.getCurrentLimit() + 1, board.getRectanglesReadOnly().size()); // ただし追加される
 	}
 
 	@Test
@@ -82,8 +82,8 @@ public class BoardTest {
 		board.addRect(r2);
 
 		assertTrue(board.removeRectById(r1.getId()));
-		assertFalse(board.getRectangles().contains(r1));
-		assertTrue(board.getRectangles().contains(r2));
+		assertFalse(board.getRectanglesReadOnly().contains(r1));
+		assertTrue(board.getRectanglesReadOnly().contains(r2));
 
 		assertFalse(board.removeRectById(999)); // 存在しないID
 	}
@@ -96,8 +96,8 @@ public class BoardTest {
 		board.addRect(r2);
 
 		assertTrue(board.removeRect(r1));
-		assertFalse(board.getRectangles().contains(r1));
-		assertTrue(board.getRectangles().contains(r2));
+		assertFalse(board.getRectanglesReadOnly().contains(r1));
+		assertTrue(board.getRectanglesReadOnly().contains(r2));
 
 		assertFalse(board.removeRect(r1)); // 存在しないrect
 	}
@@ -108,7 +108,7 @@ public class BoardTest {
 		board.addRect(RectFactory.create(10, 10, 20, 20, Color.BLUE));
 
 		board.clearAllRects();
-		assertTrue(board.getRectangles().isEmpty());
+		assertTrue(board.getRectanglesReadOnly().isEmpty());
 	}
 
 	@Test

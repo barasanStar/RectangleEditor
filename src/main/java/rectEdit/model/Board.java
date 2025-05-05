@@ -73,13 +73,13 @@ public class Board {
 		rectangles.clear();
 	}
 
-	// 長方形一覧（書き換え防止コピー）
-	public List<Rect> getRectanglesCopy() {
+	// 長方形一覧（読み取り専用）
+	public List<Rect> getRectanglesReadOnly() {
 		return Collections.unmodifiableList(new ArrayList<>(rectangles));
 	}
 
-	// 直接リストにアクセスさせたい場合（サービス層専用）
-	public List<Rect> getRectangles() {
+	// 長方形一覧（変更可能。サービス層専用）
+	public List<Rect> getRectanglesReWritable() {
 		return rectangles;
 	}
 

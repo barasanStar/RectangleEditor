@@ -66,7 +66,7 @@ public final class Rect {
 
 	@Override
 	public String toString() {
-		return "Rect[id:" + id + "]{w:" + width + ",h:" + height + ",x:" + x + ",y:" + y +
+		return "Rect[id:" + id + "]{x:" + x + ",y:" + y + ",w:" + width + ",h:" + height +
 				",RGB(" + color.getRed() + "," + color.getGreen() + "," + color.getBlue() + ")}";
 	}
 }

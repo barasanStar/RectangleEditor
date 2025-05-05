@@ -13,7 +13,7 @@ public class ActionMenuBuilder {
 		JMenuItem createBItem = new JMenuItem("定型長方形B作成");
 
 		createAItem.addActionListener(e -> controller.handleCreateRectA());
-		// createBItem.addActionListener(e -> controller.handleCreateRectB());
+		createBItem.addActionListener(e -> controller.handleCreateRectB());
 
 		actionMenu.add(createAItem);
 		actionMenu.add(createBItem);

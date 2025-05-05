@@ -7,6 +7,7 @@ import javax.swing.UIManager;
 
 import rectEdit.controller.RectEditorController;
 import rectEdit.handler.CreateRectAHandler;
+import rectEdit.handler.CreateRectBHandler;
 import rectEdit.handler.HandlerRegistry;
 import rectEdit.model.RectEditorModel;
 
@@ -17,7 +18,7 @@ public class RectEditorLauncher {
 			setGlobalUIFont(new Font("Meiryo", Font.BOLD, 14));
 
 			// モデルの生成（他はモデルに依存しているので、先に作る！）
-			RectEditorModel model = new RectEditorModel(500, 500);
+			RectEditorModel model = new RectEditorModel();
 
 			// ハンドラ登録
 			HandlerRegistry registry = new HandlerRegistry();
@@ -28,6 +29,7 @@ public class RectEditorLauncher {
 			// View + Window の生成
 			RectEditorWindow window = new RectEditorWindow(model, controller);
 			registry.register("createA", new CreateRectAHandler(model, window.getView()));
+			registry.register("createB", new CreateRectBHandler(model, window.getView()));
 
 			// リスナー登録
 			model.addListener(window.getView());

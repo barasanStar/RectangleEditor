@@ -22,13 +22,13 @@ public class Snapshot {
 	public static Snapshot capture(Board board, SelectionManager selection) {
 		// Rect は不変なので浅いコピーでOK
 		return new Snapshot(
-				new ArrayList<>(board.getRectangles()),
+				new ArrayList<>(board.getRectanglesReadOnly()),
 				new HashSet<>(selection.getSelectedIds()));
 	}
 
 	public void restoreTo(Board board, SelectionManager selection) {
-		board.getRectangles().clear();
-		board.getRectangles().addAll(rectCopies);
+		board.getRectanglesReadOnly().clear();
+		board.getRectanglesReadOnly().addAll(rectCopies);
 		selection.setSelectedIds(selectedIdCopy);
 	}
 }

@@ -1,7 +1,7 @@
 package rectEdit.model;
 
 public interface RectEditorModelListener {
-	void onRectsChanged();
+	void onRectsChanged(String operationLogMessage);
 
 	void onSelectionChanged();
 }
