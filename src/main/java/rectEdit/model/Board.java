@@ -142,8 +142,8 @@ public class Board {
 	}
 
 	public boolean fitsWithinBoard(Rect rect) {
-		return rect.getX() + rect.getWidth() <= width
-				&& rect.getY() + rect.getHeight() <= height;
+		return rect.getX() + rect.getWidth() <= width &&
+				rect.getY() + rect.getHeight() <= height;
 	}
 
 }

@@ -45,15 +45,18 @@ public class RectEditorModel {
 	// --- Board操作の委譲 ---
 	public boolean tryAddRect(Rect rect) {
 		try {
-			if (boardService.tryAddRect(board, rect)) {
-				notifyRectsChanged("[通知]長方形を追加: " + rect.toString());
+			boolean added = boardService.tryAddRect(board, rect);
+			if (added) {
+				selectionManager.selectOnly(rect.getId()); // 選択状態を更新
+				notifyRectsChanged("[通知]長方形を追加: " + rect.toString() + "（選択状態も更新）");
 				return true;
+			} else {
+				removeLatestSnapshot();
+				System.out.println("長方形Aの作成に失敗（範囲外）"); // ViewではなくListenerで通知すべき
 			}
 		} catch (IllegalArgumentException ex1) {
-			// 操作ログに出力するとともに、メッセージボックスに出したい。
-			System.out.println("ボード外に長方形がはみ出しています");
+			System.out.println("ボード外に長方形がはみ出しています"); // 【TODO】操作ログ、MsgBox
 		} catch (IllegalStateException ex2) {
-			// 操作ログに出力するとともに、メッセージボックスに出したい。
 			System.out.println("長方形個数上限に達しています");
 		}
 		return false;
