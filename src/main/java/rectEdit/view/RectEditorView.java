@@ -21,7 +21,7 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 		setLayout(new BorderLayout());
 
 		boardPanel = new BoardPanel(model);
-		rectListPanel = new RectListPanel();
+		rectListPanel = new RectListPanel(model);
 		logPanel = new LogPanel();
 
 		// 分割ビュー（左側：キャンバス、右側：長方形一覧）
@@ -31,7 +31,6 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 		add(new JScrollPane(logPanel), BorderLayout.SOUTH);
 	}
 
-	// Viewの更新APIなどもこちらに集約できる
 	public void appendLog(String message) {
 		logPanel.appendLog(message);
 	}
@@ -40,13 +39,12 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 	public void onRectsChanged(String operationLogMessage) {
 		boardPanel.update(model.getRectanglesReadOnly(), model.getSelectionManager().getSelectedIds());
 		rectListPanel.setRectangleList(model.getRectanglesReadOnly());
-		logPanel.appendLog(operationLogMessage);
+		logPanel.appendLog("View#onRectsChanged: " + operationLogMessage);
 	}
 
 	@Override
 	public void onSelectionChanged(String operationLogMessage) {
-		logPanel.appendLog("■これはどこで呼ばれる？？■" + operationLogMessage);
-		// 選択状態を更新。再描画。
+		logPanel.appendLog("View#onSelectionChanged: " + operationLogMessage);
 		boardPanel.updateSelectionOnly(model.getSelectionManager().getSelectedIds());
 	}
 }

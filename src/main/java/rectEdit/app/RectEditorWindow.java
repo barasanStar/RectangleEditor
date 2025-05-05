@@ -24,7 +24,7 @@ public class RectEditorWindow {
 		frame.setLocationRelativeTo(null);
 		frame.setSize(1000, 700);
 		frame.setIconImage(icon);
-		frame.setJMenuBar(MenuBarBuilder.build(controller));
+		frame.setJMenuBar(MenuBarBuilder.build(model, controller));
 	}
 
 	public void show() {

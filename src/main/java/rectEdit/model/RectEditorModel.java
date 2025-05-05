@@ -30,13 +30,13 @@ public class RectEditorModel {
 		listeners.remove(listener);
 	}
 
-	private void notifyRectsChanged(String operationLogMessage) {
+	public void notifyRectsChanged(String operationLogMessage) {
 		for (RectEditorModelListener listener : listeners) {
 			listener.onRectsChanged(operationLogMessage);
 		}
 	}
 
-	private void notifySelectionChanged(String operationLogMessage) {
+	public void notifySelectionChanged(String operationLogMessage) {
 		for (RectEditorModelListener listener : listeners) {
 			listener.onSelectionChanged(operationLogMessage);
 		}
@@ -80,6 +80,10 @@ public class RectEditorModel {
 
 	public List<Rect> getRectanglesReadOnly() {
 		return board.getRectanglesReadOnly();
+	}
+
+	public List<Rect> getRectanglesForMutation() {
+		return board.getRectanglesForMutation();
 	}
 
 	// 今の長方形個数を返す
