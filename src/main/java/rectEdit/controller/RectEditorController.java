@@ -1,5 +1,6 @@
 package rectEdit.controller;
 
+import rectEdit.handler.ActionKey;
 import rectEdit.handler.HandlerRegistry;
 
 public class RectEditorController {
@@ -10,11 +11,11 @@ public class RectEditorController {
 	}
 
 	public void handleCreateRectA() {
-		registry.get("createA").execute();
+		registry.get(ActionKey.CREATE_RECT_A).execute();
 	}
 
 	public void handleCreateRectB() {
-		registry.get("createB").execute();
+		registry.get(ActionKey.CREATE_RECT_B).execute();
 	}
 
 }

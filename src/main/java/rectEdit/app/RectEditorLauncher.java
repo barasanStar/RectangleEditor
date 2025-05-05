@@ -6,6 +6,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import rectEdit.controller.RectEditorController;
+import rectEdit.handler.ActionKey;
 import rectEdit.handler.CreateRectAHandler;
 import rectEdit.handler.CreateRectBHandler;
 import rectEdit.handler.HandlerRegistry;
@@ -28,8 +29,8 @@ public class RectEditorLauncher {
 
 			// View + Window の生成
 			RectEditorWindow window = new RectEditorWindow(model, controller);
-			registry.register("createA", new CreateRectAHandler(model, window.getView()));
-			registry.register("createB", new CreateRectBHandler(model, window.getView()));
+			registry.register(ActionKey.CREATE_RECT_A, new CreateRectAHandler(model, window.getView()));
+			registry.register(ActionKey.CREATE_RECT_B, new CreateRectBHandler(model, window.getView()));
 
 			// リスナー登録
 			model.addListener(window.getView());
