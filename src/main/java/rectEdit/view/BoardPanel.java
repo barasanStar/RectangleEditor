@@ -52,8 +52,7 @@ public class BoardPanel extends JPanel {
 	}
 
 	public void updateSelectionOnly(Set<Integer> selectedIds) {
-		this.selectedIds = selectedIds; // 内部フィールドに代入
-		System.out.println("BoardPanel#updateSelectionOnlyです。");
+		this.selectedIds = selectedIds;
 		repaint(); // 再描画
 	}
 
@@ -70,8 +69,8 @@ public class BoardPanel extends JPanel {
 	}
 
 	private boolean containsPoint(Rect r, int x, int y) {
-		return x >= r.getX() && x <= r.getX() + r.getWidth()
-				&& y >= r.getY() && y <= r.getY() + r.getHeight();
+		return x >= r.getX() && x <= r.getX() + r.getWidth() &&
+				y >= r.getY() && y <= r.getY() + r.getHeight();
 	}
 
 	@Override
@@ -86,15 +85,12 @@ public class BoardPanel extends JPanel {
 
 			// 枠線
 			if (selectedIds.contains(rect.getId())) {
-				// 強調
 				g2.setColor(Color.RED);
-				g2.setStroke(new BasicStroke(3));
+				g2.setStroke(new BasicStroke(3)); // 強調
 			} else {
-				// 通常
 				g2.setColor(Color.BLACK);
-				g2.setStroke(new BasicStroke(1));
+				g2.setStroke(new BasicStroke(1)); // 通常
 			}
-
 			g2.drawRect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
 		}
 	}
