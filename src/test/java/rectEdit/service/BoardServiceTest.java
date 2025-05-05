@@ -104,7 +104,7 @@ public class BoardServiceTest {
 		Rect rect = RectFactory.create(0, 0, 10, 10, Color.RED);
 		board.addRect(rect);
 		BoardService.removeRectById(board, rect.getId());
-		assertTrue(board.getRectangles().isEmpty());
+		assertTrue(board.getRectanglesReadOnly().isEmpty());
 	}
 
 	@Test
@@ -112,6 +112,6 @@ public class BoardServiceTest {
 		board.addRect(RectFactory.create(0, 0, 10, 10, Color.RED));
 		board.addRect(RectFactory.create(0, 0, 20, 20, Color.BLUE));
 		BoardService.clearBoard(board);
-		assertEquals(0, board.getRectangles().size());
+		assertEquals(0, board.getRectanglesReadOnly().size());
 	}
 }

@@ -7,11 +7,11 @@ import rectEdit.model.RectEditorModel;
 import rectEdit.model.RectFactory;
 import rectEdit.view.RectEditorView;
 
-public class CreateRectAHandler implements ActionHandler {
+public class CreateRectBHandler implements ActionHandler {
 	private final RectEditorModel model;
 	private final RectEditorView view;
 
-	public CreateRectAHandler(RectEditorModel model, RectEditorView view) {
+	public CreateRectBHandler(RectEditorModel model, RectEditorView view) {
 		this.model = model;
 		this.view = view;
 	}
@@ -19,7 +19,7 @@ public class CreateRectAHandler implements ActionHandler {
 	@Override
 	public void execute() {
 		model.pushSnapshot(); // Undo/Redoのために、操作前にスナップショット保存
-		Rect rect = RectFactory.create(5, 10, 100, 120, Color.BLUE);
+		Rect rect = RectFactory.create(50, 50, 100, 40, Color.GREEN);
 
 		boolean added = model.addRect(rect);
 		if (added) {
@@ -31,7 +31,7 @@ public class CreateRectAHandler implements ActionHandler {
 
 		} else {
 			model.removeLatestSnapshot();
-			view.appendLog("長方形Aの作成に失敗（範囲外）");
+			view.appendLog("長方形Bの作成に失敗（範囲外）");
 		}
 	}
 
