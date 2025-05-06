@@ -126,7 +126,6 @@ public class RectEditorModel {
 		return board.getHeight();
 	}
 
-	// 提供する必要があるか、要検討
 	public Board getBoard() {
 		return board;
 	}

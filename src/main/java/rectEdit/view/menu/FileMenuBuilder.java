@@ -4,19 +4,20 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import rectEdit.controller.RectEditorController;
+import rectEdit.handler.ActionKey;
 
 public class FileMenuBuilder {
 	public static JMenu build(RectEditorController controller) {
 		JMenu fileMenu = new JMenu("ファイル");
 
-		JMenuItem saveItem = new JMenuItem("ボードを保存");
-		JMenuItem loadItem = new JMenuItem("ボードを開く");
+		JMenuItem saveToTextItem = new JMenuItem(ActionKey.SAVE_TO_TEXT.getDisplayName());
+		//		JMenuItem loadItem = new JMenuItem("ボードを開く");
 
-		// saveItem.addActionListener(e -> controller.handleSaveBoard());
+		saveToTextItem.addActionListener(e -> controller.handleSaveToText());
 		// loadItem.addActionListener(e -> controller.handleLoadBoard());
 
-		fileMenu.add(saveItem);
-		fileMenu.add(loadItem);
+		fileMenu.add(saveToTextItem);
+		//		fileMenu.add(loadItem);
 
 		return fileMenu;
 	}

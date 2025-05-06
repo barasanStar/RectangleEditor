@@ -8,14 +8,15 @@ import javax.swing.UIManager;
 import rectEdit.controller.RectEditorController;
 import rectEdit.handler.ActionKey;
 import rectEdit.handler.ChangeColorHandler;
-import rectEdit.handler.CreateAActionHandler;
-import rectEdit.handler.CreateBActionHandler;
-import rectEdit.handler.CreateRandomActionHandler;
-import rectEdit.handler.DeleteActionHandler;
-import rectEdit.handler.DeleteAllActionHandler;
-import rectEdit.handler.ExpandActionHandler;
+import rectEdit.handler.CreateAHandler;
+import rectEdit.handler.CreateBHandler;
+import rectEdit.handler.CreateRandomHandler;
+import rectEdit.handler.DeleteAllHandler;
+import rectEdit.handler.DeleteHandler;
+import rectEdit.handler.ExpandHandler;
 import rectEdit.handler.HandlerRegistry;
-import rectEdit.handler.MoveActionHandler;
+import rectEdit.handler.MoveHandler;
+import rectEdit.handler.SaveToTextHandler;
 import rectEdit.model.RectEditorModel;
 
 public class RectEditorLauncher {
@@ -37,13 +38,14 @@ public class RectEditorLauncher {
 			RectEditorWindow window = new RectEditorWindow(model, controller);
 
 			// ハンドラの登録
-			registry.register(ActionKey.CREATE_A, new CreateAActionHandler(model));
-			registry.register(ActionKey.CREATE_B, new CreateBActionHandler(model));
-			registry.register(ActionKey.CREATE_RANDOM, new CreateRandomActionHandler(model));
-			registry.register(ActionKey.DELETE, new DeleteActionHandler(model, window.getView()));
-			registry.register(ActionKey.DELETE_ALL, new DeleteAllActionHandler(model));
-			registry.register(ActionKey.MOVE, new MoveActionHandler(model, window.getView()));
-			registry.register(ActionKey.EXPAND, new ExpandActionHandler(model, window.getView()));
+			registry.register(ActionKey.SAVE_TO_TEXT, new SaveToTextHandler(model, window.getView()));
+			registry.register(ActionKey.CREATE_A, new CreateAHandler(model));
+			registry.register(ActionKey.CREATE_B, new CreateBHandler(model));
+			registry.register(ActionKey.CREATE_RANDOM, new CreateRandomHandler(model));
+			registry.register(ActionKey.DELETE, new DeleteHandler(model, window.getView()));
+			registry.register(ActionKey.DELETE_ALL, new DeleteAllHandler(model));
+			registry.register(ActionKey.MOVE, new MoveHandler(model, window.getView()));
+			registry.register(ActionKey.EXPAND, new ExpandHandler(model, window.getView()));
 			registry.register(ActionKey.COLOR, new ChangeColorHandler(model, window.getView()));
 
 			// リスナー登録

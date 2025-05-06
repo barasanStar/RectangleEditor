@@ -5,17 +5,17 @@ import java.util.Set;
 import rectEdit.model.RectEditorModel;
 import rectEdit.view.RectEditorView;
 
-public class DeleteActionHandler implements ActionHandler {
+public class DeleteHandler implements ActionHandler {
 	private final RectEditorModel model;
 	private final RectEditorView view;
 
-	public DeleteActionHandler(RectEditorModel model, RectEditorView view) {
+	public DeleteHandler(RectEditorModel model, RectEditorView view) {
 		this.model = model;
 		this.view = view;
 	}
 
 	@Override
-	public void execute() {
+	public void handle() {
 		Set<Integer> selected = model.getSelectedIds();
 		if (selected.isEmpty()) {
 			view.appendLog("削除対象が選択されていません。");

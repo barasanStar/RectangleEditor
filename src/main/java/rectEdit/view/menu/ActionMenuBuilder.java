@@ -31,8 +31,10 @@ public class ActionMenuBuilder {
 		actionMenu.add(createAItem);
 		actionMenu.add(createBItem);
 		actionMenu.add(createRandomItem);
+		actionMenu.addSeparator();
 		actionMenu.add(deleteItem);
 		actionMenu.add(deleteAllItem);
+		actionMenu.addSeparator();
 		actionMenu.add(moveItem);
 		actionMenu.add(expandItem);
 		actionMenu.add(colorItem);

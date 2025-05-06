@@ -6,17 +6,17 @@ import rectEdit.model.RectEditorModel;
 import rectEdit.service.RectService;
 import rectEdit.view.RectEditorView;
 
-public class MoveActionHandler implements ActionHandler {
+public class MoveHandler implements ActionHandler {
 	private final RectEditorModel model;
 	private final RectEditorView view;
 
-	public MoveActionHandler(RectEditorModel model, RectEditorView view) {
+	public MoveHandler(RectEditorModel model, RectEditorView view) {
 		this.model = model;
 		this.view = view;
 	}
 
 	@Override
-	public void execute() {
+	public void handle() {
 		if (model.getSelectionManager().getSelectedIds().isEmpty()) {
 			view.appendLog("移動対象が選択されていません");
 			return;

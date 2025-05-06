@@ -2,6 +2,7 @@ package rectEdit.view;
 
 import java.awt.BorderLayout;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -52,6 +53,13 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 	@Override
 	public void onSelectionChanged(String operationLogMessage) {
 		boardPanel.updateSelectionOnly(model.getSelectionManager().getSelectedIds());
+		updateSelectionDependentButtons(model.hasSelection());
 		logPanel.appendLog("View#onSelectionChanged: " + operationLogMessage);
+	}
+
+	public void updateSelectionDependentButtons(boolean hasSelection) {
+		for (JButton btn : ToolbarBuilder.selectionDependentButtons) {
+			btn.setEnabled(hasSelection);
+		}
 	}
 }
