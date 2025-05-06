@@ -97,11 +97,6 @@ public class BoardPanel extends JPanel {
 		return Optional.empty();
 	}
 
-	//	private boolean containsPoint(Rect r, int x, int y) {
-	//		return x >= r.getX() && x <= r.getX() + r.getWidth() &&
-	//				y >= r.getY() && y <= r.getY() + r.getHeight();
-	//	}
-
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
