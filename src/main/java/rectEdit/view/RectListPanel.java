@@ -20,11 +20,13 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
 
 import rectEdit.model.Rect;
 import rectEdit.model.RectEditorModel;
+import rectEdit.model.RectEditorModelListener;
 
-public class RectListPanel extends JPanel {
+public class RectListPanel extends JPanel implements RectEditorModelListener {
 	private final DefaultListModel<Rect> listModel;
 	private final JList<Rect> rectList;
 	private RectEditorModel model;
@@ -38,7 +40,10 @@ public class RectListPanel extends JPanel {
 		listModel = new DefaultListModel<>();
 		rectList = new JList<>(listModel);
 		rectList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+
+		// カスタムセルレンダラー：モデルの選択状態に応じた強調表示
 		rectList.setCellRenderer(new RectListCellRenderer());
+
 		add(new JScrollPane(rectList), BorderLayout.CENTER);
 
 		// 長方形一覧のマウス操作を拾えるように、マウスリスナーを追加
@@ -108,22 +113,46 @@ public class RectListPanel extends JPanel {
 				.collect(Collectors.toSet());
 	}
 
-	/**
-	 * カスタムセルレンダラ（表示形式の調整）
-	 */
-	private static class RectListCellRenderer extends DefaultListCellRenderer {
+	// 非staticにすることで model にアクセス可能
+	private class RectListCellRenderer extends DefaultListCellRenderer {
 		@Override
-		public Component getListCellRendererComponent(
-				JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-
+		public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+				boolean isSelected, boolean cellHasFocus) {
 			JLabel label = (JLabel) super.getListCellRendererComponent(
 					list, value, index, isSelected, cellHasFocus);
 
 			if (value instanceof Rect rect) {
 				label.setText(rect.toString());
+
+				Set<Integer> selectedIds = model.getSelectionManager().getSelectedIds();
+				if (selectedIds.contains(rect.getId())) {
+					// モデル側で選択されていれば強調表示
+					label.setBackground(list.getSelectionBackground());
+					label.setForeground(list.getSelectionForeground());
+					label.setBorder(UIManager.getBorder("List.focusCellHighlightBorder"));
+					label.setOpaque(true);
+				} else {
+					label.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+					label.setOpaque(true);
+				}
 			}
 
 			return label;
 		}
+	}
+
+	@Override
+	public void onRectsChanged(String operationLogMessage) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
+	@Override
+	public void onSelectionChanged(String operationLogMessage) {
+		// TODO 自動生成されたメソッド・スタブ
+		Set<Integer> selectedIds = model.getSelectionManager().getSelectedIds();
+		setSelectedIds(selectedIds); // JList の選択状態を反映
+		rectList.repaint(); // レンダラー強制再描画（重要！）
+		System.out.println("こんにちは");
 	}
 }
