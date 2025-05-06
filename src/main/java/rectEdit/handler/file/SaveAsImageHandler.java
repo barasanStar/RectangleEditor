@@ -1,4 +1,4 @@
-package rectEdit.handler;
+package rectEdit.handler.file;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -9,6 +9,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import rectEdit.handler.ActionHandler;
 import rectEdit.view.BoardPanel;
 import rectEdit.view.RectEditorView;
 

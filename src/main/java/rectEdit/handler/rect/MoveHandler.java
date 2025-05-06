@@ -1,7 +1,8 @@
-package rectEdit.handler;
+package rectEdit.handler.rect;
 
 import javax.swing.JOptionPane;
 
+import rectEdit.handler.ActionHandler;
 import rectEdit.model.RectEditorModel;
 import rectEdit.service.RectService;
 import rectEdit.view.RectEditorView;

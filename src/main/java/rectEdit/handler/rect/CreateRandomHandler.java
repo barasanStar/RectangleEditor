@@ -1,5 +1,6 @@
-package rectEdit.handler;
+package rectEdit.handler.rect;
 
+import rectEdit.handler.ActionHandler;
 import rectEdit.model.Rect;
 import rectEdit.model.RectEditorModel;
 import rectEdit.model.RectFactory;

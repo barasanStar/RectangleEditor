@@ -10,14 +10,14 @@ public class ActionMenuBuilder {
 	public static JMenu build(RectEditorController controller) {
 		JMenu actionMenu = new JMenu("操作");
 
-		JMenuItem createAItem = new JMenuItem(ActionKey.CREATE_A.getDisplayName());
-		JMenuItem createBItem = new JMenuItem(ActionKey.CREATE_B.getDisplayName());
-		JMenuItem createRandomItem = new JMenuItem(ActionKey.CREATE_RANDOM.getDisplayName());
-		JMenuItem deleteItem = new JMenuItem(ActionKey.DELETE.getDisplayName());
-		JMenuItem deleteAllItem = new JMenuItem(ActionKey.DELETE_ALL.getDisplayName());
-		JMenuItem moveItem = new JMenuItem(ActionKey.MOVE.getDisplayName());
-		JMenuItem expandItem = new JMenuItem(ActionKey.EXPAND.getDisplayName());
-		JMenuItem colorItem = new JMenuItem(ActionKey.COLOR.getDisplayName());
+		JMenuItem createAItem = new JMenuItem(ActionKey.CREATE_A);
+		JMenuItem createBItem = new JMenuItem(ActionKey.CREATE_B);
+		JMenuItem createRandomItem = new JMenuItem(ActionKey.CREATE_RANDOM);
+		JMenuItem deleteItem = new JMenuItem(ActionKey.DELETE);
+		JMenuItem deleteAllItem = new JMenuItem(ActionKey.DELETE_ALL);
+		JMenuItem moveItem = new JMenuItem(ActionKey.MOVE);
+		JMenuItem expandItem = new JMenuItem(ActionKey.EXPAND);
+		JMenuItem colorItem = new JMenuItem(ActionKey.COLOR);
 
 		createAItem.addActionListener(e -> controller.handleCreateA());
 		createBItem.addActionListener(e -> controller.handleCreateB());

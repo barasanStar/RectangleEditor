@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import rectEdit.handler.rect.CreateBHandler;
 import rectEdit.model.Rect;
 import rectEdit.model.RectEditorModel;
 
