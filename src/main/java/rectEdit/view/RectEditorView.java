@@ -2,7 +2,6 @@ package rectEdit.view;
 
 import java.awt.BorderLayout;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -11,6 +10,7 @@ import javax.swing.JToolBar;
 import rectEdit.controller.RectEditorController;
 import rectEdit.model.RectEditorModel;
 import rectEdit.model.RectEditorModelListener;
+import rectEdit.view.toolbar.ButtonStateManager;
 import rectEdit.view.toolbar.ToolbarBuilder;
 
 public class RectEditorView extends JPanel implements RectEditorModelListener {
@@ -18,17 +18,20 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 	private final BoardPanel boardPanel;
 	private final RectListPanel rectListPanel;
 	private final LogPanel logPanel;
+	private final ButtonStateManager buttonStateManager;
 
 	public RectEditorView(RectEditorModel model, RectEditorController controller) {
 		this.model = model;
 		setLayout(new BorderLayout());
+
+		this.buttonStateManager = new ButtonStateManager(model);
 
 		boardPanel = new BoardPanel(model);
 		rectListPanel = new RectListPanel(model);
 		logPanel = new LogPanel();
 
 		model.addListener(rectListPanel);
-		JToolBar toolBar = ToolbarBuilder.build(controller);
+		JToolBar toolBar = ToolbarBuilder.build(controller, buttonStateManager);
 		add(toolBar, BorderLayout.NORTH);
 
 		// 分割ビュー（左側：キャンバス、右側：長方形一覧）
@@ -38,7 +41,7 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 		add(new JScrollPane(logPanel), BorderLayout.SOUTH);
 
 		// アプリ起動時のボタン状態を設定。普段はモデル変更通知から呼ばれる。
-		updateButtonState();
+		buttonStateManager.updateAll();
 
 	}
 
@@ -54,7 +57,7 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 	public void onRectsChanged(String operationLogMessage) {
 		boardPanel.update(model.getRectanglesReadOnly(), model.getSelectionManager().getSelectedIds());
 		rectListPanel.setRectangleList(model.getRectanglesReadOnly());
-		updateButtonState();
+		buttonStateManager.updateAll();
 		logPanel.appendLog("View#onRectsChanged: " + operationLogMessage);
 	}
 
@@ -66,36 +69,8 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 	@Override
 	public void onSelectionChanged(String operationLogMessage) {
 		boardPanel.updateSelectionOnly(model.getSelectionManager().getSelectedIds());
-		updateButtonState();
+		buttonStateManager.updateAll();
 		logPanel.appendLog("View#onSelectionChanged: " + operationLogMessage);
 	}
 
-	public void updateButtonState() {
-		updateDeleteAllButton();
-		updateSelectionDependentButtons(model.hasSelection());
-		updateCreateButtons();
-		updateUndoRedoButtons();
-	}
-
-	private void updateDeleteAllButton() {
-		ToolbarBuilder.deleteAllButton.setEnabled(model.hasAnyRect());
-	}
-
-	private void updateSelectionDependentButtons(boolean hasSelection) {
-		for (JButton btn : ToolbarBuilder.selectionDependentButtons) {
-			btn.setEnabled(hasSelection);
-		}
-	}
-
-	private void updateCreateButtons() {
-		boolean belowSoftLimit = model.hasCapacity();
-		for (JButton btn : ToolbarBuilder.createButtons) {
-			btn.setEnabled(belowSoftLimit);
-		}
-	}
-
-	private void updateUndoRedoButtons() {
-		ToolbarBuilder.undoButton.setEnabled(model.canUndo());
-		ToolbarBuilder.redoButton.setEnabled(model.canRedo());
-	}
 }
