@@ -10,7 +10,7 @@ import rectEdit.service.BoardService;
 import rectEdit.service.RectService;
 
 public class RectEditorModel {
-	private final Board board;
+	private Board board;
 	private final BoardService boardService;
 	private final SelectionManager selectionManager;
 	private final HistoryManager historyManager;
@@ -215,4 +215,10 @@ public class RectEditorModel {
 		return historyManager.canRedo();
 	}
 
+	public void loadBoard(Board newBoard) {
+		this.board = newBoard;
+		selectionManager.clear();
+		historyManager.clear();
+		notifyRectsChanged("");
+	}
 }

@@ -34,7 +34,15 @@ public class Board {
 		this.height = 500;
 	}
 
-	// コンストラクタで幅と高さを変更可能。
+	public Board(int width, int height, List<Rect> loadRects) {
+		if (width <= 0 || width > MAX_WIDTH || height <= 0 || height > MAX_HEIGHT) {
+			throw new IllegalArgumentException("ボードサイズが制限を超えています");
+		}
+		this.width = width;
+		this.height = height;
+		rectangles = loadRects;
+	}
+
 	public Board(int width, int height) {
 		if (width <= 0 || width > MAX_WIDTH || height <= 0 || height > MAX_HEIGHT) {
 			throw new IllegalArgumentException("ボードサイズが制限を超えています");

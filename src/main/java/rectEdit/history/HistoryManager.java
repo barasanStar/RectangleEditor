@@ -63,4 +63,9 @@ public class HistoryManager {
 		undoStack.push(current);
 		next.restoreTo(board, selection);
 	}
+
+	public void clear() {
+		undoStack.clear();
+		redoStack.clear();
+	}
 }
