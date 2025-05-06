@@ -16,6 +16,14 @@ public class ToolbarBuilder {
 	public static JToolBar build(RectEditorController controller) {
 		JToolBar toolbar = new JToolBar();
 
+		JButton undoButton = new JButton("◀");
+		undoButton.addActionListener(e -> controller.handleUndo());
+		toolbar.add(undoButton);
+
+		JButton redoButton = new JButton("▶");
+		redoButton.addActionListener(e -> controller.handleRedo());
+		toolbar.add(redoButton);
+
 		JButton createAButton = new JButton(ActionKey.CREATE_A);
 		createAButton.addActionListener(e -> controller.handleCreateA());
 		toolbar.add(createAButton);

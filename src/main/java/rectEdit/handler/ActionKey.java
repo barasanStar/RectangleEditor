@@ -6,6 +6,10 @@ public class ActionKey {
 	public static final String SAVE_TO_TEXT = "ファイルへ保存";
 	public static final String SAVE_AS_IMAGE = "画像として保存";
 
+	// --- 編集系 ---
+	public static final String UNDO = "元に戻す";
+	public static final String REDO = "やり直し";
+
 	// --- 長方形操作系 ---
 	public static final String CREATE_A = "定型A作成";
 	public static final String CREATE_B = "定型B作成";
@@ -19,10 +23,6 @@ public class ActionKey {
 	public static final String Z_ORDER_BACK = "最背面へ";
 	public static final String Z_ORDER_FORWARD = "一つ前面へ";
 	public static final String Z_ORDER_BACKWARD = "一つ背面へ";
-
-	// --- その他の操作 ---
-	public static final String UNDO = "undo";
-	public static final String REDO = "redo";
 
 	// インスタンス化防止
 	private ActionKey() {

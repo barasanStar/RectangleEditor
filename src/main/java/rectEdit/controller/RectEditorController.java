@@ -10,6 +10,7 @@ public class RectEditorController {
 		this.registry = registry;
 	}
 
+	//--------------------- ファイル --------------------- 
 	public void handleLoadFromText() {
 		registry.get(ActionKey.LOAD_FROM_TEXT).handle();
 	}
@@ -22,6 +23,16 @@ public class RectEditorController {
 		registry.get(ActionKey.SAVE_AS_IMAGE).handle();
 	}
 
+	//--------------------- 編集 --------------------- 
+	public void handleUndo() {
+		registry.get(ActionKey.UNDO).handle();
+	}
+
+	public void handleRedo() {
+		registry.get(ActionKey.REDO).handle();
+	}
+
+	//--------------------- 操作 --------------------- 
 	public void handleCreateA() {
 		registry.get(ActionKey.CREATE_A).handle();
 	}
