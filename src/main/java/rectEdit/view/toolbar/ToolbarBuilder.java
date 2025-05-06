@@ -35,6 +35,10 @@ public class ToolbarBuilder {
 		moveButton.addActionListener(e -> controller.handleMove());
 		toolbar.add(moveButton);
 
+		JButton expandButton = new JButton(ActionKey.EXPAND.getDisplayName());
+		expandButton.addActionListener(e -> controller.handleExpand());
+		toolbar.add(expandButton);
+
 		return toolbar;
 	}
 }

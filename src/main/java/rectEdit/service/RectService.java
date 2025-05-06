@@ -52,7 +52,7 @@ public class RectService {
 	/**
 	 * 左上固定で拡大（あるいは縮小）した長方形を返す
 	 */
-	public static Rect scale(Rect rect, double factor) {
+	public static Rect expand(Rect rect, double factor) {
 		if (factor < 0) {
 			throw new IllegalArgumentException("拡大率は0.0より大きい必要があります: " + factor);
 		}
@@ -67,7 +67,7 @@ public class RectService {
 	/**
 	 * 左上固定で2軸それぞれ拡大（あるいは縮小）した長方形を返す
 	 */
-	public static Rect scaleTwoAxis(Rect rect, double factorX, double factorY) {
+	public static Rect expandTwoAxis(Rect rect, double factorX, double factorY) {
 		if (factorX < 0) {
 			throw new IllegalArgumentException("拡大率は0.0より大きい必要があります: " + factorX);
 		}
@@ -102,6 +102,31 @@ public class RectService {
 					return false; // 一つでもボード外に出るなら全体をキャンセル
 				}
 				updatedRects.add(moved);
+			} else {
+				updatedRects.add(rect); // 非選択はそのまま
+			}
+		}
+
+		model.replaceAll(updatedRects); // 全体を置き換え
+		return true;
+	}
+
+	/**
+	 * 選択された長方形を 倍率 factorだけ拡大・縮小する。
+	 * すべての拡大後・縮小後の長方形がボード内に収まる場合のみ、拡大・縮小を反映する。
+	 * @return 移動できた場合 true、そうでない場合 false
+	 */
+	public static boolean expandSelectedRects(RectEditorModel model, double factor) {
+		List<Rect> updatedRects = new ArrayList<>();
+		Set<Integer> selectedIds = model.getSelectedIds();
+
+		for (Rect rect : model.getRectanglesForMutation()) {
+			if (selectedIds.contains(rect.getId())) {
+				Rect expanded = expand(rect, factor);
+				if (!model.getBoard().fitsWithinBoard(expanded)) {
+					return false; // 一つでもボード外に出るなら全体をキャンセル
+				}
+				updatedRects.add(expanded);
 			} else {
 				updatedRects.add(rect); // 非選択はそのまま
 			}

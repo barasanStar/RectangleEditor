@@ -67,7 +67,7 @@ public class RectServiceTest {
 
 	@Test
 	void testScaleUp() {
-		Rect scaled = RectService.scale(rect, 1.5);
+		Rect scaled = RectService.expand(rect, 1.5);
 		assertEquals(75, scaled.getWidth()); // 50 * 1.5
 		assertEquals(90, scaled.getHeight()); // 60 * 1.5
 		assertEquals(100, scaled.getX()); // 位置は固定
@@ -76,7 +76,7 @@ public class RectServiceTest {
 
 	@Test
 	void testScaleDown() {
-		Rect scaled = RectService.scale(rect, 0.5);
+		Rect scaled = RectService.expand(rect, 0.5);
 		assertEquals(25, scaled.getWidth()); // 50 * 0.5
 		assertEquals(30, scaled.getHeight()); // 60 * 0.5
 	}
@@ -84,27 +84,27 @@ public class RectServiceTest {
 	@Test
 	void 倍率0もエラー() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			RectService.scale(rect, 0.0);
+			RectService.expand(rect, 0.0);
 		});
 	}
 
 	@Test
 	void 負の倍率はエラーとする() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			RectService.scale(rect, -1.0);
+			RectService.expand(rect, -1.0);
 		});
 	}
 
 	@Test
 	void 辺の長さのint表現が1未満の場合もエラーとする() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			RectService.scale(rect, 0.001);
+			RectService.expand(rect, 0.001);
 		});
 	}
 
 	@Test
 	void testScaleTwoAxis() {
-		Rect scaled = RectService.scaleTwoAxis(rect, 0.5, 1.5);
+		Rect scaled = RectService.expandTwoAxis(rect, 0.5, 1.5);
 		assertEquals(25, scaled.getWidth()); // 50 * 0.5
 		assertEquals(90, scaled.getHeight()); // 60 * 1.5
 	}
@@ -112,7 +112,7 @@ public class RectServiceTest {
 	@Test
 	void testScaleTwoAxis例外() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			RectService.scaleTwoAxis(rect, 0.001, 1.5);
+			RectService.expandTwoAxis(rect, 0.001, 1.5);
 		});
 	}
 

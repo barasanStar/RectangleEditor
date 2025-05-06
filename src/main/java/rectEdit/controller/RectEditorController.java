@@ -34,4 +34,8 @@ public class RectEditorController {
 		registry.get(ActionKey.MOVE).execute();
 	}
 
+	public void handleExpand() {
+		registry.get(ActionKey.EXPAND).execute();
+	}
+
 }
