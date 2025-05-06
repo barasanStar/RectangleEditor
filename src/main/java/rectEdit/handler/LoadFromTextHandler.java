@@ -20,14 +20,13 @@ public class LoadFromTextHandler implements ActionHandler {
 	public LoadFromTextHandler(RectEditorModel model, RectEditorView view) {
 		this.model = model;
 		this.view = view;
+		if (!baseDir.exists()) {
+			baseDir.mkdirs();
+		}
 	}
 
 	@Override
 	public void handle() {
-		if (!baseDir.exists()) {
-			baseDir.mkdirs();
-		}
-
 		JFileChooser chooser = new JFileChooser();
 		chooser.setCurrentDirectory(baseDir);
 		chooser.setFileFilter(new FileNameExtensionFilter("Text Files", "txt"));

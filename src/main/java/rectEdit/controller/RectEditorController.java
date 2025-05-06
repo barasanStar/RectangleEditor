@@ -18,6 +18,10 @@ public class RectEditorController {
 		registry.get(ActionKey.SAVE_TO_TEXT).handle();
 	}
 
+	public void handleSaveAsImage() {
+		registry.get(ActionKey.SAVE_AS_IMAGE).handle();
+	}
+
 	public void handleCreateA() {
 		registry.get(ActionKey.CREATE_A).handle();
 	}

@@ -10,14 +10,18 @@ public class FileMenuBuilder {
 	public static JMenu build(RectEditorController controller) {
 		JMenu fileMenu = new JMenu("ファイル");
 
-		JMenuItem saveToTextItem = new JMenuItem(ActionKey.SAVE_TO_TEXT.getDisplayName());
 		JMenuItem loadFromTextItem = new JMenuItem(ActionKey.LOAD_FROM_TEXT.getDisplayName());
+		JMenuItem saveToTextItem = new JMenuItem(ActionKey.SAVE_TO_TEXT.getDisplayName());
+		JMenuItem saveAsImageItem = new JMenuItem(ActionKey.SAVE_AS_IMAGE.getDisplayName());
 
-		saveToTextItem.addActionListener(e -> controller.handleSaveToText());
 		loadFromTextItem.addActionListener(e -> controller.handleLoadFromText());
+		saveToTextItem.addActionListener(e -> controller.handleSaveToText());
+		saveAsImageItem.addActionListener(e -> controller.handleSaveAsImage());
 
-		fileMenu.add(saveToTextItem);
 		fileMenu.add(loadFromTextItem);
+		fileMenu.add(saveToTextItem);
+		fileMenu.addSeparator();
+		fileMenu.add(saveAsImageItem);
 
 		return fileMenu;
 	}

@@ -8,12 +8,12 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import rectEdit.model.Rect;
@@ -32,9 +32,9 @@ public class BoardPanel extends JPanel {
 		int w = model.getBoardWidth();
 		int h = model.getBoardHeight();
 
-		setPreferredSize(new Dimension(w + 2, h + 2));
+		setPreferredSize(new Dimension(w, h));
 		setBackground(Color.WHITE);
-		setBorder(BorderFactory.createTitledBorder("Board"));
+		//		setBorder(BorderFactory.createTitledBorder("Board"));
 
 		// パネル上のマウス操作を拾えるように、マウスリスナーを追加
 		addMouseListener(new MouseAdapter() {
@@ -117,5 +117,15 @@ public class BoardPanel extends JPanel {
 			}
 			g2.drawRect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
 		}
+	}
+
+	public BufferedImage exportAsImage() {
+		int w = getWidth();
+		int h = getHeight();
+		BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2 = image.createGraphics();
+		paintAll(g2); // コンポーネント全体を描画
+		g2.dispose();
+		return image;
 	}
 }
