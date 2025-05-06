@@ -1,7 +1,8 @@
-package rectEdit.handler;
+package rectEdit.handler.rect;
 
 import java.util.Set;
 
+import rectEdit.handler.ActionHandler;
 import rectEdit.model.RectEditorModel;
 import rectEdit.view.RectEditorView;
 

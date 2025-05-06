@@ -1,5 +1,6 @@
-package rectEdit.handler;
+package rectEdit.handler.rect;
 
+import rectEdit.handler.ActionHandler;
 import rectEdit.model.RectEditorModel;
 
 public class DeleteAllHandler implements ActionHandler {

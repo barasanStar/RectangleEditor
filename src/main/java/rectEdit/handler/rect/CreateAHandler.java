@@ -1,22 +1,23 @@
-package rectEdit.handler;
+package rectEdit.handler.rect;
 
 import java.awt.Color;
 
+import rectEdit.handler.ActionHandler;
 import rectEdit.model.Rect;
 import rectEdit.model.RectEditorModel;
 import rectEdit.model.RectFactory;
 
-public class CreateBHandler implements ActionHandler {
+public class CreateAHandler implements ActionHandler {
 	private final RectEditorModel model;
 
-	public CreateBHandler(RectEditorModel model) {
+	public CreateAHandler(RectEditorModel model) {
 		this.model = model;
 	}
 
 	@Override
 	public void handle() {
 		model.pushSnapshot(); // Undo対応
-		Rect rect = RectFactory.create(50, 50, 80, 40, Color.GREEN);
+		Rect rect = RectFactory.create(5, 10, 100, 120, Color.BLUE);
 		model.tryAddRect(rect); // 真の時、モデル変更通知。
 	}
 }

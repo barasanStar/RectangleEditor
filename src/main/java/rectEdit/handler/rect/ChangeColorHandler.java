@@ -1,9 +1,10 @@
-package rectEdit.handler;
+package rectEdit.handler.rect;
 
 import java.awt.Color;
 
 import javax.swing.JColorChooser;
 
+import rectEdit.handler.ActionHandler;
 import rectEdit.model.RectEditorModel;
 import rectEdit.view.RectEditorView;
 
