@@ -2,6 +2,7 @@ package rectEdit.app;
 
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.AbstractAction;
@@ -33,13 +34,48 @@ public class RectEditorWindow {
 
 		// ESC キーで選択解除
 		frame.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-				KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "clearSelection");
+				KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+				"clearSelection");
 		frame.getRootPane().getActionMap().put("clearSelection", new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				model.clearSelection();
 			}
 		});
+
+		// Undo (Ctrl+Z)
+		frame.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+				KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK),
+				"undo");
+		frame.getRootPane().getActionMap().put("undo", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.handleUndo();
+			}
+		});
+
+		// Redo (Ctrl+Y)
+		frame.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+				KeyStroke.getKeyStroke(KeyEvent.VK_Y, InputEvent.CTRL_DOWN_MASK),
+				"redo");
+		frame.getRootPane().getActionMap().put("redo", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.handleRedo();
+			}
+		});
+
+		// Delete
+		frame.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+				KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0),
+				"deleteSelectedRectangles");
+		frame.getRootPane().getActionMap().put("deleteSelectedRectangles", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.handleDelete();
+			}
+		});
+
 	}
 
 	public void show() {

@@ -3,6 +3,7 @@ package rectEdit.view.menu;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import rectEdit.constants.Constants;
 import rectEdit.controller.RectEditorController;
 import rectEdit.handler.ActionKey;
 
@@ -10,14 +11,17 @@ public class EditMenuBuilder {
 	public static JMenu build(RectEditorController controller) {
 		JMenu editMenu = new JMenu("編集");
 
-		JMenuItem undoItem = new JMenuItem(ActionKey.UNDO);
-		JMenuItem redoItem = new JMenuItem(ActionKey.REDO);
+		JMenuItem undoMenuItem = new JMenuItem(ActionKey.UNDO);
+		JMenuItem redoMenuItem = new JMenuItem(ActionKey.REDO);
 
-		undoItem.addActionListener(e -> controller.handleUndo());
-		redoItem.addActionListener(e -> controller.handleRedo());
+		undoMenuItem.addActionListener(e -> controller.handleUndo());
+		redoMenuItem.addActionListener(e -> controller.handleRedo());
 
-		editMenu.add(undoItem);
-		editMenu.add(redoItem);
+		undoMenuItem.setAccelerator(Constants.SHORTCUT_UNDO);
+		redoMenuItem.setAccelerator(Constants.SHORTCUT_REDO);
+
+		editMenu.add(undoMenuItem);
+		editMenu.add(redoMenuItem);
 
 		return editMenu;
 	}

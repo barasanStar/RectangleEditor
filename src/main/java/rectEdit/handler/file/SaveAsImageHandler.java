@@ -16,14 +16,12 @@ import rectEdit.view.RectEditorView;
 public class SaveAsImageHandler implements ActionHandler {
 	private final BoardPanel boardPanel;
 	private final RectEditorView view;
-	private final File baseDir = new File("rect_data");
+	private final File baseDir;
 
-	public SaveAsImageHandler(BoardPanel boardPanel, RectEditorView view) {
+	public SaveAsImageHandler(BoardPanel boardPanel, RectEditorView view, File baseDir) {
 		this.boardPanel = boardPanel;
 		this.view = view;
-		if (!baseDir.exists()) {
-			baseDir.mkdirs();
-		}
+		this.baseDir = baseDir;
 	}
 
 	@Override

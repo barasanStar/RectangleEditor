@@ -16,14 +16,12 @@ import rectEdit.view.RectEditorView;
 public class LoadFromTextHandler implements ActionHandler {
 	private final RectEditorModel model;
 	private final RectEditorView view;
-	private final File baseDir = new File("rect_data");
+	private final File baseDir;
 
-	public LoadFromTextHandler(RectEditorModel model, RectEditorView view) {
+	public LoadFromTextHandler(RectEditorModel model, RectEditorView view, File baseDir) {
 		this.model = model;
 		this.view = view;
-		if (!baseDir.exists()) {
-			baseDir.mkdirs();
-		}
+		this.baseDir = baseDir;
 	}
 
 	@Override
