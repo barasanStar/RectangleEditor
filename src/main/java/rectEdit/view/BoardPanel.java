@@ -5,10 +5,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.swing.BorderFactory;
@@ -21,6 +23,7 @@ public class BoardPanel extends JPanel {
 	private List<Rect> rectangles = List.of();
 	private Set<Integer> selectedIds = new HashSet<>();
 	private RectEditorModel model;
+	private RectEditorView view; // 通知機構を使うため
 
 	// 【TODO】途中でボードサイズが変わる際は、BoardPanelのサイズも再設定したい。
 	//		revalidate(); // サイズが変わる可能性がある場合に呼ぶ
@@ -36,10 +39,37 @@ public class BoardPanel extends JPanel {
 		// パネル上のマウス操作を拾えるように、マウスリスナーを追加
 		addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				handleClick(e.getX(), e.getY());
+			public void mousePressed(MouseEvent e) {
+				Point clickedPoint = e.getPoint();
+				Optional<Rect> clickedRectOpt = findRectAtPoint(clickedPoint);
+
+				if (clickedRectOpt.isPresent()) {
+					Rect clickedRect = clickedRectOpt.get();
+					int rectId = clickedRect.getId();
+
+					if (e.isControlDown()) {
+						// Ctrl押下時：トグル動作
+						model.selectionToggle(rectId);
+					} else {
+						// 通常クリック：単一選択に切り替え
+						model.selectOnly(rectId);
+					}
+				} else {
+					if (!e.isControlDown()) {
+						// 空白クリック & Ctrlなし：選択解除
+						model.selectionClear();
+					}
+					// Ctrl+空白 → 何もしない
+				}
+
+				view.onSelectionChanged("キャンバス上のクリック"); // リストなどと同期用
 			}
 		});
+
+	}
+
+	public void setView(RectEditorView view) {
+		this.view = view;
 	}
 
 	/**
@@ -56,23 +86,21 @@ public class BoardPanel extends JPanel {
 		repaint(); // 再描画
 	}
 
-	private void handleClick(int x, int y) {
-		List<Rect> rects = model.getRectanglesReadOnly();
-		for (int i = rects.size() - 1; i >= 0; i--) {
-			Rect r = rects.get(i);
-			if (containsPoint(r, x, y)) {
-				model.selectOnly(r.getId()); // SelectionManager を通して選択状態を更新
-				return;
+	private Optional<Rect> findRectAtPoint(Point p) {
+		// 最前面からループ
+		for (int i = rectangles.size() - 1; i >= 0; i--) {
+			Rect rect = rectangles.get(i);
+			if (rect.contains(p)) {
+				return Optional.of(rect);
 			}
 		}
-		// どの長方形にも当たらなければ選択解除
-		model.selectionClear();
+		return Optional.empty();
 	}
 
-	private boolean containsPoint(Rect r, int x, int y) {
-		return x >= r.getX() && x <= r.getX() + r.getWidth() &&
-				y >= r.getY() && y <= r.getY() + r.getHeight();
-	}
+	//	private boolean containsPoint(Rect r, int x, int y) {
+	//		return x >= r.getX() && x <= r.getX() + r.getWidth() &&
+	//				y >= r.getY() && y <= r.getY() + r.getHeight();
+	//	}
 
 	@Override
 	protected void paintComponent(Graphics g) {

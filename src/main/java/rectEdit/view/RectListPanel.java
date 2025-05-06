@@ -143,8 +143,6 @@ public class RectListPanel extends JPanel implements RectEditorModelListener {
 
 	@Override
 	public void onRectsChanged(String operationLogMessage) {
-		// TODO 自動生成されたメソッド・スタブ
-
 	}
 
 	@Override
