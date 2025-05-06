@@ -12,10 +12,10 @@ public class ZOrderMenuBuilder {
 	public static JMenu build(RectEditorModel model, RectEditorController controller) {
 		JMenu zOrderMenu = new JMenu("Z順操作");
 
-		JMenuItem zOrderFrontItem = new JMenuItem(ActionKey.Z_ORDER_FRONT.getDisplayName());
-		JMenuItem zOrderBackItem = new JMenuItem(ActionKey.Z_ORDER_BACK.getDisplayName());
-		JMenuItem zOrderForwardItem = new JMenuItem(ActionKey.Z_ORDER_FORWARD.getDisplayName());
-		JMenuItem zOrderBackwardItem = new JMenuItem(ActionKey.Z_ORDER_BACKWARD.getDisplayName());
+		JMenuItem zOrderFrontItem = new JMenuItem(ActionKey.Z_ORDER_FRONT);
+		JMenuItem zOrderBackItem = new JMenuItem(ActionKey.Z_ORDER_BACK);
+		JMenuItem zOrderForwardItem = new JMenuItem(ActionKey.Z_ORDER_FORWARD);
+		JMenuItem zOrderBackwardItem = new JMenuItem(ActionKey.Z_ORDER_BACKWARD);
 
 		zOrderFrontItem.addActionListener(e -> {
 			model.pushSnapshot();

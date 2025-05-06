@@ -31,10 +31,8 @@ public class BoardPanel extends JPanel {
 		this.model = model;
 		int w = model.getBoardWidth();
 		int h = model.getBoardHeight();
-
 		setPreferredSize(new Dimension(w, h));
 		setBackground(Color.WHITE);
-		//		setBorder(BorderFactory.createTitledBorder("Board"));
 
 		// パネル上のマウス操作を拾えるように、マウスリスナーを追加
 		addMouseListener(new MouseAdapter() {
@@ -49,7 +47,7 @@ public class BoardPanel extends JPanel {
 
 					if (e.isControlDown()) {
 						// Ctrl押下時：トグル動作
-						model.selectionToggle(rectId);
+						model.toggleSelection(rectId);
 					} else {
 						// 通常クリック：単一選択に切り替え
 						model.selectOnly(rectId);
@@ -57,7 +55,7 @@ public class BoardPanel extends JPanel {
 				} else {
 					if (!e.isControlDown()) {
 						// 空白クリック & Ctrlなし：選択解除
-						model.selectionClear();
+						model.clearSelection();
 					}
 					// Ctrl+空白 → 何もしない
 				}

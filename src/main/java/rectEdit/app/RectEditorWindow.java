@@ -1,9 +1,14 @@
 package rectEdit.app;
 
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
+import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.KeyStroke;
 
 import rectEdit.controller.RectEditorController;
 import rectEdit.model.RectEditorModel;
@@ -25,6 +30,16 @@ public class RectEditorWindow {
 		frame.setSize(1000, 700);
 		frame.setIconImage(icon);
 		frame.setJMenuBar(MenuBarBuilder.build(model, controller));
+
+		// ESC キーで選択解除
+		frame.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+				KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "clearSelection");
+		frame.getRootPane().getActionMap().put("clearSelection", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				model.clearSelection();
+			}
+		});
 	}
 
 	public void show() {

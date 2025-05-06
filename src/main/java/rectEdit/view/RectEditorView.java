@@ -36,6 +36,7 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 		split.setDividerLocation(550); // 初期分割位置（左側550px）
 		add(split, BorderLayout.CENTER);
 		add(new JScrollPane(logPanel), BorderLayout.SOUTH);
+
 	}
 
 	public void appendLog(String message) {

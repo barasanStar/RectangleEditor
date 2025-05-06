@@ -68,7 +68,7 @@ public class RectListPanel extends JPanel implements RectEditorModelListener {
 				if (bounds == null || !bounds.contains(e.getPoint())) {
 					// 空白部分がクリックされたとみなす
 					rectList.clearSelection();
-					model.selectionClear(); // モデル側も選択解除
+					model.clearSelection(); // モデル側も選択解除
 				}
 			}
 		});

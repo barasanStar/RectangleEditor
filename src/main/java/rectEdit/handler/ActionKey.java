@@ -1,29 +1,30 @@
 package rectEdit.handler;
 
-public enum ActionKey {
-	LOAD_FROM_TEXT("ファイルを開く"),
-	SAVE_TO_TEXT("ファイルへ保存"),
-	SAVE_AS_IMAGE("画像として保存"),
-	CREATE_A("定型A作成"),
-	CREATE_B("定型B作成"),
-	CREATE_RANDOM("ランダム作成"),
-	DELETE("削除"),
-	DELETE_ALL("全削除"),
-	MOVE("移動"),
-	EXPAND("拡大縮小"),
-	COLOR("色変更"),
-	Z_ORDER_FRONT("最前面へ"),
-	Z_ORDER_BACK("最背面へ"),
-	Z_ORDER_FORWARD("一つ前面へ"),
-	Z_ORDER_BACKWARD("一つ背面へ");
+public class ActionKey {
+	// --- ファイル操作系 ---
+	public static final String LOAD_FROM_TEXT = "ファイルを開く";
+	public static final String SAVE_TO_TEXT = "ファイルへ保存";
+	public static final String SAVE_AS_IMAGE = "画像として保存";
 
-	private final String displayName;
+	// --- 長方形操作系 ---
+	public static final String CREATE_A = "定型A作成";
+	public static final String CREATE_B = "定型B作成";
+	public static final String CREATE_RANDOM = "ランダム作成";
+	public static final String DELETE = "削除";
+	public static final String DELETE_ALL = "全削除";
+	public static final String MOVE = "移動";
+	public static final String EXPAND = "拡大縮小";
+	public static final String COLOR = "色変更";
+	public static final String Z_ORDER_FRONT = "最前面へ";
+	public static final String Z_ORDER_BACK = "最背面へ";
+	public static final String Z_ORDER_FORWARD = "一つ前面へ";
+	public static final String Z_ORDER_BACKWARD = "一つ背面へ";
 
-	ActionKey(String displayName) {
-		this.displayName = displayName;
-	}
+	// --- その他の操作 ---
+	public static final String UNDO = "undo";
+	public static final String REDO = "redo";
 
-	public String getDisplayName() {
-		return displayName;
+	// インスタンス化防止
+	private ActionKey() {
 	}
 }

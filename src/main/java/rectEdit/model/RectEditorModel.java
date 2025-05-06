@@ -154,19 +154,19 @@ public class RectEditorModel {
 		}
 	}
 
-	public void selectionRemove(int id) {
+	public void removeSelection(int id) {
 		if (selectionManager.remove(id)) {
 			notifySelectionChanged("id:" + id + "を選択解除しました");
 		}
 	}
 
-	public void selectionToggle(int id) {
+	public void toggleSelection(int id) {
 		if (selectionManager.toggle(id)) {
 			notifySelectionChanged("選択変更しました（トグル）");
 		}
 	}
 
-	public void selectionClear() {
+	public void clearSelection() {
 		if (selectionManager.clear()) {
 			notifySelectionChanged("選択全解除しました");
 		}

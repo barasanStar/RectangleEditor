@@ -16,40 +16,39 @@ public class ToolbarBuilder {
 	public static JToolBar build(RectEditorController controller) {
 		JToolBar toolbar = new JToolBar();
 
-		JButton createAButton = new JButton(ActionKey.CREATE_A.getDisplayName());
+		JButton createAButton = new JButton(ActionKey.CREATE_A);
 		createAButton.addActionListener(e -> controller.handleCreateA());
 		toolbar.add(createAButton);
 
-		JButton createBButton = new JButton(ActionKey.CREATE_B.getDisplayName());
+		JButton createBButton = new JButton(ActionKey.CREATE_B);
 		createBButton.addActionListener(e -> controller.handleCreateB());
 		toolbar.add(createBButton);
 
-		JButton createRandomButton = new JButton(ActionKey.CREATE_RANDOM.getDisplayName());
+		JButton createRandomButton = new JButton(ActionKey.CREATE_RANDOM);
 		createRandomButton.addActionListener(e -> controller.handleCreateRandom());
 		toolbar.add(createRandomButton);
 
-		JButton deleteButton = new JButton(ActionKey.DELETE.getDisplayName());
+		JButton deleteButton = new JButton(ActionKey.DELETE);
 		deleteButton.addActionListener(e -> controller.handleDelete());
 		toolbar.add(deleteButton);
 
-		JButton deleteAllButton = new JButton(ActionKey.DELETE_ALL.getDisplayName());
+		JButton deleteAllButton = new JButton(ActionKey.DELETE_ALL);
 		deleteAllButton.addActionListener(e -> controller.handleDeleteAll());
 		toolbar.add(deleteAllButton);
 
-		JButton moveButton = new JButton(ActionKey.MOVE.getDisplayName());
+		JButton moveButton = new JButton(ActionKey.MOVE);
 		moveButton.addActionListener(e -> controller.handleMove());
 		toolbar.add(moveButton);
 
-		JButton expandButton = new JButton(ActionKey.EXPAND.getDisplayName());
+		JButton expandButton = new JButton(ActionKey.EXPAND);
 		expandButton.addActionListener(e -> controller.handleExpand());
 		toolbar.add(expandButton);
 
-		JButton colorButton = new JButton(ActionKey.COLOR.getDisplayName());
+		JButton colorButton = new JButton(ActionKey.COLOR);
 		colorButton.addActionListener(e -> controller.handleColor());
 		toolbar.add(colorButton);
 
 		selectionDependentButtons.add(deleteButton);
-		selectionDependentButtons.add(deleteAllButton);
 		selectionDependentButtons.add(moveButton);
 		selectionDependentButtons.add(expandButton);
 		selectionDependentButtons.add(colorButton);
