@@ -138,9 +138,15 @@ public class RectEditorModel {
 		return selectionManager.getSelectedIds();
 	}
 
-	public void remove(int id) {
+	public void selectionRemove(int id) {
 		if (selectionManager.remove(id)) {
 			notifySelectionChanged("id:" + id + "を選択解除しました");
+		}
+	}
+
+	public void selectionToggle(int id) {
+		if (selectionManager.toggle(id)) {
+			notifySelectionChanged("選択変更しました（トグル）");
 		}
 	}
 
