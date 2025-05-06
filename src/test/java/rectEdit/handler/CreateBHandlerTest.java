@@ -7,14 +7,14 @@ import org.junit.jupiter.api.Test;
 import rectEdit.model.Rect;
 import rectEdit.model.RectEditorModel;
 
-public class CreateBActionHandlerTest {
+public class CreateBHandlerTest {
 
 	@Test
 	public void testCreateRectBHandlerAddsRectangle() {
 		RectEditorModel model = new RectEditorModel();
-		ActionHandler handler = new CreateBActionHandler(model);
+		ActionHandler handler = new CreateBHandler(model);
 
-		handler.execute();
+		handler.handle();
 
 		assertEquals(1, model.getCurrentRectsCount());
 		Rect rect = model.getRectanglesReadOnly().get(0);

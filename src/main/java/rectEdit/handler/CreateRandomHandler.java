@@ -1,22 +1,20 @@
 package rectEdit.handler;
 
-import java.awt.Color;
-
 import rectEdit.model.Rect;
 import rectEdit.model.RectEditorModel;
 import rectEdit.model.RectFactory;
 
-public class CreateBActionHandler implements ActionHandler {
+public class CreateRandomHandler implements ActionHandler {
 	private final RectEditorModel model;
 
-	public CreateBActionHandler(RectEditorModel model) {
+	public CreateRandomHandler(RectEditorModel model) {
 		this.model = model;
 	}
 
 	@Override
-	public void execute() {
+	public void handle() {
 		model.pushSnapshot(); // Undo対応
-		Rect rect = RectFactory.create(50, 50, 80, 40, Color.GREEN);
+		Rect rect = RectFactory.createRandom();
 		model.tryAddRect(rect); // 真の時、モデル変更通知。
 	}
 }

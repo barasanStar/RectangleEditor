@@ -6,17 +6,17 @@ import rectEdit.model.RectEditorModel;
 import rectEdit.service.RectService;
 import rectEdit.view.RectEditorView;
 
-public class ExpandActionHandler implements ActionHandler {
+public class ExpandHandler implements ActionHandler {
 	private final RectEditorModel model;
 	private final RectEditorView view;
 
-	public ExpandActionHandler(RectEditorModel model, RectEditorView view) {
+	public ExpandHandler(RectEditorModel model, RectEditorView view) {
 		this.model = model;
 		this.view = view;
 	}
 
 	@Override
-	public void execute() {
+	public void handle() {
 		if (model.getSelectionManager().getSelectedIds().isEmpty()) {
 			view.appendLog("拡大・縮小対象が選択されていません");
 			return;

@@ -17,7 +17,7 @@ public class ChangeColorHandler implements ActionHandler {
 	}
 
 	@Override
-	public void execute() {
+	public void handle() {
 		if (!model.hasSelection())
 			return;
 

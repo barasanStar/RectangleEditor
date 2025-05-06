@@ -1,5 +1,8 @@
 package rectEdit.view.toolbar;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
@@ -7,6 +10,8 @@ import rectEdit.controller.RectEditorController;
 import rectEdit.handler.ActionKey;
 
 public class ToolbarBuilder {
+	// 長方形が選択状態にある時に限り、有効化されるボタン群
+	public static final List<JButton> selectionDependentButtons = new ArrayList<>();
 
 	public static JToolBar build(RectEditorController controller) {
 		JToolBar toolbar = new JToolBar();
@@ -42,6 +47,12 @@ public class ToolbarBuilder {
 		JButton colorButton = new JButton(ActionKey.COLOR.getDisplayName());
 		colorButton.addActionListener(e -> controller.handleColor());
 		toolbar.add(colorButton);
+
+		selectionDependentButtons.add(deleteButton);
+		selectionDependentButtons.add(deleteAllButton);
+		selectionDependentButtons.add(moveButton);
+		selectionDependentButtons.add(expandButton);
+		selectionDependentButtons.add(colorButton);
 
 		return toolbar;
 	}
