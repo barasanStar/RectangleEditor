@@ -12,39 +12,39 @@ public class ZOrderMenuBuilder {
 	public static JMenu build(RectEditorModel model, RectEditorController controller) {
 		JMenu zOrderMenu = new JMenu("Z順操作");
 
-		JMenuItem zOrderFrontItem = new JMenuItem(ActionKey.Z_ORDER_FRONT);
-		JMenuItem zOrderBackItem = new JMenuItem(ActionKey.Z_ORDER_BACK);
-		JMenuItem zOrderForwardItem = new JMenuItem(ActionKey.Z_ORDER_FORWARD);
-		JMenuItem zOrderBackwardItem = new JMenuItem(ActionKey.Z_ORDER_BACKWARD);
+		JMenuItem zOrderFrontMenuItem = new JMenuItem(ActionKey.Z_ORDER_FRONT);
+		JMenuItem zOrderBackMenuItem = new JMenuItem(ActionKey.Z_ORDER_BACK);
+		JMenuItem zOrderForwardMenuItem = new JMenuItem(ActionKey.Z_ORDER_FORWARD);
+		JMenuItem zOrderBackwardMenuItem = new JMenuItem(ActionKey.Z_ORDER_BACKWARD);
 
-		zOrderFrontItem.addActionListener(e -> {
+		zOrderFrontMenuItem.addActionListener(e -> {
 			model.pushSnapshot();
 			ZOrderManager.bringToFront(model.getRectanglesForMutation(), model.getSelectedIds());
 			model.notifyRectsChanged("Z順を最前面に移動しました");
 		});
 
-		zOrderBackItem.addActionListener(e -> {
+		zOrderBackMenuItem.addActionListener(e -> {
 			model.pushSnapshot();
 			ZOrderManager.sendToBack(model.getRectanglesForMutation(), model.getSelectedIds());
 			model.notifyRectsChanged("Z順を最背面に移動しました");
 		});
 
-		zOrderForwardItem.addActionListener(e -> {
+		zOrderForwardMenuItem.addActionListener(e -> {
 			model.pushSnapshot();
 			ZOrderManager.moveForward(model.getRectanglesForMutation(), model.getSelectedIds());
 			model.notifyRectsChanged("Z順を一つ前面に移動しました");
 		});
 
-		zOrderBackwardItem.addActionListener(e -> {
+		zOrderBackwardMenuItem.addActionListener(e -> {
 			model.pushSnapshot();
 			ZOrderManager.moveBackward(model.getRectanglesForMutation(), model.getSelectedIds());
 			model.notifyRectsChanged("Z順を一つ背面に移動しました");
 		});
 
-		zOrderMenu.add(zOrderFrontItem);
-		zOrderMenu.add(zOrderBackItem);
-		zOrderMenu.add(zOrderForwardItem);
-		zOrderMenu.add(zOrderBackwardItem);
+		zOrderMenu.add(zOrderFrontMenuItem);
+		zOrderMenu.add(zOrderBackMenuItem);
+		zOrderMenu.add(zOrderForwardMenuItem);
+		zOrderMenu.add(zOrderBackwardMenuItem);
 
 		return zOrderMenu;
 	}

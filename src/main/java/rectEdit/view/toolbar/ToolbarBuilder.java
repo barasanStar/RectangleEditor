@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
+import rectEdit.constants.Constants;
 import rectEdit.controller.RectEditorController;
 import rectEdit.handler.ActionKey;
 
@@ -14,53 +15,52 @@ public class ToolbarBuilder {
 	public static final List<JButton> selectionDependentButtons = new ArrayList<>();
 
 	public static JToolBar build(RectEditorController controller) {
-		JToolBar toolbar = new JToolBar();
+		JToolBar toolBar = new JToolBar();
+		toolBar.setFloatable(false);
 
 		JButton undoButton = new JButton("◀");
-		undoButton.addActionListener(e -> controller.handleUndo());
-		toolbar.add(undoButton);
-
 		JButton redoButton = new JButton("▶");
-		redoButton.addActionListener(e -> controller.handleRedo());
-		toolbar.add(redoButton);
-
 		JButton createAButton = new JButton(ActionKey.CREATE_A);
-		createAButton.addActionListener(e -> controller.handleCreateA());
-		toolbar.add(createAButton);
-
 		JButton createBButton = new JButton(ActionKey.CREATE_B);
-		createBButton.addActionListener(e -> controller.handleCreateB());
-		toolbar.add(createBButton);
-
 		JButton createRandomButton = new JButton(ActionKey.CREATE_RANDOM);
-		createRandomButton.addActionListener(e -> controller.handleCreateRandom());
-		toolbar.add(createRandomButton);
-
 		JButton deleteButton = new JButton(ActionKey.DELETE);
-		deleteButton.addActionListener(e -> controller.handleDelete());
-		toolbar.add(deleteButton);
-
 		JButton deleteAllButton = new JButton(ActionKey.DELETE_ALL);
-		deleteAllButton.addActionListener(e -> controller.handleDeleteAll());
-		toolbar.add(deleteAllButton);
-
 		JButton moveButton = new JButton(ActionKey.MOVE);
-		moveButton.addActionListener(e -> controller.handleMove());
-		toolbar.add(moveButton);
-
 		JButton expandButton = new JButton(ActionKey.EXPAND);
-		expandButton.addActionListener(e -> controller.handleExpand());
-		toolbar.add(expandButton);
-
 		JButton colorButton = new JButton(ActionKey.COLOR);
+
+		undoButton.addActionListener(e -> controller.handleUndo());
+		redoButton.addActionListener(e -> controller.handleRedo());
+		createAButton.addActionListener(e -> controller.handleCreateA());
+		createBButton.addActionListener(e -> controller.handleCreateB());
+		createRandomButton.addActionListener(e -> controller.handleCreateRandom());
+		deleteButton.addActionListener(e -> controller.handleDelete());
+		deleteAllButton.addActionListener(e -> controller.handleDeleteAll());
+		moveButton.addActionListener(e -> controller.handleMove());
+		expandButton.addActionListener(e -> controller.handleExpand());
 		colorButton.addActionListener(e -> controller.handleColor());
-		toolbar.add(colorButton);
+
+		toolBar.add(undoButton);
+		toolBar.add(redoButton);
+		toolBar.addSeparator();
+		toolBar.add(createAButton);
+		toolBar.add(createBButton);
+		toolBar.add(createRandomButton);
+		toolBar.add(deleteButton);
+		toolBar.add(deleteAllButton);
+		toolBar.add(moveButton);
+		toolBar.add(expandButton);
+		toolBar.add(colorButton);
+
+		undoButton.setToolTipText(Constants.TOOLTIP_UNDO);
+		redoButton.setToolTipText(Constants.TOOLTIP_REDO);
+		deleteButton.setToolTipText(Constants.TOOLTIP_DELETE);
 
 		selectionDependentButtons.add(deleteButton);
 		selectionDependentButtons.add(moveButton);
 		selectionDependentButtons.add(expandButton);
 		selectionDependentButtons.add(colorButton);
 
-		return toolbar;
+		return toolBar;
 	}
 }

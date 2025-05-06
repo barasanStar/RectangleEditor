@@ -10,34 +10,34 @@ public class ActionMenuBuilder {
 	public static JMenu build(RectEditorController controller) {
 		JMenu actionMenu = new JMenu("操作");
 
-		JMenuItem createAItem = new JMenuItem(ActionKey.CREATE_A);
-		JMenuItem createBItem = new JMenuItem(ActionKey.CREATE_B);
-		JMenuItem createRandomItem = new JMenuItem(ActionKey.CREATE_RANDOM);
-		JMenuItem deleteItem = new JMenuItem(ActionKey.DELETE);
-		JMenuItem deleteAllItem = new JMenuItem(ActionKey.DELETE_ALL);
-		JMenuItem moveItem = new JMenuItem(ActionKey.MOVE);
-		JMenuItem expandItem = new JMenuItem(ActionKey.EXPAND);
-		JMenuItem colorItem = new JMenuItem(ActionKey.COLOR);
+		JMenuItem createAMenuItem = new JMenuItem(ActionKey.CREATE_A);
+		JMenuItem createBMenuItem = new JMenuItem(ActionKey.CREATE_B);
+		JMenuItem createRandomMenuItem = new JMenuItem(ActionKey.CREATE_RANDOM);
+		JMenuItem deleteMenuItem = new JMenuItem(ActionKey.DELETE);
+		JMenuItem deleteAllMenuItem = new JMenuItem(ActionKey.DELETE_ALL);
+		JMenuItem moveMenuItem = new JMenuItem(ActionKey.MOVE);
+		JMenuItem expandMenuItem = new JMenuItem(ActionKey.EXPAND);
+		JMenuItem colorMenuItem = new JMenuItem(ActionKey.COLOR);
 
-		createAItem.addActionListener(e -> controller.handleCreateA());
-		createBItem.addActionListener(e -> controller.handleCreateB());
-		createRandomItem.addActionListener(e -> controller.handleCreateRandom());
-		deleteItem.addActionListener(e -> controller.handleDelete());
-		deleteAllItem.addActionListener(e -> controller.handleDeleteAll());
-		moveItem.addActionListener(e -> controller.handleMove());
-		expandItem.addActionListener(e -> controller.handleExpand());
-		colorItem.addActionListener(e -> controller.handleColor());
+		createAMenuItem.addActionListener(e -> controller.handleCreateA());
+		createBMenuItem.addActionListener(e -> controller.handleCreateB());
+		createRandomMenuItem.addActionListener(e -> controller.handleCreateRandom());
+		deleteMenuItem.addActionListener(e -> controller.handleDelete());
+		deleteAllMenuItem.addActionListener(e -> controller.handleDeleteAll());
+		moveMenuItem.addActionListener(e -> controller.handleMove());
+		expandMenuItem.addActionListener(e -> controller.handleExpand());
+		colorMenuItem.addActionListener(e -> controller.handleColor());
 
-		actionMenu.add(createAItem);
-		actionMenu.add(createBItem);
-		actionMenu.add(createRandomItem);
+		actionMenu.add(createAMenuItem);
+		actionMenu.add(createBMenuItem);
+		actionMenu.add(createRandomMenuItem);
 		actionMenu.addSeparator();
-		actionMenu.add(deleteItem);
-		actionMenu.add(deleteAllItem);
+		actionMenu.add(deleteMenuItem);
+		actionMenu.add(deleteAllMenuItem);
 		actionMenu.addSeparator();
-		actionMenu.add(moveItem);
-		actionMenu.add(expandItem);
-		actionMenu.add(colorItem);
+		actionMenu.add(moveMenuItem);
+		actionMenu.add(expandMenuItem);
+		actionMenu.add(colorMenuItem);
 
 		return actionMenu;
 	}
