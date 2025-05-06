@@ -18,6 +18,10 @@ public class RectEditorController {
 		registry.get(ActionKey.CREATE_B).execute();
 	}
 
+	public void handleCreateRandom() {
+		registry.get(ActionKey.CREATE_RANDOM).execute();
+	}
+
 	public void handleDelete() {
 		registry.get(ActionKey.DELETE).execute();
 	}
@@ -28,6 +32,10 @@ public class RectEditorController {
 
 	public void handleMove() {
 		registry.get(ActionKey.MOVE).execute();
+	}
+
+	public void handleExpand() {
+		registry.get(ActionKey.EXPAND).execute();
 	}
 
 }
