@@ -13,18 +13,22 @@ import rectEdit.handler.ActionKey;
 public class ToolbarBuilder {
 	// 長方形が選択状態にある時に限り、有効化されるボタン群
 	public static final List<JButton> selectionDependentButtons = new ArrayList<>();
+	public static final List<JButton> createButtons = new ArrayList<>();
+	public static JButton deleteAllButton;
+	public static JButton undoButton;
+	public static JButton redoButton;
 
 	public static JToolBar build(RectEditorController controller) {
 		JToolBar toolBar = new JToolBar();
 		toolBar.setFloatable(false);
 
-		JButton undoButton = new JButton("◀");
-		JButton redoButton = new JButton("▶");
+		undoButton = new JButton("◀");
+		redoButton = new JButton("▶");
 		JButton createAButton = new JButton(ActionKey.CREATE_A);
 		JButton createBButton = new JButton(ActionKey.CREATE_B);
 		JButton createRandomButton = new JButton(ActionKey.CREATE_RANDOM);
 		JButton deleteButton = new JButton(ActionKey.DELETE);
-		JButton deleteAllButton = new JButton(ActionKey.DELETE_ALL);
+		deleteAllButton = new JButton(ActionKey.DELETE_ALL);
 		JButton moveButton = new JButton(ActionKey.MOVE);
 		JButton expandButton = new JButton(ActionKey.EXPAND);
 		JButton colorButton = new JButton(ActionKey.COLOR);
@@ -56,11 +60,24 @@ public class ToolbarBuilder {
 		redoButton.setToolTipText(Constants.TOOLTIP_REDO);
 		deleteButton.setToolTipText(Constants.TOOLTIP_DELETE);
 
-		selectionDependentButtons.add(deleteButton);
-		selectionDependentButtons.add(moveButton);
-		selectionDependentButtons.add(expandButton);
-		selectionDependentButtons.add(colorButton);
+		registerCreateButton(createAButton);
+		registerCreateButton(createBButton);
+		registerCreateButton(createRandomButton);
+
+		registerSelectionDependentButton(deleteButton);
+		registerSelectionDependentButton(moveButton);
+		registerSelectionDependentButton(expandButton);
+		registerSelectionDependentButton(colorButton);
 
 		return toolBar;
 	}
+
+	public static void registerSelectionDependentButton(JButton btn) {
+		selectionDependentButtons.add(btn);
+	}
+
+	public static void registerCreateButton(JButton btn) {
+		createButtons.add(btn);
+	}
+
 }
