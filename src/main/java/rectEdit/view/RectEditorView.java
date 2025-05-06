@@ -25,6 +25,7 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 		rectListPanel = new RectListPanel(model);
 		logPanel = new LogPanel();
 
+		model.addListener(rectListPanel);
 		add(ToolbarBuilder.build(controller), BorderLayout.NORTH);
 
 		// 分割ビュー（左側：キャンバス、右側：長方形一覧）
