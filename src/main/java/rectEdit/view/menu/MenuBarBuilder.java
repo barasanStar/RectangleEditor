@@ -11,6 +11,7 @@ public class MenuBarBuilder {
 
 		// 各カテゴリのメニューをメニューバーに追加
 		menuBar.add(FileMenuBuilder.build(controller));
+		menuBar.add(EditMenuBuilder.build(controller));
 		menuBar.add(ActionMenuBuilder.build(controller));
 		menuBar.add(ZOrderMenuBuilder.build(model, controller));
 

@@ -196,7 +196,7 @@ public class RectEditorModel {
 			return;
 		}
 		historyManager.undo();
-		notifyRectsChanged("[通知]undoしました");
+		notifyRectsChanged("Undo を実行しました。");
 	}
 
 	public void redo() {
@@ -204,7 +204,7 @@ public class RectEditorModel {
 			return;
 		}
 		historyManager.redo();
-		notifyRectsChanged("[通知]redoしました");
+		notifyRectsChanged("Redo を実行しました。");
 	}
 
 	public boolean canUndo() {
