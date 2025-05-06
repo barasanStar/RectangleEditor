@@ -6,43 +6,65 @@ import java.util.Set;
 
 public class SelectionManager {
 
-	private final Set<Integer> selectedIds = new HashSet<>();
+	private Set<Integer> selectedIds = new HashSet<>();
 
-	public void selectOnly(int id) {
+	//--------------------- ここから 状態更新系 --------------------- 
+	public boolean selectOnly(int id) {
+		if (size() == 1 && contains(id)) {
+			return false;
+		}
 		selectedIds.clear();
 		selectedIds.add(id);
+		return true;
 	}
 
-	public void add(int id) {
+	public boolean add(int id) {
+		if (contains(id)) {
+			return false;
+		}
 		selectedIds.add(id);
+		return true;
 	}
 
-	public void clear() {
+	public boolean clear() {
+		if (isEmpty()) {
+			return false;
+		}
 		selectedIds.clear();
+		return true;
 	}
 
-	public void remove(int id) {
+	public boolean remove(int id) {
+		if (!contains(id)) {
+			return false;
+		}
 		selectedIds.remove(id);
+		return true;
 	}
 
-	public void toggle(int id) {
+	public boolean toggle(int id) {
 		if (selectedIds.contains(id)) {
 			selectedIds.remove(id);
 		} else {
 			selectedIds.add(id);
 		}
+		return true; // トグルは必ず状態が変わる
 	}
 
-	public void setSelectedIds(Set<Integer> ids) {
-		selectedIds.clear();
-		selectedIds.addAll(ids);
+	public boolean setSelectedIds(Set<Integer> newIds) {
+		if (selectedIds.equals(newIds)) {
+			return false; // 変更なし
+		}
+		selectedIds = new HashSet<>(newIds);
+		return true; // 変更あり
 	}
+	//--------------------- ここまで 状態更新系 --------------------- 
 
 	public Set<Integer> getSelectedIds() {
 		return Collections.unmodifiableSet(new HashSet<>(selectedIds));
 	}
 
-	public boolean isSelected(int id) {
+	public boolean contains(int id) {
 		return selectedIds.contains(id);
 	}
 
@@ -53,5 +75,4 @@ public class SelectionManager {
 	public int size() {
 		return selectedIds.size();
 	}
-
 }

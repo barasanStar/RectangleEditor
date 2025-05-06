@@ -19,13 +19,13 @@ public class SelectionManagerTest {
 	@Test
 	void もともと選択していない値を指定しても例外は発生しない() {
 		selectionManager.remove(1);
-		assertFalse(selectionManager.isSelected(1));
+		assertFalse(selectionManager.contains(1));
 	}
 
 	@Test
 	void isSelectedおよび取得のテスト() {
 		selectionManager.add(1);
-		assertTrue(selectionManager.isSelected(1));
+		assertTrue(selectionManager.contains(1));
 		assertEquals(Set.of(1), selectionManager.getSelectedIds());
 	}
 
@@ -33,21 +33,21 @@ public class SelectionManagerTest {
 	void 追加して削除すると空である() {
 		selectionManager.add(2);
 		selectionManager.remove(2);
-		assertFalse(selectionManager.isSelected(2));
+		assertFalse(selectionManager.contains(2));
 		assertTrue(selectionManager.isEmpty());
 	}
 
 	@Test
 	void testToggleOn() {
 		selectionManager.toggle(3);
-		assertTrue(selectionManager.isSelected(3));
+		assertTrue(selectionManager.contains(3));
 	}
 
 	@Test
 	void testToggleOff() {
 		selectionManager.add(4);
 		selectionManager.toggle(4);
-		assertFalse(selectionManager.isSelected(4));
+		assertFalse(selectionManager.contains(4));
 	}
 
 	@Test

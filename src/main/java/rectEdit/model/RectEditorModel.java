@@ -79,6 +79,10 @@ public class RectEditorModel {
 		return false;
 	}
 
+	public boolean fitsWithinBoard(Board board, Rect rect) {
+		return boardService.fitsWithinBoard(board, rect);
+	}
+
 	public List<Rect> getRectanglesReadOnly() {
 		return board.getRectanglesReadOnly();
 	}
@@ -130,22 +134,26 @@ public class RectEditorModel {
 		return selectionManager;
 	}
 
-	public void remove(int id) {
-		selectionManager.remove(id);
-	}
-
-	public void selectionClear() {
-		selectionManager.clear();
-		notifySelectionChanged("選択を解除しました");
-	}
-
 	public Set<Integer> getSelectedIds() {
 		return selectionManager.getSelectedIds();
 	}
 
+	public void remove(int id) {
+		if (selectionManager.remove(id)) {
+			notifySelectionChanged("id:" + id + "を選択解除しました");
+		}
+	}
+
+	public void selectionClear() {
+		if (selectionManager.clear()) {
+			notifySelectionChanged("選択全解除しました");
+		}
+	}
+
 	public void selectOnly(int id) {
-		selectionManager.selectOnly(id);
-		notifySelectionChanged("[通知]選択状態が変更。id: " + id);
+		if (selectionManager.selectOnly(id)) {
+			notifySelectionChanged("id:" + id + "を選択しました");
+		}
 	}
 
 	// --- Undo/Redo ---

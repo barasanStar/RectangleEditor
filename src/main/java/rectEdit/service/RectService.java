@@ -93,7 +93,7 @@ public class RectService {
 	 */
 	public static boolean moveSelectedRects(RectEditorModel model, int dx, int dy) {
 		List<Rect> updatedRects = new ArrayList<>();
-		Set<Integer> selectedIds = model.getSelectionManager().getSelectedIds();
+		Set<Integer> selectedIds = model.getSelectedIds();
 
 		for (Rect rect : model.getRectanglesForMutation()) {
 			if (selectedIds.contains(rect.getId())) {

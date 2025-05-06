@@ -45,9 +45,10 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 		logPanel.appendLog("View#onRectsChanged: " + operationLogMessage);
 	}
 
+	// 上にある onRectsChanged との違いは、List<Rect>を更新するかどうかだけ。
 	@Override
 	public void onSelectionChanged(String operationLogMessage) {
-		logPanel.appendLog("View#onSelectionChanged: " + operationLogMessage);
 		boardPanel.updateSelectionOnly(model.getSelectionManager().getSelectedIds());
+		logPanel.appendLog("View#onSelectionChanged: " + operationLogMessage);
 	}
 }
