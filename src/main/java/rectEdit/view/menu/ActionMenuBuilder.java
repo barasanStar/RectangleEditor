@@ -16,6 +16,8 @@ public class ActionMenuBuilder {
 		JMenuItem deleteItem = new JMenuItem(ActionKey.DELETE.getDisplayName());
 		JMenuItem deleteAllItem = new JMenuItem(ActionKey.DELETE_ALL.getDisplayName());
 		JMenuItem moveItem = new JMenuItem(ActionKey.MOVE.getDisplayName());
+		JMenuItem expandItem = new JMenuItem(ActionKey.EXPAND.getDisplayName());
+		JMenuItem colorItem = new JMenuItem(ActionKey.COLOR.getDisplayName());
 
 		createAItem.addActionListener(e -> controller.handleCreateA());
 		createBItem.addActionListener(e -> controller.handleCreateB());
@@ -23,6 +25,8 @@ public class ActionMenuBuilder {
 		deleteItem.addActionListener(e -> controller.handleDelete());
 		deleteAllItem.addActionListener(e -> controller.handleDeleteAll());
 		moveItem.addActionListener(e -> controller.handleMove());
+		expandItem.addActionListener(e -> controller.handleExpand());
+		colorItem.addActionListener(e -> controller.handleColor());
 
 		actionMenu.add(createAItem);
 		actionMenu.add(createBItem);
@@ -30,6 +34,8 @@ public class ActionMenuBuilder {
 		actionMenu.add(deleteItem);
 		actionMenu.add(deleteAllItem);
 		actionMenu.add(moveItem);
+		actionMenu.add(expandItem);
+		actionMenu.add(colorItem);
 
 		return actionMenu;
 	}

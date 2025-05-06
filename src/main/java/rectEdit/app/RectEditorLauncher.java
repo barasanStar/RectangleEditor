@@ -7,6 +7,7 @@ import javax.swing.UIManager;
 
 import rectEdit.controller.RectEditorController;
 import rectEdit.handler.ActionKey;
+import rectEdit.handler.ChangeColorHandler;
 import rectEdit.handler.CreateAActionHandler;
 import rectEdit.handler.CreateBActionHandler;
 import rectEdit.handler.CreateRandomActionHandler;
@@ -43,6 +44,7 @@ public class RectEditorLauncher {
 			registry.register(ActionKey.DELETE_ALL, new DeleteAllActionHandler(model));
 			registry.register(ActionKey.MOVE, new MoveActionHandler(model, window.getView()));
 			registry.register(ActionKey.EXPAND, new ExpandActionHandler(model, window.getView()));
+			registry.register(ActionKey.COLOR, new ChangeColorHandler(model, window.getView()));
 
 			// リスナー登録
 			model.addListener(window.getView());

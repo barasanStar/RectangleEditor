@@ -8,6 +8,7 @@ public enum ActionKey {
 	DELETE_ALL("全削除"),
 	MOVE("移動"),
 	EXPAND("拡大縮小"),
+	COLOR("色変更"),
 	Z_ORDER_FRONT("最前面へ"),
 	Z_ORDER_BACK("最背面へ"),
 	Z_ORDER_FORWARD("一つ前面へ"),
