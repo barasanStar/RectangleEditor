@@ -39,6 +39,10 @@ public class ToolbarBuilder {
 		expandButton.addActionListener(e -> controller.handleExpand());
 		toolbar.add(expandButton);
 
+		JButton colorButton = new JButton(ActionKey.COLOR.getDisplayName());
+		colorButton.addActionListener(e -> controller.handleColor());
+		toolbar.add(colorButton);
+
 		return toolbar;
 	}
 }

@@ -38,4 +38,8 @@ public class RectEditorController {
 		registry.get(ActionKey.EXPAND).execute();
 	}
 
+	public void handleColor() {
+		registry.get(ActionKey.COLOR).execute();
+	}
+
 }

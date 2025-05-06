@@ -1,11 +1,13 @@
 package rectEdit.model;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import rectEdit.history.HistoryManager;
 import rectEdit.service.BoardService;
+import rectEdit.service.RectService;
 
 public class RectEditorModel {
 	private final Board board;
@@ -102,6 +104,15 @@ public class RectEditorModel {
 		notifyRectsChanged("全長方形を削除");
 	}
 
+	public void changeColorOfSelected(Color color) {
+		for (int id : selectionManager.getSelectedIds()) {
+			Rect rect = board.getRectanglesForMutation().get(id);
+			Rect colorChanged = RectService.changeColor(rect, color);
+			board.getRectanglesForMutation().set(id, colorChanged);
+		}
+		notifyRectsChanged("色を変更");
+	}
+
 	// 今の長方形個数を返す
 	public int getCurrentRectsCount() {
 		return board.getCurrentRectsCount();
@@ -166,6 +177,10 @@ public class RectEditorModel {
 		if (selectionManager.selectOnly(id)) {
 			notifySelectionChanged("id:" + id + "を選択しました");
 		}
+	}
+
+	public boolean hasSelection() {
+		return !selectionManager.isEmpty();
 	}
 
 	// --- Undo/Redo ---
