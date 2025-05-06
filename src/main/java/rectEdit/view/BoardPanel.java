@@ -33,7 +33,11 @@ public class BoardPanel extends JPanel {
 		setPreferredSize(new Dimension(w, h));
 		setBackground(Color.WHITE);
 
-		// パネル上のマウス操作を拾えるように、マウスリスナーを追加
+		setupMouseListener();
+	}
+
+	// パネル上のマウス操作を拾えるように、マウスリスナーを追加
+	private void setupMouseListener() {
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -61,7 +65,6 @@ public class BoardPanel extends JPanel {
 
 			}
 		});
-
 	}
 
 	/**

@@ -150,6 +150,10 @@ public class Board {
 		this.softLimit = newLimit;
 	}
 
+	public boolean hasAnyRect() {
+		return rectangles.size() > 0;
+	}
+
 	public boolean hasCapacity() {
 		return rectangles.size() < softLimit;
 	}

@@ -113,6 +113,14 @@ public class RectEditorModel {
 		notifyRectsChanged("色を変更");
 	}
 
+	public boolean hasAnyRect() {
+		return board.hasAnyRect();
+	}
+
+	public boolean hasCapacity() {
+		return board.hasCapacity();
+	}
+
 	// 今の長方形個数を返す
 	public int getCurrentRectsCount() {
 		return board.getCurrentRectsCount();
