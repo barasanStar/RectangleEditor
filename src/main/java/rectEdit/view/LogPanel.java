@@ -1,6 +1,8 @@
 package rectEdit.view;
 
 import java.awt.BorderLayout;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -9,6 +11,7 @@ import javax.swing.JTextArea;
 
 public class LogPanel extends JPanel {
 	private JTextArea textArea;
+	private static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm:ss");
 
 	public LogPanel() {
 		setLayout(new BorderLayout());
@@ -23,7 +26,8 @@ public class LogPanel extends JPanel {
 	}
 
 	public void appendLog(String message) {
-		textArea.append(message + "\n");
+		String time = LocalTime.now().format(TIME_FORMAT);
+		textArea.append("[" + time + "] " + message + "\n");
 		textArea.setCaretPosition(textArea.getDocument().getLength()); // 常に最下部を表示
 	}
 }
