@@ -42,6 +42,10 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 		logPanel.appendLog(message);
 	}
 
+	public BoardPanel getBoardPanel() {
+		return boardPanel;
+	}
+
 	@Override
 	public void onRectsChanged(String operationLogMessage) {
 		boardPanel.update(model.getRectanglesReadOnly(), model.getSelectionManager().getSelectedIds());

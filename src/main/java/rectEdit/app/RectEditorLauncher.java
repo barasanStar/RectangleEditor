@@ -17,10 +17,13 @@ import rectEdit.handler.ExpandHandler;
 import rectEdit.handler.HandlerRegistry;
 import rectEdit.handler.LoadFromTextHandler;
 import rectEdit.handler.MoveHandler;
+import rectEdit.handler.SaveAsImageHandler;
 import rectEdit.handler.SaveToTextHandler;
 import rectEdit.model.RectEditorModel;
+import rectEdit.view.RectEditorView;
 
 public class RectEditorLauncher {
+	private static RectEditorView view;
 
 	public static void launch() {
 		SwingUtilities.invokeLater(() -> {
@@ -37,21 +40,23 @@ public class RectEditorLauncher {
 
 			// View + Window の生成
 			RectEditorWindow window = new RectEditorWindow(model, controller);
+			view = window.getView();
 
 			// ハンドラの登録
-			registry.register(ActionKey.LOAD_FROM_TEXT, new LoadFromTextHandler(model, window.getView()));
-			registry.register(ActionKey.SAVE_TO_TEXT, new SaveToTextHandler(model, window.getView()));
+			registry.register(ActionKey.LOAD_FROM_TEXT, new LoadFromTextHandler(model, view));
+			registry.register(ActionKey.SAVE_TO_TEXT, new SaveToTextHandler(model, view));
+			registry.register(ActionKey.SAVE_AS_IMAGE, new SaveAsImageHandler(view.getBoardPanel(), view));
 			registry.register(ActionKey.CREATE_A, new CreateAHandler(model));
 			registry.register(ActionKey.CREATE_B, new CreateBHandler(model));
 			registry.register(ActionKey.CREATE_RANDOM, new CreateRandomHandler(model));
-			registry.register(ActionKey.DELETE, new DeleteHandler(model, window.getView()));
+			registry.register(ActionKey.DELETE, new DeleteHandler(model, view));
 			registry.register(ActionKey.DELETE_ALL, new DeleteAllHandler(model));
-			registry.register(ActionKey.MOVE, new MoveHandler(model, window.getView()));
-			registry.register(ActionKey.EXPAND, new ExpandHandler(model, window.getView()));
-			registry.register(ActionKey.COLOR, new ChangeColorHandler(model, window.getView()));
+			registry.register(ActionKey.MOVE, new MoveHandler(model, view));
+			registry.register(ActionKey.EXPAND, new ExpandHandler(model, view));
+			registry.register(ActionKey.COLOR, new ChangeColorHandler(model, view));
 
 			// リスナー登録
-			model.addListener(window.getView());
+			model.addListener(view);
 
 			// 表示
 			window.show();

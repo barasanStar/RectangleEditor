@@ -1,8 +1,9 @@
 package rectEdit.handler;
 
 public enum ActionKey {
-	SAVE_TO_TEXT("ファイルへ保存"),
 	LOAD_FROM_TEXT("ファイルを開く"),
+	SAVE_TO_TEXT("ファイルへ保存"),
+	SAVE_AS_IMAGE("画像として保存"),
 	CREATE_A("定型A作成"),
 	CREATE_B("定型B作成"),
 	CREATE_RANDOM("ランダム作成"),
