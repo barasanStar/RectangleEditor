@@ -15,6 +15,7 @@ import rectEdit.handler.DeleteAllHandler;
 import rectEdit.handler.DeleteHandler;
 import rectEdit.handler.ExpandHandler;
 import rectEdit.handler.HandlerRegistry;
+import rectEdit.handler.LoadFromTextHandler;
 import rectEdit.handler.MoveHandler;
 import rectEdit.handler.SaveToTextHandler;
 import rectEdit.model.RectEditorModel;
@@ -38,6 +39,7 @@ public class RectEditorLauncher {
 			RectEditorWindow window = new RectEditorWindow(model, controller);
 
 			// ハンドラの登録
+			registry.register(ActionKey.LOAD_FROM_TEXT, new LoadFromTextHandler(model, window.getView()));
 			registry.register(ActionKey.SAVE_TO_TEXT, new SaveToTextHandler(model, window.getView()));
 			registry.register(ActionKey.CREATE_A, new CreateAHandler(model));
 			registry.register(ActionKey.CREATE_B, new CreateBHandler(model));

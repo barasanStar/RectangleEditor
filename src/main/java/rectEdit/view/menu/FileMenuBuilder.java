@@ -11,13 +11,13 @@ public class FileMenuBuilder {
 		JMenu fileMenu = new JMenu("ファイル");
 
 		JMenuItem saveToTextItem = new JMenuItem(ActionKey.SAVE_TO_TEXT.getDisplayName());
-		//		JMenuItem loadItem = new JMenuItem("ボードを開く");
+		JMenuItem loadFromTextItem = new JMenuItem(ActionKey.LOAD_FROM_TEXT.getDisplayName());
 
 		saveToTextItem.addActionListener(e -> controller.handleSaveToText());
-		// loadItem.addActionListener(e -> controller.handleLoadBoard());
+		loadFromTextItem.addActionListener(e -> controller.handleLoadFromText());
 
 		fileMenu.add(saveToTextItem);
-		//		fileMenu.add(loadItem);
+		fileMenu.add(loadFromTextItem);
 
 		return fileMenu;
 	}

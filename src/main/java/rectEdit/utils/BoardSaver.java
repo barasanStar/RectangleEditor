@@ -13,14 +13,15 @@ public class BoardSaver {
 
 	public static void saveBoardToFile(Board board, File file) throws IOException {
 		try (PrintWriter out = new PrintWriter(new FileWriter(file))) {
-			// ボードサイズ
+			out.println("# width height");
 			out.printf("%d %d%n", board.getWidth(), board.getHeight());
 
-			// Z順を保ったまま
+			// Z順のまま保存
+			out.println("# x y w h r g b");
 			for (Rect r : board.getRectanglesReadOnly()) {
 				Color c = r.getColor();
-				out.printf("%d %d %d %d %d %d %d %d%n",
-						r.getId(), r.getX(), r.getY(), r.getWidth(), r.getHeight(),
+				out.printf("%d %d %d %d %d %d %d%n",
+						r.getX(), r.getY(), r.getWidth(), r.getHeight(),
 						c.getRed(), c.getGreen(), c.getBlue());
 			}
 		}

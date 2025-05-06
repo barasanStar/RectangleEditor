@@ -10,6 +10,10 @@ public class RectEditorController {
 		this.registry = registry;
 	}
 
+	public void handleLoadFromText() {
+		registry.get(ActionKey.LOAD_FROM_TEXT).handle();
+	}
+
 	public void handleSaveToText() {
 		registry.get(ActionKey.SAVE_TO_TEXT).handle();
 	}
