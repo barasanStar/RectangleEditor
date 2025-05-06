@@ -9,6 +9,7 @@ import rectEdit.controller.RectEditorController;
 import rectEdit.handler.ActionKey;
 import rectEdit.handler.CreateAActionHandler;
 import rectEdit.handler.CreateBActionHandler;
+import rectEdit.handler.CreateRandomActionHandler;
 import rectEdit.handler.DeleteActionHandler;
 import rectEdit.handler.DeleteAllActionHandler;
 import rectEdit.handler.HandlerRegistry;
@@ -36,6 +37,7 @@ public class RectEditorLauncher {
 			// ハンドラの登録
 			registry.register(ActionKey.CREATE_A, new CreateAActionHandler(model));
 			registry.register(ActionKey.CREATE_B, new CreateBActionHandler(model));
+			registry.register(ActionKey.CREATE_RANDOM, new CreateRandomActionHandler(model));
 			registry.register(ActionKey.DELETE, new DeleteActionHandler(model, window.getView()));
 			registry.register(ActionKey.DELETE_ALL, new DeleteAllActionHandler(model));
 			registry.register(ActionKey.MOVE, new MoveActionHandler(model, window.getView()));

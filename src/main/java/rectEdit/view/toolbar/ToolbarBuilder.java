@@ -19,6 +19,10 @@ public class ToolbarBuilder {
 		createBButton.addActionListener(e -> controller.handleCreateB());
 		toolbar.add(createBButton);
 
+		JButton createRandomButton = new JButton(ActionKey.CREATE_RANDOM.getDisplayName());
+		createRandomButton.addActionListener(e -> controller.handleCreateRandom());
+		toolbar.add(createRandomButton);
+
 		JButton deleteButton = new JButton(ActionKey.DELETE.getDisplayName());
 		deleteButton.addActionListener(e -> controller.handleDelete());
 		toolbar.add(deleteButton);
