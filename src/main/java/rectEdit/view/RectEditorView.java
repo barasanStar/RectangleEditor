@@ -23,6 +23,7 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 
 		boardPanel = new BoardPanel(model);
 		boardPanel.setView(this);
+
 		rectListPanel = new RectListPanel(model);
 		logPanel = new LogPanel();
 

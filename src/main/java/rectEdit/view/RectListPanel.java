@@ -30,6 +30,7 @@ public class RectListPanel extends JPanel implements RectEditorModelListener {
 	private final DefaultListModel<Rect> listModel;
 	private final JList<Rect> rectList;
 	private RectEditorModel model;
+	private boolean updatingFromModel = false;
 
 	public RectListPanel(RectEditorModel model) {
 		this.model = model;
@@ -41,38 +42,33 @@ public class RectListPanel extends JPanel implements RectEditorModelListener {
 		rectList = new JList<>(listModel);
 		rectList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
+		rectList.addListSelectionListener(e -> {
+			if (updatingFromModel) {
+				return; // 循環を防止				
+			}
+
+			if (!e.getValueIsAdjusting()) {
+				int[] selected = rectList.getSelectedIndices();
+				Set<Integer> selectedSet = Arrays.stream(selected).boxed().collect(Collectors.toSet());
+				model.setSelectedIds(selectedSet);
+			}
+		});
+
 		// カスタムセルレンダラー：モデルの選択状態に応じた強調表示
 		rectList.setCellRenderer(new RectListCellRenderer());
 
 		add(new JScrollPane(rectList), BorderLayout.CENTER);
 
-		// 長方形一覧のマウス操作を拾えるように、マウスリスナーを追加
 		rectList.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int index = rectList.locationToIndex(e.getPoint());
-				if (index != -1) {
-					// クリック位置が実際の要素内か確認（空白部分クリックの除外）
-					Rect r = listModel.get(index);
-					Rectangle cellBounds = rectList.getCellBounds(index, index);
-					if (cellBounds != null && cellBounds.contains(e.getPoint())) {
-						// 通常の選択（行をクリックした）
-						if (r != null && model != null) {
-							model.selectOnly(r.getId());
-						}
-					} else {
-						// 空白部分クリック → 選択解除
-						rectList.clearSelection();
-						if (model != null) {
-							model.selectionClear();
-						}
-					}
-				} else {
-					// 完全な空白クリック（要素なし）
+				Rectangle bounds = rectList.getCellBounds(index, index);
+
+				if (bounds == null || !bounds.contains(e.getPoint())) {
+					// 空白部分がクリックされたとみなす
 					rectList.clearSelection();
-					if (model != null) {
-						model.selectionClear();
-					}
+					model.selectionClear(); // モデル側も選択解除
 				}
 			}
 		});
@@ -147,10 +143,15 @@ public class RectListPanel extends JPanel implements RectEditorModelListener {
 
 	@Override
 	public void onSelectionChanged(String operationLogMessage) {
-		// TODO 自動生成されたメソッド・スタブ
 		Set<Integer> selectedIds = model.getSelectionManager().getSelectedIds();
-		setSelectedIds(selectedIds); // JList の選択状態を反映
+
+		updatingFromModel = true;
+		try {
+			setSelectedIds(selectedIds); // JList の選択状態を反映
+		} finally {
+			updatingFromModel = false;
+		}
+
 		rectList.repaint(); // レンダラー強制再描画（重要！）
-		System.out.println("こんにちは");
 	}
 }
