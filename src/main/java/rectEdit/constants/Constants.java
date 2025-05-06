@@ -14,6 +14,7 @@ public class Constants {
 	public static final KeyStroke SHORTCUT_UNDO = KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK);
 	public static final KeyStroke SHORTCUT_REDO = KeyStroke.getKeyStroke(KeyEvent.VK_Y, InputEvent.CTRL_DOWN_MASK);
 	public static final KeyStroke SHORTCUT_DELETE = KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0);
+	public static final KeyStroke SHORTCUT_ESC = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
 
 	public static final String TOOLTIP_UNDO = "元に戻す（Ctrl+Z）";
 	public static final String TOOLTIP_REDO = "やり直し（Ctrl+Y）";

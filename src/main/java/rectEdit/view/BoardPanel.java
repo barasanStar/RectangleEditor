@@ -23,7 +23,6 @@ public class BoardPanel extends JPanel {
 	private List<Rect> rectangles = List.of();
 	private Set<Integer> selectedIds = new HashSet<>();
 	private RectEditorModel model;
-	private RectEditorView view; // 通知機構を使うため
 
 	// 【TODO】途中でボードサイズが変わる際は、BoardPanelのサイズも再設定したい。
 	//		revalidate(); // サイズが変わる可能性がある場合に呼ぶ
@@ -60,14 +59,9 @@ public class BoardPanel extends JPanel {
 					// Ctrl+空白 → 何もしない
 				}
 
-				view.onSelectionChanged("キャンバス上のクリック"); // リストなどと同期用
 			}
 		});
 
-	}
-
-	public void setView(RectEditorView view) {
-		this.view = view;
 	}
 
 	/**
