@@ -27,7 +27,7 @@ public class SelectionManager {
 	}
 
 	public boolean clear() {
-		if (isEmpty()) {
+		if (!hasSelection()) {
 			return false;
 		}
 		selectedIds.clear();
@@ -68,8 +68,8 @@ public class SelectionManager {
 		return selectedIds.contains(id);
 	}
 
-	public boolean isEmpty() {
-		return selectedIds.isEmpty();
+	public boolean hasSelection() {
+		return !selectedIds.isEmpty();
 	}
 
 	public int size() {

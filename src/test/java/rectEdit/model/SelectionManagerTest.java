@@ -34,7 +34,7 @@ public class SelectionManagerTest {
 		selectionManager.add(2);
 		selectionManager.remove(2);
 		assertFalse(selectionManager.contains(2));
-		assertTrue(selectionManager.isEmpty());
+		assertFalse(selectionManager.hasSelection());
 	}
 
 	@Test
@@ -55,7 +55,7 @@ public class SelectionManagerTest {
 		selectionManager.add(1);
 		selectionManager.add(2);
 		selectionManager.clear();
-		assertTrue(selectionManager.isEmpty());
+		assertFalse(selectionManager.hasSelection());
 		assertEquals(Set.of(), selectionManager.getSelectedIds());
 	}
 
