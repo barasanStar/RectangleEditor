@@ -187,7 +187,7 @@ public class RectEditorModel {
 	}
 
 	public boolean hasSelection() {
-		return !selectionManager.isEmpty();
+		return selectionManager.hasSelection();
 	}
 
 	// --- Undo/Redo ---
