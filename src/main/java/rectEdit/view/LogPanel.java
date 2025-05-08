@@ -11,7 +11,7 @@ import javax.swing.JTextArea;
 
 public class LogPanel extends JPanel {
 	private JTextArea textArea;
-	private static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm:ss");
+	private static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
 
 	public LogPanel() {
 		setLayout(new BorderLayout());

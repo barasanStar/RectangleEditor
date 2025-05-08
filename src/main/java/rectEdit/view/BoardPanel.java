@@ -67,17 +67,25 @@ public class BoardPanel extends JPanel {
 		});
 	}
 
+	private static void log(String tag, Object message) {
+		System.out.println(
+				"[" + java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss.SSS"))
+						+ "] " + tag + ": " + message);
+	}
+
 	/**
 	 * 手元データを最新に更新後、再描画する。
 	 */
 	public void update(List<Rect> rectangles, Set<Integer> selectedIds) {
 		this.rectangles = rectangles;
 		this.selectedIds = selectedIds;
+		log("★[BoardPanel#update] selectedIds = ", selectedIds);
 		repaint(); // 再描画
 	}
 
 	public void updateSelectionOnly(Set<Integer> selectedIds) {
 		this.selectedIds = selectedIds;
+		log("★[BoardPanel#updateSelectionOnly] selectedIds = ", selectedIds);
 		repaint(); // 再描画
 	}
 
