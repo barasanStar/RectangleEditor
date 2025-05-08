@@ -1,6 +1,8 @@
 package rectEdit.view;
 
 import java.awt.BorderLayout;
+import java.util.List;
+import java.util.Set;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -8,6 +10,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 
 import rectEdit.controller.RectEditorController;
+import rectEdit.model.Rect;
 import rectEdit.model.RectEditorModel;
 import rectEdit.model.RectEditorModelListener;
 import rectEdit.view.toolbar.ButtonStateManager;
@@ -53,12 +56,35 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 		return boardPanel;
 	}
 
+	//	@Override
+	//	public void onRectsChanged(String operationLogMessage) {
+	//		boardPanel.update(model.getRectanglesReadOnly(), model.getSelectionManager().getSelectedIds());
+	//		rectListPanel.setRectangleList(model.getRectanglesReadOnly());
+	//		buttonStateManager.updateAll();
+	//		logPanel.appendLog("View#onRectsChanged: " + operationLogMessage);
+	//	}
+
 	@Override
 	public void onRectsChanged(String operationLogMessage) {
-		boardPanel.update(model.getRectanglesReadOnly(), model.getSelectionManager().getSelectedIds());
-		rectListPanel.setRectangleList(model.getRectanglesReadOnly());
+		List<Rect> rects = model.getRectanglesReadOnly();
+		Set<Integer> selectedIds = model.getSelectionManager().getSelectedIds();
+
+		log("★[View#onRectsChanged] selectedIds = ", selectedIds);
+		log("★[View#onRectsChanged] rects = ", rects.stream().map(r -> r.getId()).toList());
+
+		boardPanel.update(rects, selectedIds);
+		rectListPanel.updateListAndSelection(rects, selectedIds); // ✅ 修正ポイント
 		buttonStateManager.updateAll();
-		logPanel.appendLog("View#onRectsChanged: " + operationLogMessage);
+
+		if (!operationLogMessage.isEmpty()) {
+			logPanel.appendLog("[View] " + operationLogMessage);
+		}
+	}
+
+	private static void log(String tag, Object message) {
+		System.out.println(
+				"[" + java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss.SSS"))
+						+ "] " + tag + ": " + message);
 	}
 
 	// 上にある onRectsChanged との違いは、List<Rect>を更新するかどうかだけ。

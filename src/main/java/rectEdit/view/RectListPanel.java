@@ -45,13 +45,21 @@ public class RectListPanel extends JPanel implements RectEditorModelListener {
 
 		rectList.addListSelectionListener(e -> {
 			if (updatingFromModel) {
+				//				System.out.println("[循環防止] ListSelectionListener 抑止");
+				log("★[循環防止] ListSelectionListener 抑止", getSelectedIds());
+
 				return; // 循環を防止				
 			}
 
 			if (!e.getValueIsAdjusting()) {
-				int[] selected = rectList.getSelectedIndices();
-				Set<Integer> selectedSet = Arrays.stream(selected).boxed().collect(Collectors.toSet());
-				model.setSelectedIds(selectedSet);
+				updatingFromModel = true; // ← 追加（保護用）
+				try {
+					int[] selected = rectList.getSelectedIndices();
+					Set<Integer> selectedSet = Arrays.stream(selected).boxed().collect(Collectors.toSet());
+					model.setSelectedIds(selectedSet);
+				} finally {
+					updatingFromModel = false; // ← 追加（保護用）
+				}
 			}
 		});
 
@@ -91,19 +99,47 @@ public class RectListPanel extends JPanel implements RectEditorModelListener {
 		}
 	}
 
+	private static void log(String tag, Object message) {
+		System.out.println(
+				"[" + java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss.SSS"))
+						+ "] " + tag + ": " + message);
+	}
+
 	/**
 	 * IDの集合に基づいて選択状態を反映
 	 */
 	public void setSelectedIds(Set<Integer> selectedIds) {
-		List<Integer> indicesToSelect = new ArrayList<>();
-		for (int i = 0; i < listModel.size(); i++) {
-			Rect rect = listModel.get(i);
-			if (selectedIds.contains(rect.getId())) {
-				indicesToSelect.add(i);
+		updatingFromModel = true; // 対策1として追加
+		try {
+			log("★[RectListPanel#setSelectedIds] selectedIds = ", selectedIds);
+			List<Integer> indicesToSelect = new ArrayList<>();
+			for (int i = 0; i < listModel.size(); i++) {
+				Rect rect = listModel.get(i);
+				if (selectedIds.contains(rect.getId())) {
+					indicesToSelect.add(i);
+				}
 			}
+			rectList.clearSelection();
+			rectList.setSelectedIndices(indicesToSelect.stream().mapToInt(i -> i).toArray());
+			log("★[RectListPanel] selectedIndices = ", indicesToSelect);
+
+		} finally {
+			updatingFromModel = true; // 対策1として追加
 		}
-		rectList.clearSelection();
-		rectList.setSelectedIndices(indicesToSelect.stream().mapToInt(i -> i).toArray());
+	}
+
+	public void updateListAndSelection(List<Rect> rects, Set<Integer> selectedIds) {
+		updatingFromModel = true; // 対策2として追加
+		try {
+			listModel.clear();
+			for (Rect r : rects) {
+				listModel.addElement(r);
+			}
+			setSelectedIds(selectedIds); // ID→index変換して選択復元
+
+		} finally {
+			updatingFromModel = false; // 対策2として追加
+		}
 	}
 
 	/**
