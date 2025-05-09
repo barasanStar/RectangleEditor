@@ -6,7 +6,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>barasanStar</groupId>
-  <artifactId>rectEdit</artifactId>
+  <artifactId>Rectangle-Editor</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
   <name>RectEditor</name>

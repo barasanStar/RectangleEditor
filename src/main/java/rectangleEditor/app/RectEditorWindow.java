@@ -27,7 +27,7 @@ public class RectEditorWindow {
 		this.model = model;
 		this.controller = controller;
 		this.view = new RectEditorView(model, controller);
-		frame = new JFrame("Rect Editor");
+		frame = new JFrame("Rectangle Editor");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setContentPane(view); // JPanelとして追加
 		frame.pack();
