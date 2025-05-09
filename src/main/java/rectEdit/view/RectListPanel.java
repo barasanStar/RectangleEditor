@@ -160,7 +160,10 @@ public class RectListPanel extends JPanel implements RectEditorModelListener {
 					list, value, index, isSelected, cellHasFocus);
 
 			if (value instanceof Rect rect) {
-				label.setText(rect.toString());
+				//				label.setText(rect.toString()); // ここを変えたい
+
+				// Z順は index（リストの表示順）として取得できる
+				label.setText(String.format("[ID:%d, Z:%d] %s", rect.getId(), index, rect.toString()));
 
 				Set<Integer> selectedIds = model.getSelectionManager().getSelectedIds();
 				if (selectedIds.contains(rect.getId())) {
