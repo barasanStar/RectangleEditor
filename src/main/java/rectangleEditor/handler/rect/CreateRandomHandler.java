@@ -15,7 +15,9 @@ public class CreateRandomHandler implements ActionHandler {
 	@Override
 	public void handle() {
 		model.pushSnapshot(); // Undo対応
-		Rect rect = RectFactory.createRandom();
+		int boardWidth = model.getBoardWidth();
+		int boardHeight = model.getBoardHeight();
+		Rect rect = RectFactory.createRandom(boardWidth, boardHeight);
 		model.tryAddRect(rect); // 真の時、モデル変更通知。
 	}
 }

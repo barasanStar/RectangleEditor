@@ -11,13 +11,21 @@ public class RectFactory {
 		return new Rect(nextId++, x, y, width, height, color);
 	}
 
-	public static Rect createRandom() {
-		int x = random.nextInt(400);
-		int y = random.nextInt(300);
-		int w = 50 + random.nextInt(100);
-		int h = 50 + random.nextInt(100);
+	public static Rect createRandom(int boardWidth, int boardHeight) {
+		int minWidth = 20;
+		int minHeight = 20;
+		int maxWidth = Math.min(100, boardWidth);
+		int maxHeight = Math.min(100, boardHeight);
+
+		int width = minWidth + random.nextInt(maxWidth - minWidth + 1);
+		int height = minHeight + random.nextInt(maxHeight - minHeight + 1);
+
+		int x = random.nextInt(boardWidth - width + 1);
+		int y = random.nextInt(boardHeight - height + 1);
+
 		Color color = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
-		return create(x, y, w, h, color);
+
+		return create(x, y, width, height, color);
 	}
 
 	// テスト用：IDリセット
