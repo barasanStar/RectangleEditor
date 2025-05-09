@@ -23,7 +23,7 @@ MVC構造を意識して設計・実装しています。
 
 ## 🖼️ 画面イメージ
 
-![GUIアプリ画面](src/main/resources/RectEditor.png)
+![GUIアプリ画面](src/main/resources/RectangleEditor.png)
 
 ---
 
@@ -66,7 +66,7 @@ MVC構造を意識して設計・実装しています。
 ## 📁 ディレクトリ構成（抜粋）
 
 
-rectEdit/  
+rectangleEditor/  
 ├── app/ // エントリポイント  
 ├── controller/ // 入力・操作の中継  
 ├── model/ // 状態管理・ロジック  
