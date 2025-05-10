@@ -46,7 +46,6 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 
 		// アプリ起動時のボタン状態を設定。普段はモデル変更通知から呼ばれる。
 		buttonStateManager.updateAll();
-
 	}
 
 	public void appendLog(String message) {
@@ -61,14 +60,12 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 	public void onRectsChanged(String operationLogMessage) {
 		List<Rect> rects = model.getRectanglesReadOnly();
 		Set<Integer> selectedIds = model.getSelectionManager().getSelectedIds();
-
 		AppLog.log("★[View#onRectsChanged] selectedIds = ", selectedIds);
 		AppLog.log("★[View#onRectsChanged] rects = ", rects.stream().map(r -> r.getId()).toList());
 
 		boardPanel.update(rects, selectedIds);
-		rectListPanel.updateListAndSelection(rects, selectedIds); // ✅ 修正ポイント
+		rectListPanel.updateListAndSelection(rects, selectedIds);
 		buttonStateManager.updateAll();
-
 		if (!operationLogMessage.isEmpty()) {
 			logPanel.appendLog("[View] " + operationLogMessage);
 		}
