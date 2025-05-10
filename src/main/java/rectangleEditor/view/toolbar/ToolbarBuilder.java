@@ -41,6 +41,12 @@ public class ToolbarBuilder {
 		buttonStateManager.registerCreateButton(createBButton);
 		createBButton.addActionListener(e -> controller.handleCreateB());
 
+		// 作成ボタン（カスタム）
+		JButton createCustomButton = new JButton(ActionKey.CREATE_CUSTOM);
+		toolBar.add(createCustomButton);
+		buttonStateManager.registerCreateButton(createCustomButton);
+		createCustomButton.addActionListener(e -> controller.handleCreateCustom());
+
 		// 作成ボタン（ランダム）
 		JButton createRandomButton = new JButton(ActionKey.CREATE_RANDOM);
 		toolBar.add(createRandomButton);

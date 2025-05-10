@@ -12,6 +12,7 @@ public class ActionMenuBuilder {
 
 		JMenuItem createAMenuItem = new JMenuItem(ActionKey.CREATE_A);
 		JMenuItem createBMenuItem = new JMenuItem(ActionKey.CREATE_B);
+		JMenuItem createCustomMenuItem = new JMenuItem(ActionKey.CREATE_CUSTOM);
 		JMenuItem createRandomMenuItem = new JMenuItem(ActionKey.CREATE_RANDOM);
 		JMenuItem deleteMenuItem = new JMenuItem(ActionKey.DELETE);
 		JMenuItem deleteAllMenuItem = new JMenuItem(ActionKey.DELETE_ALL);
@@ -21,6 +22,7 @@ public class ActionMenuBuilder {
 
 		createAMenuItem.addActionListener(e -> controller.handleCreateA());
 		createBMenuItem.addActionListener(e -> controller.handleCreateB());
+		createCustomMenuItem.addActionListener(e -> controller.handleCreateCustom());
 		createRandomMenuItem.addActionListener(e -> controller.handleCreateRandom());
 		deleteMenuItem.addActionListener(e -> controller.handleDelete());
 		deleteAllMenuItem.addActionListener(e -> controller.handleDeleteAll());
@@ -30,6 +32,7 @@ public class ActionMenuBuilder {
 
 		actionMenu.add(createAMenuItem);
 		actionMenu.add(createBMenuItem);
+		actionMenu.add(createCustomMenuItem);
 		actionMenu.add(createRandomMenuItem);
 		actionMenu.addSeparator();
 		actionMenu.add(deleteMenuItem);

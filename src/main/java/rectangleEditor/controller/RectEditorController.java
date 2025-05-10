@@ -41,6 +41,10 @@ public class RectEditorController {
 		registry.get(ActionKey.CREATE_B).handle();
 	}
 
+	public void handleCreateCustom() {
+		registry.get(ActionKey.CREATE_CUSTOM).handle();
+	}
+
 	public void handleCreateRandom() {
 		registry.get(ActionKey.CREATE_RANDOM).handle();
 	}

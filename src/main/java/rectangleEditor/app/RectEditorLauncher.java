@@ -18,6 +18,7 @@ import rectangleEditor.handler.file.SaveToTextHandler;
 import rectangleEditor.handler.rect.ChangeColorHandler;
 import rectangleEditor.handler.rect.CreateAHandler;
 import rectangleEditor.handler.rect.CreateBHandler;
+import rectangleEditor.handler.rect.CreateCustomHandler;
 import rectangleEditor.handler.rect.CreateRandomHandler;
 import rectangleEditor.handler.rect.DeleteAllHandler;
 import rectangleEditor.handler.rect.DeleteHandler;
@@ -70,6 +71,7 @@ public class RectEditorLauncher {
 	private static void registerRectHandlers(HandlerRegistry registry, RectEditorModel model, RectEditorView view) {
 		registry.register(ActionKey.CREATE_A, new CreateAHandler(model));
 		registry.register(ActionKey.CREATE_B, new CreateBHandler(model));
+		registry.register(ActionKey.CREATE_CUSTOM, new CreateCustomHandler(model, view));
 		registry.register(ActionKey.CREATE_RANDOM, new CreateRandomHandler(model));
 		registry.register(ActionKey.DELETE, new DeleteHandler(model, view));
 		registry.register(ActionKey.DELETE_ALL, new DeleteAllHandler(model));
