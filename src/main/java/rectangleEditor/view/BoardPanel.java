@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import rectangleEditor.model.Rect;
 import rectangleEditor.model.RectEditorModel;
 import rectangleEditor.model.RectFactory;
+import rectangleEditor.utils.AppLog;
 
 public class BoardPanel extends JPanel {
 	private List<Rect> rectangles = List.of();
@@ -103,8 +104,11 @@ public class BoardPanel extends JPanel {
 		int w = Math.abs(x1 - x2);
 		int h = Math.abs(y1 - y2);
 
-		if (w == 0 || h == 0)
-			return; // 無効なサイズ
+		if (w <= 10 || h <= 10) {
+			AppLog.log("幅または高さが10以下の長方形はドラッグ", "作成できません。");
+
+			return; // 無効なサイズ			
+		}
 
 		Color color = new Color((int) (Math.random() * 256),
 				(int) (Math.random() * 256),
@@ -115,25 +119,19 @@ public class BoardPanel extends JPanel {
 		model.tryAddRect(rect); // ボードに収まるか自動チェック
 	}
 
-	private static void log(String tag, Object message) {
-		System.out.println(
-				"[" + java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss.SSS"))
-						+ "] " + tag + ": " + message);
-	}
-
 	/**
 	 * 手元データを最新に更新後、再描画する。
 	 */
 	public void update(List<Rect> rectangles, Set<Integer> selectedIds) {
 		this.rectangles = rectangles;
 		this.selectedIds = selectedIds;
-		log("★[BoardPanel#update] selectedIds = ", selectedIds);
+		AppLog.log("★[BoardPanel#update] selectedIds = ", selectedIds);
 		repaint(); // 再描画
 	}
 
 	public void updateSelectionOnly(Set<Integer> selectedIds) {
 		this.selectedIds = selectedIds;
-		log("★[BoardPanel#updateSelectionOnly] selectedIds = ", selectedIds);
+		AppLog.log("★[BoardPanel#updateSelectionOnly] selectedIds = ", selectedIds);
 		repaint(); // 再描画
 	}
 

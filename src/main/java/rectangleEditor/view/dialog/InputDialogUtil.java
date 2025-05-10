@@ -28,8 +28,9 @@ public class InputDialogUtil {
 
 		colorButton.addActionListener(e -> {
 			Color c = JColorChooser.showDialog(parent, "色を選択", selectedColor[0]);
-			if (c != null)
+			if (c != null) {
 				selectedColor[0] = c;
+			}
 		});
 
 		JPanel panel = new JPanel(new GridLayout(5, 2, 5, 5));
@@ -45,8 +46,9 @@ public class InputDialogUtil {
 		panel.add(colorButton);
 
 		int result = JOptionPane.showConfirmDialog(parent, panel, "長方形の作成", JOptionPane.OK_CANCEL_OPTION);
-		if (result != JOptionPane.OK_OPTION)
+		if (result != JOptionPane.OK_OPTION) {
 			return null;
+		}
 
 		int x = (Integer) xSpinner.getValue();
 		int y = (Integer) ySpinner.getValue();

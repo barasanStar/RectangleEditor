@@ -1,19 +1,14 @@
 package rectangleEditor.app;
 
 import java.awt.Image;
-import java.awt.event.ActionEvent;
 
-import javax.swing.AbstractAction;
-import javax.swing.ActionMap;
 import javax.swing.ImageIcon;
-import javax.swing.InputMap;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 
-import rectangleEditor.constants.Constants;
 import rectangleEditor.controller.RectEditorController;
 import rectangleEditor.model.RectEditorModel;
 import rectangleEditor.view.RectEditorView;
+import rectangleEditor.view.ShortcutKeyBinder;
 import rectangleEditor.view.menu.MenuBarBuilder;
 
 public class RectEditorWindow {
@@ -36,45 +31,7 @@ public class RectEditorWindow {
 		frame.setIconImage(icon);
 		frame.setJMenuBar(MenuBarBuilder.build(model, controller));
 
-		setupShortcutKeys();
-	}
-
-	private void setupShortcutKeys() {
-		InputMap inputMap = frame.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-		ActionMap actionMap = frame.getRootPane().getActionMap();
-
-		inputMap.put(Constants.SHORTCUT_UNDO, "undo");
-		actionMap.put("undo", new AbstractAction() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.handleUndo();
-			}
-		});
-
-		inputMap.put(Constants.SHORTCUT_REDO, "redo");
-		actionMap.put("redo", new AbstractAction() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.handleRedo();
-			}
-		});
-
-		inputMap.put(Constants.SHORTCUT_DELETE, "delete");
-		actionMap.put("delete", new AbstractAction() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.handleDelete();
-			}
-		});
-
-		inputMap.put(Constants.SHORTCUT_ESC, "clearSelection");
-		actionMap.put("clearSelection", new AbstractAction() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				model.clearSelection();
-			}
-		});
-
+		ShortcutKeyBinder.bindShortcuts(model, frame.getRootPane(), controller);
 	}
 
 	public void show() {

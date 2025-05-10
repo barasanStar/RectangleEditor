@@ -13,6 +13,7 @@ import rectangleEditor.controller.RectEditorController;
 import rectangleEditor.model.Rect;
 import rectangleEditor.model.RectEditorModel;
 import rectangleEditor.model.RectEditorModelListener;
+import rectangleEditor.utils.AppLog;
 import rectangleEditor.view.toolbar.ButtonStateManager;
 import rectangleEditor.view.toolbar.ToolbarBuilder;
 
@@ -61,8 +62,8 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 		List<Rect> rects = model.getRectanglesReadOnly();
 		Set<Integer> selectedIds = model.getSelectionManager().getSelectedIds();
 
-		log("★[View#onRectsChanged] selectedIds = ", selectedIds);
-		log("★[View#onRectsChanged] rects = ", rects.stream().map(r -> r.getId()).toList());
+		AppLog.log("★[View#onRectsChanged] selectedIds = ", selectedIds);
+		AppLog.log("★[View#onRectsChanged] rects = ", rects.stream().map(r -> r.getId()).toList());
 
 		boardPanel.update(rects, selectedIds);
 		rectListPanel.updateListAndSelection(rects, selectedIds); // ✅ 修正ポイント
@@ -71,12 +72,6 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 		if (!operationLogMessage.isEmpty()) {
 			logPanel.appendLog("[View] " + operationLogMessage);
 		}
-	}
-
-	private static void log(String tag, Object message) {
-		System.out.println(
-				"[" + java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss.SSS"))
-						+ "] " + tag + ": " + message);
 	}
 
 	// 上にある onRectsChanged との違いは、List<Rect>を更新するかどうかだけ。
