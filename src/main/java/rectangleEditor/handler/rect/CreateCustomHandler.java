@@ -22,7 +22,10 @@ public class CreateCustomHandler implements ActionHandler {
 
 	@Override
 	public void handle() {
-		CustomRectInput input = InputDialogUtil.showCustomRectInputDialog(parent);
+		int boardWidth = model.getBoardWidth();
+		int boardHeight = model.getBoardHeight();
+		CustomRectInput input = InputDialogUtil.showCustomRectInputDialog(parent, boardWidth, boardHeight);
+
 		if (input == null)
 			return; // ユーザーがキャンセル
 
