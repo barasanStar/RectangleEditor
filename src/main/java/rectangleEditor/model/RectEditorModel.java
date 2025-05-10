@@ -50,7 +50,7 @@ public class RectEditorModel {
 			boolean added = boardService.tryAddRect(board, rect);
 			if (added) {
 				selectionManager.selectOnly(rect.getId()); // 選択状態を更新
-				notifyRectsChanged("[通知]長方形を追加: " + rect.toString() + "（選択状態も更新）");
+				notifyRectsChanged("[通知]長方形を追加: " + rect.toString());
 				return true;
 			} else {
 				removeLatestSnapshot();
