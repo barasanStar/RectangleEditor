@@ -13,6 +13,7 @@ public class ActionKey {
 	// --- 長方形操作系 ---
 	public static final String CREATE_A = "定型A作成";
 	public static final String CREATE_B = "定型B作成";
+	public static final String CREATE_CUSTOM = "カスタム作成";
 	public static final String CREATE_RANDOM = "ランダム作成";
 	public static final String DELETE = "削除";
 	public static final String DELETE_ALL = "全削除";
