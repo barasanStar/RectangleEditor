@@ -39,7 +39,7 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 
 		// 分割ビュー（左側：キャンバス、右側：長方形一覧）
 		JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, boardPanel, rectListPanel);
-		split.setDividerLocation(550); // 初期分割位置（左側550px）
+		split.setDividerLocation(500); // 初期分割位置（左側500px）
 		add(split, BorderLayout.CENTER);
 		add(new JScrollPane(logPanel), BorderLayout.SOUTH);
 
@@ -55,14 +55,6 @@ public class RectEditorView extends JPanel implements RectEditorModelListener {
 	public BoardPanel getBoardPanel() {
 		return boardPanel;
 	}
-
-	//	@Override
-	//	public void onRectsChanged(String operationLogMessage) {
-	//		boardPanel.update(model.getRectanglesReadOnly(), model.getSelectionManager().getSelectedIds());
-	//		rectListPanel.setRectangleList(model.getRectanglesReadOnly());
-	//		buttonStateManager.updateAll();
-	//		logPanel.appendLog("View#onRectsChanged: " + operationLogMessage);
-	//	}
 
 	@Override
 	public void onRectsChanged(String operationLogMessage) {
