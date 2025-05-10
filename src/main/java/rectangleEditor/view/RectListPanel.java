@@ -26,6 +26,7 @@ import javax.swing.UIManager;
 import rectangleEditor.model.Rect;
 import rectangleEditor.model.RectEditorModel;
 import rectangleEditor.model.RectEditorModelListener;
+import rectangleEditor.utils.AppLog;
 
 public class RectListPanel extends JPanel implements RectEditorModelListener {
 	private final DefaultListModel<Rect> listModel;
@@ -45,20 +46,18 @@ public class RectListPanel extends JPanel implements RectEditorModelListener {
 
 		rectList.addListSelectionListener(e -> {
 			if (updatingFromModel) {
-				//				System.out.println("[循環防止] ListSelectionListener 抑止");
-				log("★[循環防止] ListSelectionListener 抑止", getSelectedIds());
-
+				AppLog.log("★[循環防止] ListSelectionListener 抑止", getSelectedIds());
 				return; // 循環を防止				
 			}
 
 			if (!e.getValueIsAdjusting()) {
-				updatingFromModel = true; // ← 追加（保護用）
+				updatingFromModel = true;
 				try {
 					int[] selected = rectList.getSelectedIndices();
 					Set<Integer> selectedSet = Arrays.stream(selected).boxed().collect(Collectors.toSet());
 					model.setSelectedIds(selectedSet);
 				} finally {
-					updatingFromModel = false; // ← 追加（保護用）
+					updatingFromModel = false;
 				}
 			}
 		});
@@ -75,9 +74,8 @@ public class RectListPanel extends JPanel implements RectEditorModelListener {
 				Rectangle bounds = rectList.getCellBounds(index, index);
 
 				if (bounds == null || !bounds.contains(e.getPoint())) {
-					// 空白部分がクリックされたとみなす
+					// 空白部分がクリックされた
 					rectList.clearSelection();
-					//					model.clearSelection(); // モデル側も選択解除
 
 					// ✅ 後回しにすることでイベントの衝突を避ける
 					SwingUtilities.invokeLater(() -> {
@@ -99,19 +97,13 @@ public class RectListPanel extends JPanel implements RectEditorModelListener {
 		}
 	}
 
-	private static void log(String tag, Object message) {
-		System.out.println(
-				"[" + java.time.LocalTime.now().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss.SSS"))
-						+ "] " + tag + ": " + message);
-	}
-
 	/**
 	 * IDの集合に基づいて選択状態を反映
 	 */
 	public void setSelectedIds(Set<Integer> selectedIds) {
 		updatingFromModel = true; // 対策1として追加
 		try {
-			log("★[RectListPanel#setSelectedIds] selectedIds = ", selectedIds);
+			AppLog.log("★[RectListPanel#setSelectedIds] selectedIds = ", selectedIds);
 			List<Integer> indicesToSelect = new ArrayList<>();
 			for (int i = 0; i < listModel.size(); i++) {
 				Rect rect = listModel.get(i);
@@ -121,7 +113,7 @@ public class RectListPanel extends JPanel implements RectEditorModelListener {
 			}
 			rectList.clearSelection();
 			rectList.setSelectedIndices(indicesToSelect.stream().mapToInt(i -> i).toArray());
-			log("★[RectListPanel] selectedIndices = ", indicesToSelect);
+			AppLog.log("★[RectListPanel] selectedIndices = ", indicesToSelect);
 
 		} finally {
 			updatingFromModel = true; // 対策1として追加
@@ -160,8 +152,6 @@ public class RectListPanel extends JPanel implements RectEditorModelListener {
 					list, value, index, isSelected, cellHasFocus);
 
 			if (value instanceof Rect rect) {
-				//				label.setText(rect.toString()); // ここを変えたい
-
 				// Z順は index（リストの表示順）として取得できる
 				label.setText(String.format("[ID:%d, Z:%d] %s", rect.getId(), index, rect.toString()));
 

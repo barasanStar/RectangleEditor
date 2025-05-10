@@ -19,12 +19,14 @@ public class ChangeColorHandler implements ActionHandler {
 
 	@Override
 	public void handle() {
-		if (!model.hasSelection())
+		if (!model.hasSelection()) {
 			return;
+		}
 
 		Color newColor = JColorChooser.showDialog(view, "色を選択", Color.BLACK);
-		if (newColor == null)
-			return; // キャンセル
+		if (newColor == null) {
+			return; // キャンセル			
+		}
 
 		model.changeColorOfSelected(newColor);
 	}

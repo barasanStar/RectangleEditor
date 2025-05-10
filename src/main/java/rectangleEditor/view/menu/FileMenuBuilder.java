@@ -3,6 +3,7 @@ package rectangleEditor.view.menu;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import rectangleEditor.constants.Constants;
 import rectangleEditor.controller.RectEditorController;
 import rectangleEditor.handler.ActionKey;
 
@@ -22,6 +23,9 @@ public class FileMenuBuilder {
 		fileMenu.add(saveToTextMenuItem);
 		fileMenu.addSeparator();
 		fileMenu.add(saveAsImageMenuItem);
+
+		loadFromTextMenuItem.setAccelerator(Constants.SHORTCUT_LOAD);
+		saveToTextMenuItem.setAccelerator(Constants.SHORTCUT_SAVE);
 
 		return fileMenu;
 	}
